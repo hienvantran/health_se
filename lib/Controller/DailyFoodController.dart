@@ -1,22 +1,15 @@
-import 'dart:convert';
+import 'package:health_se/Controller/DailyFoodHandler';
+import 'package:health_se/Entity/FoodChoices.dart';
 
-import '../Entity/FoodChoices.dart';
-import 'NetworkController.dart';
+class DailyFoodController {
+  static List<FoodChoices> test;
 
-class FoodChoicesHandler extends NetworkController {
-  @override
-  List<FoodChoices> parseObjectFormat(String responseBody) {
-    // TODO: implement parseObjectFormat
-    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed
-        .map<FoodChoices>((json) => FoodChoices.fromJson(json))
-        .toList();
+  static Future<List<dynamic>> getAllFoodChoices() {
+    FoodChoicesHandler u = new FoodChoicesHandler();
+    return u.getListOfObjects('/dailyDiet/food');
   }
 
-  @override
-  FoodChoices parseOneObject(String responseBody) {
-    // TODO: implement parseOneObject
-    final parsed = jsonDecode(responseBody);
-    return FoodChoices.fromJson(parsed);
+  static String getA() {
+    return 'a';
   }
 }

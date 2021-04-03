@@ -12,4 +12,8 @@ class FoodChoices {
       caloriePerServing: json['caloriePerServing'] as int,
     );
   }
+
+  String getName() {
+    return food;
+  }
 }
