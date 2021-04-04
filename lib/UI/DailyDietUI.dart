@@ -300,6 +300,7 @@ class Future_FoodItem extends StatefulWidget {
 
 class _Future_FoodItemState extends State<Future_FoodItem> {
   String a = DailyFoodController.getA();
+  UserProfileHandler u = new UserProfileHandler();
 
   @override
   Widget build(BuildContext context) {
@@ -307,7 +308,8 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
       height: 300,
       width: 200,
       child: FutureBuilder<List>(
-        future: DailyFoodController.getAllFoodChoices(),
+        future: u.getListOfObjects(
+            '/userprofile/604fd4812630973608ce2e35/foodrecords'),
         //initialData: [],
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -318,7 +320,9 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
                     //get your item data here ...
                     return Card(
                       child: ListTile(
-                        title: Text("User ID: " + a + item.getName()),
+                        title: Text(item.getName() +
+                            ": " +
+                            item.getFoodAount().toString()),
                       ),
                     );
                   },

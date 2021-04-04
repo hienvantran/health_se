@@ -16,4 +16,8 @@ class FoodChoices {
   String getName() {
     return food;
   }
+
+  int getCalorie() {
+    return caloriePerServing;
+  }
 }

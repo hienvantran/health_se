@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
+import 'package:health_se/components/reuseable_card.dart';
+import 'package:health_se/components/RoundIconButton.dart';
 
 class expensionTile extends StatefulWidget {
   @override
@@ -7,6 +9,8 @@ class expensionTile extends StatefulWidget {
 }
 
 class _expensionTileState extends State<expensionTile> {
+  int amount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,15 +29,59 @@ class _expensionTileState extends State<expensionTile> {
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
-                ExpansionTile(
-                  title: Text(
-                    'Sub title',
+                ReusableCard(
+                  colour: Colors.lightGreen,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'rice',
+                      ),
+                      Text(
+                        amount.toString() + " gram",
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RoundIconButton(
+                              icon: Icons.exposure_minus_1,
+                              onPressed: () {
+                                setState(() {
+                                  amount -= 10;
+                                });
+                              }),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          RoundIconButton(
+                            icon: Icons.add,
+                            onPressed: () {
+                              setState(() {
+                                amount += 10;
+                              });
+                            },
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.lightGreen[300],
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                DailyFoodController.addRecord(
+                                    '604fd4812630973608ce2e35', amount, 'rice');
+                              });
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.add),
+                                Text('Add'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  children: <Widget>[
-                    ListTile(
-                      title: Text('data'),
-                    )
-                  ],
                 ),
                 ListTile(
                   title: Text('data'),
