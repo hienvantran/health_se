@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import '../Controller/HealthProfileController.dart';
 import '../Controller/UserProfileController.dart';
 import '../Controller/InfectiousController.dart';
+import 'GMap.dart';
 
 class InfectiousUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Container(
-            child: Map(),
-            height: 500.0,
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+              child: GMap(),
+              height: size.height * 0.5,
+            ),
           ),
           Container(
             child: InfectiousDisease(),
@@ -19,24 +24,6 @@ class InfectiousUI extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class Map extends StatefulWidget {
-  @override
-  _MapState createState() => _MapState();
-}
-
-class _MapState extends State<Map> {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      child: Text("MAP"),
-      color: Colors.blue,
-      height: size.height * 0.5,
-      width: size.width * 0.9,
     );
   }
 }

@@ -47,7 +47,39 @@ class UserProfile {
     return id;
   }
 
-  String getUsername() {
+  String getName() {
     return name;
+  }
+
+  String getAge() {
+    return age;
+  }
+
+  String getGender() {
+    return gender;
+  }
+
+  int getWeight() {
+    return weight;
+  }
+
+  int getHeight() {
+    return height;
+  }
+
+  int getWaist() {
+    return waist;
+  }
+
+  String getUsername() {
+    return username;
+  }
+
+  String getEmail() {
+    return email;
+  }
+
+  List<dynamic> getFoodRecordsList() {
+    return foodRecordList;
   }
 }
