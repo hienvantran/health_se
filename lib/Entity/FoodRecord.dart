@@ -14,4 +14,11 @@ class FoodRecord {
       timestamp: json['timestamps'] as String,
     );
   }
+  String getName() {
+    return foodCategory;
+  }
+
+  int getFoodAmount() {
+    return foodAmount;
+  }
 }
