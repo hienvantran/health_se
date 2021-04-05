@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/components/reuseable_card.dart';
 import 'package:health_se/components/RoundIconButton.dart';
+import 'package:health_se/Controller/UserProfileController.dart';
 
 class expensionTile extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _expensionTileState extends State<expensionTile> {
             SizedBox(height: 20.0),
             ExpansionTile(
               title: Text(
-                "Title",
+                'rice',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
@@ -34,9 +35,6 @@ class _expensionTileState extends State<expensionTile> {
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'rice',
-                      ),
                       Text(
                         amount.toString() + " gram",
                       ),
@@ -68,7 +66,7 @@ class _expensionTileState extends State<expensionTile> {
                             onPressed: () {
                               setState(() {
                                 DailyFoodController.addRecord(
-                                    '604fd4812630973608ce2e35', amount, 'rice');
+                                    '604fd4b12630973608ce2e36', amount, 'rice');
                               });
                             },
                             child: Row(

@@ -33,6 +33,11 @@ class DailyFoodController {
     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
     print(formattedDate);
     print('\n');
+//    HashMap newRecord = new HashMap<String, String>();
+//    newRecord['foodCategory'] = name;
+//    newRecord['foodAmount'] = foodAmount;
+//    newRecord['timestamps'] = formattedDate;
+//    'timestamps': formattedDate]
     Map<String, String> newRecord = {
       'foodCategory': name,
       'foodAmount': foodAmount,
@@ -41,7 +46,7 @@ class DailyFoodController {
     print('test4\n');
     print(newRecord);
 
-    String url = '/userprofile/604fd4812630973608ce2e35/foodrecords';
+    String url = '/userprofile/604fd4b12630973608ce2e36/foodrecords';
     await u.post(url, newRecord);
   }
 

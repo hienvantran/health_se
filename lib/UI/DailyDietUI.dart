@@ -308,8 +308,9 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
       height: 300,
       width: 200,
       child: FutureBuilder<List>(
-        future: u.getListOfObjects(
-            '/userprofile/604fd4812630973608ce2e35/foodrecords'),
+        future: u
+            .getObject('/userprofile/604fd4b12630973608ce2e36')
+            .getFoodRecordList(),
         //initialData: [],
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -322,7 +323,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
                       child: ListTile(
                         title: Text(item.getName() +
                             ": " +
-                            item.getFoodAount().toString()),
+                            item.getFoodAmount().toString()),
                       ),
                     );
                   },

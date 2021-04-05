@@ -50,4 +50,8 @@ class UserProfile {
   String getUsername() {
     return name;
   }
+
+  List<dynamic> getFoodRecordList() {
+    return foodRecordList;
+  }
 }
