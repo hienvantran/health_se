@@ -31,9 +31,7 @@ class DailyFoodController {
 
     UserProfile up = await u.getObject('/userprofile/' + userName);
     List<dynamic> list = up.getFoodRecordsList();
-    print("test1\n");
     int intakeCal = calculateTotalCalorie(list);
-    print("test2\n");
     return intakeCal;
   }
 

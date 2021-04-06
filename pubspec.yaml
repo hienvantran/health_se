@@ -60,6 +60,9 @@ flutter:
      - images/female-avatar.jpg
      - images/logo.png
      - images/male-avatar.jpeg
+     - images/High.png
+     - images/Low.png
+     - images/Moderate.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

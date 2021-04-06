@@ -42,7 +42,7 @@ class CalorieDisplay extends StatefulWidget {
 }
 
 class _CalorieDisplayState extends State<CalorieDisplay> {
-  String userName = UserProfileController.user.getUserID().toString();
+  String userName = UserProfileController.user.getUserID();
   int intakeCalorie = 0;
   int maintenanceCalorie = 0;
 
@@ -248,8 +248,8 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   UserProfileHandler u = new UserProfileHandler();
 
   Future<List<dynamic>> getFoodRecordList() async {
-    UserProfile up = await u.getObject(
-        '/userprofile/' + UserProfileController.user.getUserID().toString());
+    UserProfile up = await u
+        .getObject('/userprofile/' + UserProfileController.user.getUserID());
     List<dynamic> list = up.getFoodRecordsList();
     print(list);
     return list;
