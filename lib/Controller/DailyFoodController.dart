@@ -1,6 +1,6 @@
 import 'package:health_se/Controller/DailyFoodHandler.dart';
 import 'package:health_se/Entity/FoodChoices.dart';
-import 'package:health_se/Controller/UserProfileController.dart';
+import 'package:health_se/Controller/UserProfileHandler.dart';
 import 'package:health_se/Entity/UserProfile.dart';
 import 'package:intl/intl.dart';
 
@@ -8,12 +8,7 @@ class DailyFoodController {
   static List<FoodChoices> test;
 
   static Future<List<dynamic>> getAllFoodChoices() {
-    FoodChoicesHandler u = new FoodChoicesHandler();
-    return u.getListOfObjects('/dailyDiet/food');
-  }
-
-  static String getA() {
-    return 'a';
+    return FoodChoicesHandler().getListOfObjects('/dailyDiet/food');
   }
 
   static Future<int> addRecord(String userName, int amount, String name) async {

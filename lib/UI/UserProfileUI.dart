@@ -10,10 +10,10 @@ double weight = 85, height = 185, waist = 36;
 int age = 19;
 
 class UserProfileUI extends StatelessWidget {
-  final nameHolder;
-  String imgPath = UserProfileHandler().returnImagePath(gender);
+  //final nameHolder;
+  String imgPath = UserProfileController.returnImagePath(gender);
 
-  UserProfileUI({Key key, @required this.nameHolder}) : super(key: key);
+  //UserProfileUI({Key key, @required this.nameHolder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     void goBack(BuildContext context) {
@@ -41,7 +41,7 @@ class UserProfileUI extends StatelessWidget {
                 width: size.width * 0.2,
               ),
               SizedBox(width: size.width * 0.1),
-              Text(nameHolder,
+              Text(name,
                   textAlign: TextAlign.center,
                   style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),

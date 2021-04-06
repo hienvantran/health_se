@@ -22,11 +22,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
 
   getItemAndNavigate(BuildContext context) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => UserProfileUI(
-                  nameHolder: username.text,
-                )));
+        context, MaterialPageRoute(builder: (context) => UserProfileUI()));
   }
 
   @override
@@ -46,7 +42,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                     children: <Widget>[
                       SizedBox(height: 25.0),
                       Image(
-                        image: AssetImage('images/logo_size_invert.jpg'),
+                        image: AssetImage('images/logo.png'),
                       ),
                       SizedBox(height: 30.0),
                       Text('healthSEcure',

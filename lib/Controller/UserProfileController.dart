@@ -1,24 +1,20 @@
 import 'dart:convert';
 import 'NetworkController.dart';
 import '../Entity/UserProfile.dart';
+import 'UserProfileHandler.dart';
 
-class UserProfileHandler extends NetworkController {
-  @override
-  List<UserProfile> parseObjectFormat(String responseBody) {
-    // TODO: implement parseObjectFormat
-    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed
-        .map<UserProfile>((json) => UserProfile.fromJson(json))
-        .toList();
+class UserProfileController {
+  static UserProfile user;
+
+  static Future<UserProfile> retrieveUser(String userID) {
+    Future<UserProfile> user =
+        UserProfileHandler().getObject('/userProfile/$userID');
+
+    print(user);
+    return user;
   }
 
-  UserProfile parseOneObject(String responseBody) {
-    final parsed = jsonDecode(responseBody);
-    return UserProfile.fromJson(parsed);
-    //return parsed.map<UserProfile>((json) => UserProfile.fromJson(json));
-  }
-
-  String returnImagePath(String gender) {
+  static String returnImagePath(String gender) {
     if (gender == 'F')
       return 'images/female-avatar.jpg';
     else
