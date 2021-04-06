@@ -79,7 +79,7 @@ class _UserInfoState extends State<UserInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: Text(user.getName()),
+      child: Text(user.getUserID()),
     ));
   }
 }
