@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import '/UI/GMap.dart';
-import '/UI/HealthProfileUI.dart';
-import '/UI/UserProfileUI.dart';
-import '/UI/InfectiousUI.dart';
-import '/UI/DailyDietUI.dart';
+import 'package:health_se/UI/GMap.dart';
+import 'package:health_se/UI/HealthProfileUI.dart';
+import 'package:health_se/UI/UserProfileUI.dart';
+import 'package:health_se/UI/InfectiousUI.dart';
+import 'package:health_se/UI/DailyDietUI.dart';
 
 void main() {
   runApp(MyApp());

@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/components/reuseable_card.dart';
 import 'package:health_se/components/RoundIconButton.dart';
+import 'package:health_se/Controller/UserProfileController.dart';
 
 class expensionTile extends StatefulWidget {
+  int intakeCal;
+  Function(int) callback;
+
+  expensionTile(this.intakeCal, this.callback);
   @override
   _expensionTileState createState() => _expensionTileState();
 }
@@ -25,7 +30,7 @@ class _expensionTileState extends State<expensionTile> {
             SizedBox(height: 20.0),
             ExpansionTile(
               title: Text(
-                "Title",
+                'rice',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               children: <Widget>[
@@ -35,16 +40,13 @@ class _expensionTileState extends State<expensionTile> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'rice',
-                      ),
-                      Text(
                         amount.toString() + " gram",
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           RoundIconButton(
-                              icon: Icons.exposure_minus_1,
+                              icon: Icons.remove,
                               onPressed: () {
                                 setState(() {
                                   amount -= 10;
@@ -66,9 +68,13 @@ class _expensionTileState extends State<expensionTile> {
                               primary: Colors.lightGreen[300],
                             ),
                             onPressed: () {
-                              setState(() {
-                                DailyFoodController.addRecord(
-                                    '604fd4812630973608ce2e35', amount, 'rice');
+                              setState(() async {
+                                widget.intakeCal =
+                                    await DailyFoodController.addRecord(
+                                        '604fd4b12630973608ce2e36',
+                                        amount,
+                                        'rice');
+                                widget.callback(widget.intakeCal);
                               });
                             },
                             child: Row(
