@@ -117,29 +117,21 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                                   color: Color(0xFF09216B),
                                                   fontWeight: FontWeight.bold)),
                                           children: <Widget>[
-//                                            Padding(
-//                                                padding: EdgeInsets.all(25.0),
-//                                                child: Text(
-//                                                  'DETAİL ${index} \n' +
-//                                                      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English.',
-//                                                )),
                                             Container(
                                               child: Container(
                                                 child: Text('${snapshot.data}'),
                                                 alignment: Alignment(1.0, 1.0),
                                               ),
-                                              height: 200,
+                                              height: 250,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                                 color: Colors.blue,
                                                 image: DecorationImage(
                                                     image: AssetImage(
-                                                      'images/female-avatar.jpeg',
-                                                    ),
-//                                                          SuggestedDietController
-//                                                              .returnImagePath(
-//                                                                  index)),
+                                                        SuggestedDietController
+                                                            .returnImagePath(
+                                                                index)),
                                                     fit: BoxFit.fill),
                                               ),
                                             ),
@@ -195,10 +187,24 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                                 color: Color(0xFF09216B),
                                                 fontWeight: FontWeight.bold)),
                                         children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.all(25.0),
-                                            child: Text('${snapshot.data}'),
-                                          )
+                                          Container(
+                                            child: Container(
+                                              child: Text('${snapshot.data}'),
+                                              alignment: Alignment(1.0, 1.0),
+                                            ),
+                                            height: 250,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors.blue,
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      SuggestedDietController
+                                                          .returnImagePath(
+                                                              index)),
+                                                  fit: BoxFit.fill),
+                                            ),
+                                          ),
                                         ],
                                         onExpansionChanged: ((newState) {
                                           if (newState)
@@ -252,10 +258,24 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                                 color: Color(0xFF09216B),
                                                 fontWeight: FontWeight.bold)),
                                         children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.all(25.0),
-                                            child: Text('${snapshot.data}'),
-                                          )
+                                          Container(
+                                            child: Container(
+                                              child: Text('${snapshot.data}'),
+                                              alignment: Alignment(1.0, 1.0),
+                                            ),
+                                            height: 250,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors.blue,
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      SuggestedDietController
+                                                          .returnImagePath(
+                                                              index)),
+                                                  fit: BoxFit.fill),
+                                            ),
+                                          ),
                                         ],
                                         onExpansionChanged: ((newState) {
                                           if (newState)
