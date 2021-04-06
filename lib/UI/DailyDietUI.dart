@@ -6,6 +6,7 @@ import 'package:health_se/components/expansionTile.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/Entity/FoodRecord.dart';
 import 'package:health_se/Entity/UserProfile.dart';
+import 'package:health_se/UI/DietPlanDisplay.dart';
 
 void main() => runApp(DailyDietUI());
 
@@ -40,7 +41,7 @@ class CalorieDisplay extends StatefulWidget {
 }
 
 class _CalorieDisplayState extends State<CalorieDisplay> {
-  String userName = '604fd4b12630973608ce2e36';
+  String userName;
   int intakeCalorie = 0;
   int maintenanceCalorie = 0;
 
@@ -50,28 +51,16 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
     getMaintenanceCal();
   }
 
-//  getIntakeCal() {
-//    setState(() {
-//      UserProfileHandler u = new UserProfileHandler();
-//      u.getObject('/userprofile/' + userName).then((up) {
-//        // Run the code here using the value
-//        intakeCalorie =
-//            DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
-//      });
-//    });
-//  }
-
-  getMaintenanceCal() {
+  getMaintenanceCal() async {
+    userName = "604fd4812630973608ce2e35";
+    UserProfileHandler u = new UserProfileHandler();
+    UserProfile up = await u.getObject('/userprofile/' + userName);
     setState(() {
-      UserProfileHandler u = new UserProfileHandler();
-      u.getObject('/userprofile/' + userName).then((up) {
-        // Run the code here using the value
-        maintenanceCalorie = up.getMaintenanceCal();
-        print("test\n");
-        print(up.getFoodRecordsList());
-        intakeCalorie =
-            DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
-      });
+      maintenanceCalorie = up.getMaintenanceCal();
+      print("test\n");
+      print(up.getFoodRecordsList());
+      intakeCalorie =
+          DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
     });
   }
 
@@ -197,59 +186,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 40.0),
-                child: DefaultTabController(
-                    length: 3, // length of tabs
-                    initialIndex: 0,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Container(
-                            child: TabBar(
-                              labelColor: Colors.green,
-                              unselectedLabelColor: Colors.black,
-                              tabs: [
-                                Tab(text: 'Cutting'),
-                                Tab(text: 'Maintenance'),
-                                Tab(text: 'Bulking'),
-                              ],
-                            ),
-                          ),
-                          Container(
-                              height: 500, //height of TabBarView
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      top: BorderSide(
-                                          color: Colors.grey, width: 0.5))),
-                              child: TabBarView(children: <Widget>[
-                                Container(
-                                  child: Center(
-                                    child: Text('Display Cutting',
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                                Container(
-                                  child: Center(
-                                    child: Text('Display Maintenance',
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                                Container(
-                                  child: Center(
-                                    child: Text('Display Bulking',
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ),
-                              ]))
-                        ])),
-              ),
+              DietPlanDisplay(maintenanceCalorie),
               Container(
                 padding: EdgeInsets.only(left: 40.0, top: 20.0),
                 alignment: Alignment.bottomLeft,
@@ -301,56 +238,6 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   }
 }
 
-//class CalorieDisplay extends StatelessWidget {
-//  int intakeCalorie = 0;
-//  int maintenanceCalorie = ;
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    Size size = MediaQuery.of(context).size;
-//
-//    return
-//  }
-//}
-//
-//class Future extends StatefulWidget {
-//  @override
-//  _FutureState createState() => _FutureState();
-//}
-//
-//class _FutureState extends State<Future> {
-//  UserProfileHandler u = new UserProfileHandler();
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      height: 300,
-//      width: 200,
-//      child: FutureBuilder<List>(
-//        future: u.getListOfObjects('/userProfile'),
-//        //initialData: [],
-//        builder: (context, snapshot) {
-//          return snapshot.hasData
-//              ? ListView.builder(
-//                  itemCount: snapshot.data.length,
-//                  itemBuilder: (_, int position) {
-//                    final item = snapshot.data[position];
-//                    //get your item data here ...
-//                    return Card(
-//                      child: ListTile(
-//                        title: Text("User ID: " + item.getUserID().toString()),
-//                      ),
-//                    );
-//                  },
-//                )
-//              : Center(
-//                  child: CircularProgressIndicator(),
-//                );
-//        },
-//      ),
-//    );
-//  }
-//}
-
 class Future_FoodItem extends StatefulWidget {
   @override
   _Future_FoodItemState createState() => _Future_FoodItemState();
@@ -361,7 +248,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   UserProfileHandler u = new UserProfileHandler();
 
   Future<List<dynamic>> getFoodRecordList() async {
-    UserProfile up = await u.getObject('/userprofile/604fd4b12630973608ce2e36');
+    UserProfile up = await u.getObject('/userprofile/604fd4812630973608ce2e35');
     List<dynamic> list = up.getFoodRecordsList();
     print(list);
     return list;
@@ -370,7 +257,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 150,
       width: 200,
       child: FutureBuilder<List>(
         future: getFoodRecordList(),
