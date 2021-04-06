@@ -71,7 +71,7 @@ class _expensionTileState extends State<expensionTile> {
                               setState(() async {
                                 widget.intakeCal =
                                     await DailyFoodController.addRecord(
-                                        '604fd4b12630973608ce2e36',
+                                        UserProfileController.user.getUserID(),
                                         amount,
                                         'rice');
                                 widget.callback(widget.intakeCal);
