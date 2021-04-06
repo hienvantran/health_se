@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/expansionTile.dart';
 import 'GymUI.dart';
-import 'package:health_se/Controller/UserProfileController.dart';
+import 'package:health_se/Controller/UserProfileHandler.dart';
 import 'package:health_se/components/expansionTile.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/Entity/FoodRecord.dart';
@@ -244,7 +244,6 @@ class Future_FoodItem extends StatefulWidget {
 }
 
 class _Future_FoodItemState extends State<Future_FoodItem> {
-  String a = DailyFoodController.getA();
   UserProfileHandler u = new UserProfileHandler();
 
   Future<List<dynamic>> getFoodRecordList() async {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:health_se/Controller/LoginController.dart';
 import 'CreateProfileUI.dart';
-import 'UserProfileUI.dart';
+import 'HealthProfileUI.dart';
+import 'mainUI.dart';
+import '../Entity/UserProfile.dart';
 
 void main() => runApp(LoginUI());
 
@@ -15,12 +18,14 @@ class _LoginUIState extends State<LoginUI> {
   bool _validatep = false;
 
   getItemAndNavigate(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => UserProfileUI(
-                  nameHolder: username.text,
-                )));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+  }
+
+  void onSubmit() async {
+    var res = await LoginController.validateLogin(username.text, password.text);
+    if (res == true) {
+      getItemAndNavigate(context);
+    }
   }
 
   @override
@@ -40,7 +45,7 @@ class _LoginUIState extends State<LoginUI> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Image(
-                        image: AssetImage('images/logo_size_invert.jpg'),
+                        image: AssetImage('images/logo.png'),
                         height: 150.0,
                         width: 150.0,
                       ),
@@ -104,19 +109,7 @@ class _LoginUIState extends State<LoginUI> {
                       SizedBox(height: 30.0),
                       // ignore: deprecated_member_use
                       RaisedButton(
-                        onPressed: () {
-                          setState(() {
-                            username.text.isEmpty
-                                ? _validate = true
-                                : _validate = false;
-                            if (_validate == false) getItemAndNavigate(context);
-                            password.text.isEmpty
-                                ? _validatep = true
-                                : _validatep = false;
-                            if (_validatep == false)
-                              getItemAndNavigate(context);
-                          });
-                        },
+                        onPressed: (onSubmit),
                         color: Colors.green,
                         textColor: Colors.white,
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 10),

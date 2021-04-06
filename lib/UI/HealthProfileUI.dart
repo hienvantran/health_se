@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../Controller/HealthProfileController.dart';
+import '../Controller/HealthProfileHandler.dart';
 import '../Controller/UserProfileController.dart';
 import '../components/expansionTile.dart';
+import '../Entity/UserProfile.dart';
 
 class HealthProfileUI extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class HealthProfileUI extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            child: UserProfile(),
+            child: UserInfo(),
             height: 500.0,
           ),
           Container(
@@ -66,39 +67,42 @@ class _HealthDiseasesState extends State<HealthDiseases> {
   }
 }
 
-class UserProfile extends StatefulWidget {
+class UserInfo extends StatefulWidget {
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _UserInfoState createState() => _UserInfoState();
 }
 
-class _UserProfileState extends State<UserProfile> {
-  UserProfileHandler u = new UserProfileHandler();
-  //Future<dynamic> user =UserProfileHandler().getObject('/userProfile/:604fd4812630973608ce2e35');
+class _UserInfoState extends State<UserInfo> {
+  UserProfile user = UserProfileController.user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: u.getListOfObjects('/userProfile'),
-        //initialData: [],
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (_, int position) {
-                    final item = snapshot.data[position];
-                    //get your item data here ...
-                    return Card(
-                      child: ListTile(
-                        title: Text("Username: " + item.getUsername()),
-                      ),
-                    );
-                  },
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        },
-      ),
-    );
+        body: Container(
+      child: Text(user.getName()),
+    ));
   }
 }
+
+// FutureBuilder<UserProfile>(
+// future: user,
+// //initialData: [],
+// builder: (context, snapshot) {
+// return snapshot.hasData
+// ? ListView.builder(
+// itemCount: snapshot.data.length,
+// itemBuilder: (_, int position) {
+// final item = snapshot.data[position];
+// //get your item data here ...
+// return Card(
+// child: ListTile(
+// title: Text("Username: " + item.getName()),
+// ),
+// );
+// },
+// )
+//     : Center(
+// child: CircularProgressIndicator(),
+// );
+// },
+// ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Controller/HealthProfileController.dart';
-import '../Controller/UserProfileController.dart';
+import '../Controller/UserProfileHandler.dart';
 import '../Controller/InfectiousController.dart';
 import 'GMap.dart';
 
@@ -11,6 +11,23 @@ class InfectiousUI extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
+          Container(
+              height: size.height * 0.1,
+              child: Row(children: <Widget>[
+                Text("Filter cases"),
+                // ElevatedButton(
+                //   onPressed: (),
+                //   style: ButtonStyle(
+                //
+                //   ),
+                //   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                //   child: Text(
+                //     'Login',
+                //     style:
+                //         TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+                //   ),
+                // ),
+              ])),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(

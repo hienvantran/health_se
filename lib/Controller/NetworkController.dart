@@ -68,5 +68,6 @@ abstract class NetworkController {
   //implemented in each of the actually object handler
   //abstract method
   List<dynamic> parseObjectFormat(String responseBody);
+
   dynamic parseOneObject(String responseBody);
 }
