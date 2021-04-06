@@ -43,15 +43,53 @@ class UserProfile {
     return (weight / (height / 100 * height / 100));
   }
 
+  int getMaintenanceCal() {
+    int s;
+    if (gender == 'male')
+      s = 5;
+    else
+      s = -161;
+    print((10 * weight + 6.25 * height - 5 * int.parse(age) + s).toInt());
+    return (10 * weight + 6.25 * height - 5 * int.parse(age) + s).toInt();
+  }
+
   int getUserID() {
     return id;
   }
 
-  String getUsername() {
+  String getName() {
     return name;
   }
 
-  List<dynamic> getFoodRecordList() {
+  String getAge() {
+    return age;
+  }
+
+  String getGender() {
+    return gender;
+  }
+
+  int getWeight() {
+    return weight;
+  }
+
+  int getHeight() {
+    return height;
+  }
+
+  int getWaist() {
+    return waist;
+  }
+
+  String getUsername() {
+    return username;
+  }
+
+  String getEmail() {
+    return email;
+  }
+
+  List<dynamic> getFoodRecordsList() {
     return foodRecordList;
   }
 }

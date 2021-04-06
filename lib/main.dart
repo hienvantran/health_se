@@ -1,12 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import '/UI/PageOne.dart';
-import '/UI/PageTwo.dart';
-import '/UI/HealthProfileUI.dart';
-import '/UI/UserProfileUI.dart';
-import '/UI/InfectiousUI.dart';
-import '/UI/DailyDietUI.dart';
+import 'package:health_se/UI/GMap.dart';
+import 'package:health_se/UI/HealthProfileUI.dart';
+import 'package:health_se/UI/UserProfileUI.dart';
+import 'package:health_se/UI/InfectiousUI.dart';
+import 'package:health_se/UI/DailyDietUI.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   InfectiousUI infectious_page;
   DailyDietUI daily_diet;
   HealthProfileUI health_profile;
+  //GMap daily_diet;
 
   List<Widget> pages;
   List<String> titles;
@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     health_profile = HealthProfileUI();
     infectious_page = InfectiousUI();
     daily_diet = DailyDietUI();
+    //daily_diet = GMap();
     pages = [health_profile, daily_diet, infectious_page, user_profile];
     titles = [
       'Health Profile',

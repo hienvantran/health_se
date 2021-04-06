@@ -4,6 +4,8 @@ import 'GymUI.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/components/expansionTile.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
+import 'package:health_se/Entity/FoodRecord.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 
 void main() => runApp(DailyDietUI());
 
@@ -32,14 +34,56 @@ class DailyDietUI extends StatelessWidget {
   }
 }
 
-class CalorieDisplay extends StatelessWidget {
-  int intakeCalorie = 1800;
-  int maintenanceCalorie = 2100;
+class CalorieDisplay extends StatefulWidget {
+  @override
+  _CalorieDisplayState createState() => _CalorieDisplayState();
+}
+
+class _CalorieDisplayState extends State<CalorieDisplay> {
+  String userName = '604fd4b12630973608ce2e36';
+  int intakeCalorie = 0;
+  int maintenanceCalorie = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getMaintenanceCal();
+  }
+
+//  getIntakeCal() {
+//    setState(() {
+//      UserProfileHandler u = new UserProfileHandler();
+//      u.getObject('/userprofile/' + userName).then((up) {
+//        // Run the code here using the value
+//        intakeCalorie =
+//            DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
+//      });
+//    });
+//  }
+
+  getMaintenanceCal() {
+    setState(() {
+      UserProfileHandler u = new UserProfileHandler();
+      u.getObject('/userprofile/' + userName).then((up) {
+        // Run the code here using the value
+        maintenanceCalorie = up.getMaintenanceCal();
+        print("test\n");
+        print(up.getFoodRecordsList());
+        intakeCalorie =
+            DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
+      });
+    });
+  }
+
+  callback(newIntakeCal) {
+    setState(() {
+      intakeCalorie = newIntakeCal;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
       return SafeArea(
@@ -126,7 +170,8 @@ class CalorieDisplay extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        expensionTile()));
+                                        expensionTile(
+                                            intakeCalorie, callback)));
                           },
                           child: Row(
                             children: [
@@ -252,8 +297,21 @@ class CalorieDisplay extends StatelessWidget {
         ),
       );
     });
+    ;
   }
 }
+
+//class CalorieDisplay extends StatelessWidget {
+//  int intakeCalorie = 0;
+//  int maintenanceCalorie = ;
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    Size size = MediaQuery.of(context).size;
+//
+//    return
+//  }
+//}
 //
 //class Future extends StatefulWidget {
 //  @override
@@ -302,15 +360,20 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   String a = DailyFoodController.getA();
   UserProfileHandler u = new UserProfileHandler();
 
+  Future<List<dynamic>> getFoodRecordList() async {
+    UserProfile up = await u.getObject('/userprofile/604fd4b12630973608ce2e36');
+    List<dynamic> list = up.getFoodRecordsList();
+    print(list);
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 300,
       width: 200,
       child: FutureBuilder<List>(
-        future: u
-            .getObject('/userprofile/604fd4b12630973608ce2e36')
-            .getFoodRecordList(),
+        future: getFoodRecordList(),
         //initialData: [],
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -321,9 +384,9 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
                     //get your item data here ...
                     return Card(
                       child: ListTile(
-                        title: Text(item.getName() +
+                        title: Text(item['foodCategory'] +
                             ": " +
-                            item.getFoodAmount().toString()),
+                            item['foodAmount'].toString()),
                       ),
                     );
                   },
