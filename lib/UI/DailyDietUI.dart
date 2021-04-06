@@ -7,6 +7,7 @@ import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/Entity/FoodRecord.dart';
 import 'package:health_se/Entity/UserProfile.dart';
 import 'package:health_se/UI/DietPlanDisplay.dart';
+import 'package:health_se/Controller/UserProfileController.dart';
 
 void main() => runApp(DailyDietUI());
 
@@ -41,7 +42,7 @@ class CalorieDisplay extends StatefulWidget {
 }
 
 class _CalorieDisplayState extends State<CalorieDisplay> {
-  String userName;
+  String userName = UserProfileController.user.getUserID().toString();
   int intakeCalorie = 0;
   int maintenanceCalorie = 0;
 
@@ -52,13 +53,13 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   }
 
   getMaintenanceCal() async {
-    userName = "604fd4812630973608ce2e35";
     UserProfileHandler u = new UserProfileHandler();
     UserProfile up = await u.getObject('/userprofile/' + userName);
+    print("test\n");
+    print(UserProfileController.user.getUserID().toString());
+
     setState(() {
       maintenanceCalorie = up.getMaintenanceCal();
-      print("test\n");
-      print(up.getFoodRecordsList());
       intakeCalorie =
           DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
     });
@@ -247,7 +248,8 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   UserProfileHandler u = new UserProfileHandler();
 
   Future<List<dynamic>> getFoodRecordList() async {
-    UserProfile up = await u.getObject('/userprofile/604fd4812630973608ce2e35');
+    UserProfile up = await u.getObject(
+        '/userprofile/' + UserProfileController.user.getUserID().toString());
     List<dynamic> list = up.getFoodRecordsList();
     print(list);
     return list;

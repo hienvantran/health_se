@@ -1,5 +1,5 @@
 class HealthDisease {
-  final int id;
+  final String id;
   final String diseaseName;
   final String diseaseType;
   final String recommendedDiet;
@@ -16,7 +16,7 @@ class HealthDisease {
 
   factory HealthDisease.fromJson(Map<String, dynamic> json) {
     return HealthDisease(
-      id: json['id'] as int,
+      id: json['_id'] as String,
       diseaseName: json['diseaseName'] as String,
       diseaseType: json['diseaseType'] as String,
       recommendedDiet: json['recommendedDiet'] as String,

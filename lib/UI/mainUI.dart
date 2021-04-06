@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import '/UI/LoginUI.dart';
-import '/UI/HealthProfileUI.dart';
-import '/UI/UserProfileUI.dart';
-import '/UI/InfectiousUI.dart';
-import '/UI/DailyDietUI.dart';
+import 'LoginUI.dart';
+import 'HealthProfileUI.dart';
+import 'UserProfileUI.dart';
+import 'InfectiousUI.dart';
+import 'DailyDietUI.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,9 +37,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   UserProfileUI user_profile;
   InfectiousUI infectious_page;
-  //DailyDietUI daily_diet;
+  DailyDietUI daily_diet;
   HealthProfileUI health_profile;
-  LoginUI daily_diet;
 
   List<Widget> pages;
   List<String> titles;
@@ -51,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
     user_profile = UserProfileUI();
     health_profile = HealthProfileUI();
     infectious_page = InfectiousUI();
-    daily_diet = LoginUI();
-    //daily_diet = GMap();
+    daily_diet = DailyDietUI();
+
     pages = [health_profile, daily_diet, infectious_page, user_profile];
     titles = [
       'Health Profile',
