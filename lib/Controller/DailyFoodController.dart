@@ -12,6 +12,16 @@ class DailyFoodController {
     return FoodChoicesHandler().getListOfObjects('/dailyDiet/food');
   }
 
+  static resetRecord(String userName) async {
+    UserProfileHandler u = new UserProfileHandler();
+    await u.deleteAllFoodRecords(userName);
+    UserProfileController.updateUser(userName);
+//    UserProfile up = await u.getObject('/userprofile/' + userName);
+//    List<dynamic> list = up.getFoodRecordsList();
+//    int intakeCal = calculateTotalCalorie(list);
+//    return intakeCal;
+  }
+
   static Future<int> addRecord(String userName, int amount, String name) async {
     UserProfileHandler u = new UserProfileHandler();
     int calPerGram = await getFoodChoiceByName(name);

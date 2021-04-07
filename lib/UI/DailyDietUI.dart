@@ -149,8 +149,9 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 40.0),
+                    margin: EdgeInsets.symmetric(horizontal: 40.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -168,6 +169,26 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                             children: [
                               Icon(Icons.add),
                               Text('Add'),
+                            ],
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.lightGreen[300],
+                          ),
+                          onPressed: () async {
+                            await DailyFoodController.resetRecord(userName);
+                            setState(() {
+                              intakeCalorie = 0;
+//                              intakeCalorie =
+//                                  DailyFoodController.calculateTotalCalorie(
+//                                      user.getFoodRecordsList());
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.delete_forever),
+                              Text('Reset'),
                             ],
                           ),
                         ),
@@ -212,7 +233,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                         padding: EdgeInsets.only(left: 40.0, top: 20.0),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Result: \n${snapshot.data}',
+                          '${snapshot.data}',
                           style: TextStyle(
                             fontSize: 15.0,
                             color: Color(0xFF09216B),
@@ -270,9 +291,9 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
 
   Future<List<dynamic>> getFoodRecordList() async {
     user = UserInfoController.user;
-    // UserProfile up = await u.getObject(
-    //     '/userprofile/' + user.getUserID().toString());
-    List<dynamic> list = user.getFoodRecordsList();
+    UserProfile up =
+        await u.getObject('/userprofile/' + user.getUserID().toString());
+    List<dynamic> list = up.getFoodRecordsList();
     print(list);
     return list;
   }
@@ -280,7 +301,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 120,
       width: 200,
       child: FutureBuilder<List>(
         future: getFoodRecordList(),
