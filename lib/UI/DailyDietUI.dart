@@ -175,9 +175,9 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.lightGreen[300],
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            await DailyFoodController.resetRecord(userName);
                             setState(() {
-                              DailyFoodController.resetRecord(userName);
                               intakeCalorie = 0;
 //                              intakeCalorie =
 //                                  DailyFoodController.calculateTotalCalorie(
