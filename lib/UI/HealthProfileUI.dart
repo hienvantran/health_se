@@ -76,7 +76,12 @@ class _HealthDiseasesState extends State<HealthDiseases> {
   @override
   void initState() {
     super.initState();
-    HealthProfileController.getHealthDiseases();
+    initUserDiseases();
+  }
+
+  initUserDiseases() async {
+    print(UserInfoController.user.getName());
+    await HealthProfileController.getHealthDiseases();
     userDiseases = UserInfoController.healthDiseases;
   }
 

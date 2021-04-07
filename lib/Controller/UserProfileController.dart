@@ -20,7 +20,7 @@ class UserProfileController {
   }
 
   static String returnImagePath(String gender) {
-    if (gender == 'F')
+    if (gender == 'female')
       return 'images/female-avatar.jpg';
     else
       return 'images/male-avatar.jpeg';

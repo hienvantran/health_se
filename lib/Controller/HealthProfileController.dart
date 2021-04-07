@@ -49,7 +49,7 @@ class HealthProfileController {
     List<HealthDisease> diseases = <HealthDisease>[];
     for (int i = 0; i < diseaseNames.length; i++) {
       String name = diseaseNames[i];
-      String url = '/healthDisease/:$name';
+      String url = '/healthDisease/$name';
       HealthDisease dis = await HealthDiseaseHandler().getObject(url);
       diseases.add(dis);
     }
