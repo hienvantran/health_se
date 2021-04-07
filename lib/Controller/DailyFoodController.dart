@@ -35,6 +35,15 @@ class DailyFoodController {
     return intakeCal;
   }
 
+  static Future<List<String>> getFoodChoicesNames() async {
+    List<FoodChoices> foodChoiceList = await getAllFoodChoices();
+    List<String> nameList = [];
+    for (int i = 0; i < foodChoiceList.length; i++) {
+      nameList.add(foodChoiceList[i].getName());
+    }
+    return nameList;
+  }
+
   static Future<int> getFoodChoiceByName(String name) async {
     List<FoodChoices> foodChoiceList = await getAllFoodChoices();
     for (int i = 0; i < foodChoiceList.length; i++) {

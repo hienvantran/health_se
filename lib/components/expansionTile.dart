@@ -3,18 +3,36 @@ import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/components/reuseable_card.dart';
 import 'package:health_se/components/RoundIconButton.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
+import 'package:health_se/Controller/SuggestedExerciseController.dart';
 
 class expensionTile extends StatefulWidget {
+  List<String> foodChoicesList;
   int intakeCal;
   Function(int) callback;
 
-  expensionTile(this.intakeCal, this.callback);
+  expensionTile(this.foodChoicesList, this.intakeCal, this.callback);
   @override
   _expensionTileState createState() => _expensionTileState();
 }
 
 class _expensionTileState extends State<expensionTile> {
   int amount = 0;
+  int selected = 0;
+  String exerciseInfo;
+//  List<String> foodChoicesList;
+//
+//  getFoodChoicesList() async {
+//    List<String> list = await DailyFoodController.getFoodChoicesNames();
+//    setState(() {
+//      foodChoicesList = list;
+//    });
+//  }
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    getFoodChoicesList();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,73 +45,173 @@ class _expensionTileState extends State<expensionTile> {
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           children: <Widget>[
-            SizedBox(height: 20.0),
-            ExpansionTile(
-              title: Text(
-                'rice',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-              children: <Widget>[
-                ReusableCard(
-                  colour: Colors.lightGreen,
-                  cardChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        amount.toString() + " gram",
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          RoundIconButton(
-                              icon: Icons.remove,
-                              onPressed: () {
+            Container(
+                color: Colors.white,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    ListView.builder(
+                      key: Key('builder ${selected.toString()}'), //attention
+
+                      padding: EdgeInsets.only(
+                          left: 13.0, right: 13.0, bottom: 25.0),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: widget.foodChoicesList.length,
+                      itemBuilder: (context, index) {
+                        return ExpansionTile(
+                            key: Key(index.toString()),
+                            //attention
+                            initiallyExpanded: index == selected,
+                            //attention
+
+                            title: Text(
+                              '${widget.foodChoicesList[index]}',
+                              style: TextStyle(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                            ),
+                            children: <Widget>[
+                              ReusableCard(
+                                colour: Colors.lightGreen,
+                                cardChild: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      amount.toString() + " gram",
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        RoundIconButton(
+                                            icon: Icons.remove,
+                                            onPressed: () {
+                                              setState(() {
+                                                amount -= 10;
+                                              });
+                                            }),
+                                        SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        RoundIconButton(
+                                          icon: Icons.add,
+                                          onPressed: () {
+                                            setState(() {
+                                              amount += 10;
+                                            });
+                                          },
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Colors.lightGreen[300],
+                                          ),
+                                          onPressed: () {
+                                            setState(() async {
+                                              widget.intakeCal =
+                                                  await DailyFoodController
+                                                      .addRecord(
+                                                          UserProfileController
+                                                              .user
+                                                              .getUserID(),
+                                                          amount,
+                                                          widget.foodChoicesList[
+                                                              index]);
+                                              widget.callback(widget.intakeCal);
+                                            });
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.add),
+                                              Text('Add'),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                            onExpansionChanged: ((newState) {
+                              if (newState)
                                 setState(() {
-                                  amount -= 10;
+                                  Duration(seconds: 20000);
+                                  selected = index;
                                 });
-                              }),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          RoundIconButton(
-                            icon: Icons.add,
-                            onPressed: () {
-                              setState(() {
-                                amount += 10;
-                              });
-                            },
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.lightGreen[300],
-                            ),
-                            onPressed: () {
-                              setState(() async {
-                                widget.intakeCal =
-                                    await DailyFoodController.addRecord(
-                                        UserProfileController.user.getUserID(),
-                                        amount,
-                                        'rice');
-                                widget.callback(widget.intakeCal);
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                Icon(Icons.add),
-                                Text('Add'),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                ListTile(
-                  title: Text('data'),
-                )
-              ],
-            ),
+                              else
+                                setState(() {
+                                  selected = -1;
+                                });
+                            }));
+                      },
+                    )
+                  ]),
+                )),
+//            ExpansionTile(
+//              title: Text(
+//                'rice',
+//                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+//              ),
+//              children: <Widget>[
+//                ReusableCard(
+//                  colour: Colors.lightGreen,
+//                  cardChild: Column(
+//                    mainAxisAlignment: MainAxisAlignment.center,
+//                    children: <Widget>[
+//                      Text(
+//                        amount.toString() + " gram",
+//                      ),
+//                      Row(
+//                        mainAxisAlignment: MainAxisAlignment.center,
+//                        children: <Widget>[
+//                          RoundIconButton(
+//                              icon: Icons.remove,
+//                              onPressed: () {
+//                                setState(() {
+//                                  amount -= 10;
+//                                });
+//                              }),
+//                          SizedBox(
+//                            width: 10.0,
+//                          ),
+//                          RoundIconButton(
+//                            icon: Icons.add,
+//                            onPressed: () {
+//                              setState(() {
+//                                amount += 10;
+//                              });
+//                            },
+//                          ),
+//                          ElevatedButton(
+//                            style: ElevatedButton.styleFrom(
+//                              primary: Colors.lightGreen[300],
+//                            ),
+//                            onPressed: () {
+//                              setState(() async {
+//                                widget.intakeCal =
+//                                    await DailyFoodController.addRecord(
+//                                        UserProfileController.user.getUserID(),
+//                                        amount,
+//                                        'rice');
+//                                widget.callback(widget.intakeCal);
+//                              });
+//                            },
+//                            child: Row(
+//                              children: [
+//                                Icon(Icons.add),
+//                                Text('Add'),
+//                              ],
+//                            ),
+//                          ),
+//                        ],
+//                      ),
+//                    ],
+//                  ),
+//                ),
+//                ListTile(
+//                  title: Text('data'),
+//                )
+//              ],
+//            ),
           ],
         ),
       ),

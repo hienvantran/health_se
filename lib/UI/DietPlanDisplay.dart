@@ -119,10 +119,16 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                           children: <Widget>[
                                             Container(
                                               child: Container(
-                                                child: Text('${snapshot.data}'),
+                                                child: Text(
+                                                  '${snapshot.data}',
+                                                  style: TextStyle(
+                                                    fontSize: 13.0,
+                                                    color: Color(0xFF09216B),
+                                                  ),
+                                                ),
                                                 alignment: Alignment(1.0, 1.0),
                                               ),
-                                              height: 250,
+                                              height: 210,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
@@ -189,10 +195,16 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                         children: <Widget>[
                                           Container(
                                             child: Container(
-                                              child: Text('${snapshot.data}'),
+                                              child: Text(
+                                                '${snapshot.data}',
+                                                style: TextStyle(
+                                                  fontSize: 13.0,
+                                                  color: Color(0xFF09216B),
+                                                ),
+                                              ),
                                               alignment: Alignment(1.0, 1.0),
                                             ),
-                                            height: 250,
+                                            height: 210,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
@@ -260,10 +272,16 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                         children: <Widget>[
                                           Container(
                                             child: Container(
-                                              child: Text('${snapshot.data}'),
+                                              child: Text(
+                                                '${snapshot.data}',
+                                                style: TextStyle(
+                                                  fontSize: 13.0,
+                                                  color: Color(0xFF09216B),
+                                                ),
+                                              ),
                                               alignment: Alignment(1.0, 1.0),
                                             ),
-                                            height: 250,
+                                            height: 210,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),

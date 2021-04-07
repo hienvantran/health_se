@@ -8,8 +8,17 @@ class SuggestedExercise {
   factory SuggestedExercise.fromJson(Map<String, dynamic> json) {
     return SuggestedExercise(
       name: json['name'] as String,
-      calorieBurn: json['calorieBurn'] as int,
+      calorieBurn: json['caloriesBurn'] as int,
       duration: json['duration'] as int,
     );
+  }
+
+  String getName() {
+    return name;
+  }
+
+  int getCalorieBurnPerMin() {
+    print('CalorieBurn' + calorieBurn.toString());
+    return (calorieBurn / 60).toInt();
   }
 }

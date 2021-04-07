@@ -1,23 +1,29 @@
-import 'dart:convert';
+import 'package:health_se/Controller/SuggestedExerciseHandler.dart';
+import 'package:health_se/Entity/SuggestedExercise.dart';
 
-import '../Entity/SuggestedExercise.dart';
-import 'NetworkController.dart';
-
-class SuggestedExerciseHandler extends NetworkController {
-  @override
-  List<SuggestedExercise> parseObjectFormat(String responseBody) {
-    // TODO: implement parseObjectFormat
-    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    return parsed
-        .map<SuggestedExercise>((json) => SuggestedExercise.fromJson(json))
-        .toList();
+class SuggestedExerciseController {
+  static Future<List<dynamic>> getAllExercises() {
+    return SuggestedExerciseHandler().getListOfObjects('/suggestedExercise');
   }
 
-  @override
-  SuggestedExercise parseOneObject(String responseBody) {
-    // TODO: implement parseOneObject
-    final parsed = jsonDecode(responseBody);
-    return SuggestedExercise.fromJson(parsed);
-    //parsed.map<HealthDisease>((json) => HealthDisease.fromJson(json));
+  static Future<String> getSugExercise(
+      int intakeCal, int maintenanceCal) async {
+    String output = '';
+    int surplus = intakeCal - maintenanceCal;
+
+    if (surplus <= 0) {
+      return "Your daily calorie intake is LESS than your maintenance Calorie.\nExercise info will not be displayed";
+    }
+    List<SuggestedExercise> list = await getAllExercises();
+    for (int i = 0; i < list.length; i++) {
+      output = output + calExerciseTime(surplus, list[i]);
+    }
+    return output;
+  }
+
+  static String calExerciseTime(int surplus, SuggestedExercise sugExercise) {
+    String name = sugExercise.getName();
+    int duration = (surplus / sugExercise.getCalorieBurnPerMin()).toInt();
+    return name + ': ' + duration.toString() + "min\n";
   }
 }
