@@ -1,105 +1,35 @@
-import 'package:flutter/material.dart';
-import '../Controller/InfectiousController.dart';
-import 'GMap.dart';
 import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_se/Controller/FilterController.dart';
 import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
+import 'package:health_se/Controller/FilterController.dart';
 
-class InfectiousUI extends StatelessWidget {
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-              height: size.height * 0.1,
-              child: Row(children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(),
-                  child: Text("Filter cases"),
-                ),
-                // ElevatedButton(
-                //   onPressed: (),
-                //   style: ButtonStyle(
-                //
-                //   ),
-                //   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                //   child: Text(
-                //     'Login',
-                //     style:
-                //         TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-                //   ),
-                // ),
-              ])),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-              child: map(),
-              height: size.height * 0.5,
-            ),
-          ),
-          Container(
-            child: InfectiousDisease(),
-            height: 500.0,
-          ),
-        ],
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: test(),
     );
   }
 }
 
-class InfectiousDisease extends StatefulWidget {
-  @override
-  _InfectiousDiseaseState createState() => _InfectiousDiseaseState();
+class test extends StatefulWidget {
+  testState createState() => testState();
 }
 
-class _InfectiousDiseaseState extends State<InfectiousDisease> {
-  InfectiousController h = new InfectiousController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<List>(
-        future: h.getListOfObjects('/infectiousDisease'),
-        initialData: [],
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (_, int position) {
-                    final item = snapshot.data[position];
-                    //get your item data here ...
-                    return Card(
-                      child: ExpansionTile(
-                        title: Text("Disease Name: " + item.getDiseaseName()),
-                        initiallyExpanded: false,
-                        maintainState: false,
-                        children: <Widget>[
-                          Text("Disease type: "),
-                          Text("Recommended diet: ")
-                        ],
-                      ),
-                    );
-                  },
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        },
-      ),
-    );
-  }
-}
-
-class map extends StatefulWidget {
-  mapState createState() => mapState();
-}
-
-class mapState extends State<map> {
+class testState extends State<test> {
   Completer<GoogleMapController> _controller = Completer();
 
 // 2

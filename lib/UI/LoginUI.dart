@@ -22,18 +22,39 @@ class _LoginUIState extends State<LoginUI> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
   }
 
+  showAlertDialog(BuildContext context) {
+    Widget okButton = RaisedButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(false);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Error"),
+      content: Text(
+          "Your username/password is invalid. Please re-enter your credentials!"),
+      actions: [
+        okButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   void onSubmit() async {
     username.text.isEmpty ? _validate = true : _validate = false;
-    if (_validate == true) ;
-    //TODO Error message;
     password.text.isEmpty ? _validatep = true : _validatep = false;
-    if (_validatep == true) ;
-    //TODO Error message;
 
     var res = await LoginController.validateLogin(username.text, password.text);
     if (res == true) {
       getItemAndNavigate(context);
-    }
+    } else
+      showAlertDialog(context);
   }
 
   @override
