@@ -31,7 +31,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
   }
 
   getBmi() async {
-    UserProfile user = await UserInfoController.user;
+    UserProfile user = UserInfoController.user;
     print(user.getUserID());
     setState(() {
       bmi = user.getBmi();

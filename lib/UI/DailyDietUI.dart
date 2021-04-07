@@ -52,7 +52,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   }
 
   getMaintenanceCal() async {
-    user = await UserInfoController.user;
+    user = UserInfoController.user;
     userName = user.getUserID();
     // UserProfileHandler u = new UserProfileHandler();
     // UserProfile up = await u.getObject('/userprofile/' + userName);
@@ -269,7 +269,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   UserProfile user;
 
   Future<List<dynamic>> getFoodRecordList() async {
-    user = await UserInfoController.user;
+    user = UserInfoController.user;
     // UserProfile up = await u.getObject(
     //     '/userprofile/' + user.getUserID().toString());
     List<dynamic> list = user.getFoodRecordsList();

@@ -15,23 +15,20 @@ class LoginController {
   //   return response;
   // }
 
-  static Future<UserProfile> validateLogin(
-      String username, String password) async {
+  static Future<bool> validateLogin(String username, String password) async {
     final Map<String, String> login = {
       "username": username,
       "password": password,
     };
     print(username);
     print(password);
-    // final res = await UserProfileHandler().post('/login', login);
-    // print(res);
-    // if (res == -1)
-    //   return null;
-    // else {
-    //   //UserInfoController.user = UserProfile.fromJson(jsonDecode(res));
-    //   return UserProfile.fromJson(jsonDecode(res));
-    // }
-    return UserProfileHandler().post('/login', login).then(
-        (responseBody) => UserProfileHandler().parseOneObject(responseBody));
+    final res = await UserProfileHandler().post('/login', login);
+    print(res);
+    if (res == -1)
+      return false;
+    else {
+      UserInfoController.user = UserProfile.fromJson(jsonDecode(res));
+      return true;
+    }
   }
 }

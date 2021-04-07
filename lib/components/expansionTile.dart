@@ -108,7 +108,7 @@ class _expensionTileState extends State<expensionTile> {
                                           ),
                                           onPressed: () async {
                                             UserProfile user =
-                                                await UserInfoController.user;
+                                                UserInfoController.user;
                                             setState(() async {
                                               widget.intakeCal =
                                                   await DailyFoodController

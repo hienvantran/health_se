@@ -14,6 +14,11 @@ class UserProfileController {
     return user;
   }
 
+  static Future<void> updateUser(String userID) async {
+    UserProfile user = await retrieveUser(userID);
+    UserInfoController.user = user;
+  }
+
   static String returnImagePath(String gender) {
     if (gender == 'F')
       return 'images/female-avatar.jpg';

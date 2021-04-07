@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:health_se/Controller/HealthProfileController.dart';
 import '../Controller/HealthProfileHandler.dart';
 import '../Controller/UserInfoController.dart';
 import '../components/expansionTile.dart';
 import '../Entity/UserProfile.dart';
+import '../Entity/HealthDiseases.dart';
 
 class HealthProfileUI extends StatelessWidget {
   @override
@@ -29,38 +31,74 @@ class HealthDiseases extends StatefulWidget {
   _HealthDiseasesState createState() => _HealthDiseasesState();
 }
 
+// class _HealthDiseasesState extends State<HealthDiseases> {
+//   HealthDiseaseHandler h = new HealthDiseaseHandler();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: FutureBuilder<List>(
+//         future: h.getListOfObjects('/healthDisease'),
+//         initialData: [],
+//         builder: (context, snapshot) {
+//           return snapshot.hasData
+//               ? ListView.builder(
+//                   itemCount: snapshot.data.length,
+//                   itemBuilder: (_, int position) {
+//                     final item = snapshot.data[position];
+//                     //get your item data here ...
+//                     return Card(
+//                       child: ExpansionTile(
+//                         title: Text("Disease Name: " + item.getDiseaseName()),
+//                         initiallyExpanded: false,
+//                         maintainState: false,
+//                         children: <Widget>[
+//                           Text("Disease type: " + item.getDiseaseType()),
+//                           Text("Recommended diet: " + item.getRecommendedDiet())
+//                         ],
+//                       ),
+//                     );
+//                   },
+//                 )
+//               : Center(
+//                   child: CircularProgressIndicator(),
+//                 );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 class _HealthDiseasesState extends State<HealthDiseases> {
   HealthDiseaseHandler h = new HealthDiseaseHandler();
+  List<HealthDisease> userDiseases = <HealthDisease>[];
+
+  @override
+  void initState() {
+    super.initState();
+    HealthProfileController.getHealthDiseases();
+    userDiseases = UserInfoController.healthDiseases;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List>(
-        future: h.getListOfObjects('/healthDisease'),
-        initialData: [],
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (_, int position) {
-                    final item = snapshot.data[position];
-                    //get your item data here ...
-                    return Card(
-                      child: ExpansionTile(
-                        title: Text("Disease Name: " + item.getDiseaseName()),
-                        initiallyExpanded: false,
-                        maintainState: false,
-                        children: <Widget>[
-                          Text("Disease type: " + item.getDiseaseType()),
-                          Text("Recommended diet: " + item.getRecommendedDiet())
-                        ],
-                      ),
-                    );
-                  },
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
+      body: ListView.builder(
+        itemCount: userDiseases.length,
+        itemBuilder: (_, int position) {
+          final item = userDiseases[position];
+          //get your item data here ...
+          return Card(
+            child: ExpansionTile(
+              title: Text("Disease Name: " + item.getDiseaseName()),
+              initiallyExpanded: false,
+              maintainState: false,
+              children: <Widget>[
+                Text("Disease type: " + item.getDiseaseType()),
+                Text("Recommended diet: " + item.getRecommendedDiet())
+              ],
+            ),
+          );
         },
       ),
     );
@@ -73,7 +111,7 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  String userID = "0";
+  String userName = "0";
 
   @override
   void initState() {
@@ -82,10 +120,10 @@ class _UserInfoState extends State<UserInfo> {
   }
 
   initUser() async {
-    UserProfile user = await UserInfoController.user;
+    UserProfile user = UserInfoController.user;
     print(user.getUserID());
     setState(() {
-      userID = user.getUserID();
+      userName = user.getName();
     });
   }
 
@@ -93,7 +131,7 @@ class _UserInfoState extends State<UserInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: Text(userID),
+      child: Text(userName),
     ));
   }
 }

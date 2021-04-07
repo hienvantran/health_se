@@ -23,9 +23,8 @@ class _LoginUIState extends State<LoginUI> {
   }
 
   void onSubmit() async {
-    var res = LoginController.validateLogin(username.text, password.text);
-    if (res != null) {
-      UserInfoController.user = res;
+    var res = await LoginController.validateLogin(username.text, password.text);
+    if (res == true) {
       getItemAndNavigate(context);
     }
   }
