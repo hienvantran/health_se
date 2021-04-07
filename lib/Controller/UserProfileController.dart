@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:health_se/Controller/UserInfoController.dart';
+
 import 'NetworkController.dart';
 import '../Entity/UserProfile.dart';
 import 'UserProfileHandler.dart';
 
 class UserProfileController {
-  static UserProfile user;
-
   static Future<UserProfile> retrieveUser(String userID) {
     Future<UserProfile> user =
         UserProfileHandler().getObject('/userProfile/$userID');

@@ -9,6 +9,7 @@ import 'package:health_se/Entity/UserProfile.dart';
 import 'package:health_se/UI/DietPlanDisplay.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/Controller/SuggestedExerciseController.dart';
+import 'package:health_se/Controller/UserInfoController.dart';
 
 void main() => runApp(DailyDietUI());
 
@@ -27,9 +28,10 @@ class CalorieDisplay extends StatefulWidget {
 }
 
 class _CalorieDisplayState extends State<CalorieDisplay> {
-  String userName = UserProfileController.user.getUserID();
+  String userName = "";
   int intakeCalorie = 0;
   int maintenanceCalorie = 0;
+  UserProfile user;
 
   List<String> foodChoicesList;
 
@@ -50,15 +52,17 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   }
 
   getMaintenanceCal() async {
-    UserProfileHandler u = new UserProfileHandler();
-    UserProfile up = await u.getObject('/userprofile/' + userName);
+    user = await UserInfoController.user;
+    userName = user.getUserID();
+    // UserProfileHandler u = new UserProfileHandler();
+    // UserProfile up = await u.getObject('/userprofile/' + userName);
     print("test\n");
-    print(UserProfileController.user.getUserID().toString());
+    print(user.getUserID().toString());
 
     setState(() {
-      maintenanceCalorie = up.getMaintenanceCal();
+      maintenanceCalorie = user.getMaintenanceCal();
       intakeCalorie =
-          DailyFoodController.calculateTotalCalorie(up.getFoodRecordsList());
+          DailyFoodController.calculateTotalCalorie(user.getFoodRecordsList());
     });
   }
 
@@ -262,11 +266,13 @@ class Future_FoodItem extends StatefulWidget {
 
 class _Future_FoodItemState extends State<Future_FoodItem> {
   UserProfileHandler u = new UserProfileHandler();
+  UserProfile user;
 
   Future<List<dynamic>> getFoodRecordList() async {
-    UserProfile up = await u
-        .getObject('/userprofile/' + UserProfileController.user.getUserID());
-    List<dynamic> list = up.getFoodRecordsList();
+    user = await UserInfoController.user;
+    // UserProfile up = await u.getObject(
+    //     '/userprofile/' + user.getUserID().toString());
+    List<dynamic> list = user.getFoodRecordsList();
     print(list);
     return list;
   }

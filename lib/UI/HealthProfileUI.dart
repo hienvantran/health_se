@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Controller/HealthProfileHandler.dart';
-import '../Controller/UserProfileController.dart';
+import '../Controller/UserInfoController.dart';
 import '../components/expansionTile.dart';
 import '../Entity/UserProfile.dart';
 
@@ -73,13 +73,27 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  UserProfile user = UserProfileController.user;
+  String userID = "0";
+
+  @override
+  void initState() {
+    super.initState();
+    initUser();
+  }
+
+  initUser() async {
+    UserProfile user = await UserInfoController.user;
+    print(user.getUserID());
+    setState(() {
+      userID = user.getUserID();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: Text(user.getUserID()),
+      child: Text(userID),
     ));
   }
 }

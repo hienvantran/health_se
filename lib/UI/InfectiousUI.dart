@@ -14,7 +14,10 @@ class InfectiousUI extends StatelessWidget {
           Container(
               height: size.height * 0.1,
               child: Row(children: <Widget>[
-                Text("Filter cases"),
+                Padding(
+                  padding: const EdgeInsets.only(),
+                  child: Text("Filter cases"),
+                ),
                 // ElevatedButton(
                 //   onPressed: (),
                 //   style: ButtonStyle(

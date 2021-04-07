@@ -4,6 +4,7 @@ import 'CreateProfileUI.dart';
 import 'HealthProfileUI.dart';
 import 'mainUI.dart';
 import '../Entity/UserProfile.dart';
+import '../Controller/UserInfoController.dart';
 
 void main() => runApp(LoginUI());
 
@@ -22,8 +23,9 @@ class _LoginUIState extends State<LoginUI> {
   }
 
   void onSubmit() async {
-    var res = await LoginController.validateLogin(username.text, password.text);
-    if (res == true) {
+    var res = LoginController.validateLogin(username.text, password.text);
+    if (res != null) {
+      UserInfoController.user = res;
       getItemAndNavigate(context);
     }
   }

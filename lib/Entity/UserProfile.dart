@@ -43,6 +43,21 @@ class UserProfile {
     return (weight / (height / 100 * height / 100));
   }
 
+  double getBodyFatPercentage() {
+    int g = (gender == 'M') ? 0 : 1;
+    double BMI = getBmi();
+    double val = -44.988 +
+        (0.503 * int.parse(age)) +
+        (10.689 * g) +
+        (3.172 * BMI) -
+        (0.026 * BMI * BMI) +
+        (0.181 * BMI * g) -
+        (0.02 * BMI * int.parse(age)) -
+        (0.005 * BMI * BMI * g) +
+        (0.00021 * BMI * BMI * int.parse(age));
+    return val;
+  }
+
   int getMaintenanceCal() {
     int s;
     if (gender == 'male')

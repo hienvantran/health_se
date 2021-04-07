@@ -25,6 +25,10 @@ class HealthDisease {
     );
   }
 
+  String getDiseaseID() {
+    return id;
+  }
+
   String getDiseaseName() {
     return diseaseName;
   }

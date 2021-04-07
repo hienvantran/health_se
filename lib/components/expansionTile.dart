@@ -3,6 +3,8 @@ import 'package:health_se/Controller/DailyFoodController.dart';
 import 'package:health_se/components/reuseable_card.dart';
 import 'package:health_se/components/RoundIconButton.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
+import 'package:health_se/Controller/UserInfoController.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 import 'package:health_se/Controller/SuggestedExerciseController.dart';
 
 class expensionTile extends StatefulWidget {
@@ -104,14 +106,14 @@ class _expensionTileState extends State<expensionTile> {
                                           style: ElevatedButton.styleFrom(
                                             primary: Colors.lightGreen[300],
                                           ),
-                                          onPressed: () {
+                                          onPressed: () async {
+                                            UserProfile user =
+                                                await UserInfoController.user;
                                             setState(() async {
                                               widget.intakeCal =
                                                   await DailyFoodController
                                                       .addRecord(
-                                                          UserProfileController
-                                                              .user
-                                                              .getUserID(),
+                                                          user.getUserID(),
                                                           amount,
                                                           widget.foodChoicesList[
                                                               index]);

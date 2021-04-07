@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
+import 'package:health_se/Controller/UserInfoController.dart';
 import 'package:health_se/Controller/SuggestedDietController.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 
 class DietPlanDisplay extends StatefulWidget {
   int maintenanceCal;
@@ -19,9 +21,24 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
   List<int> nutritionList;
   int selected = 1; //attention
   int initialTap = 1;
+  double bmi = 22;
+  UserProfile user;
+
+  @override
+  void initState() {
+    super.initState();
+    getBmi();
+  }
+
+  getBmi() async {
+    UserProfile user = await UserInfoController.user;
+    print(user.getUserID());
+    setState(() {
+      bmi = user.getBmi();
+    });
+  }
 
   int getDefaultIndex() {
-    double bmi = UserProfileController.user.getBmi();
     print(bmi);
     if (bmi <= 18.5) {
       initialTap = 2;
