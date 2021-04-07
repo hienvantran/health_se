@@ -3,6 +3,7 @@ import 'package:health_se/Entity/FoodChoices.dart';
 import 'package:health_se/Controller/UserProfileHandler.dart';
 import 'package:health_se/Entity/UserProfile.dart';
 import 'package:intl/intl.dart';
+import 'package:health_se/Controller/UserProfileController.dart';
 
 class DailyFoodController {
   static List<FoodChoices> test;
@@ -28,6 +29,7 @@ class DailyFoodController {
 
     String url = '/userprofile/' + userName + '/foodrecords';
     await u.post(url, newRecord);
+    UserProfileController.updateUser(userName);
 
     UserProfile up = await u.getObject('/userprofile/' + userName);
     List<dynamic> list = up.getFoodRecordsList();
