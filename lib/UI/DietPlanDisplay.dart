@@ -65,7 +65,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
       print('after\n');
       print(nutritionList);
     }
-    String txt = "Displaying " + plan + ": \n";
+    String txt = plan + ": \n";
     String protein = "Protein: " + nutritionList[0].toString() + "g \n";
     String carb = "Carb: " + nutritionList[1].toString() + "g \n";
     String fat = "Fat: " + nutritionList[2].toString() + "g \n";
@@ -94,7 +94,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
               ),
             ),
             Container(
-                height: 300, //height of TabBarView
+                height: 270, //height of TabBarView
                 decoration: BoxDecoration(
                     border: Border(
                         top: BorderSide(color: Colors.grey, width: 0.5))),

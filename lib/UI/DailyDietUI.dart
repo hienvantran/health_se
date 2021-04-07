@@ -149,8 +149,9 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 40.0),
+                    margin: EdgeInsets.symmetric(horizontal: 40.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -186,7 +187,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                           },
                           child: Row(
                             children: [
-                              Icon(Icons.add),
+                              Icon(Icons.delete_forever),
                               Text('Reset'),
                             ],
                           ),
@@ -232,7 +233,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                         padding: EdgeInsets.only(left: 40.0, top: 20.0),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Result: \n${snapshot.data}',
+                          '${snapshot.data}',
                           style: TextStyle(
                             fontSize: 15.0,
                             color: Color(0xFF09216B),
@@ -300,7 +301,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 120,
       width: 200,
       child: FutureBuilder<List>(
         future: getFoodRecordList(),
