@@ -6,11 +6,11 @@ import '../Entity/UserProfile.dart';
 import 'UserProfileHandler.dart';
 
 class UserProfileController {
-  static Future<UserProfile> retrieveUser(String userID) {
-    Future<UserProfile> user =
-        UserProfileHandler().getObject('/userProfile/$userID');
-
-    print(user);
+  static Future<UserProfile> retrieveUser(String userID) async {
+    UserProfile user =
+        await UserProfileHandler().getObject('/userProfile/$userID');
+    print("TESTING: ");
+    print(user.getFoodRecordsList().length);
     return user;
   }
 

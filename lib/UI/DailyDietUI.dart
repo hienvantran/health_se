@@ -171,6 +171,26 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                             ],
                           ),
                         ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.lightGreen[300],
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              DailyFoodController.resetRecord(userName);
+                              intakeCalorie = 0;
+//                              intakeCalorie =
+//                                  DailyFoodController.calculateTotalCalorie(
+//                                      user.getFoodRecordsList());
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.add),
+                              Text('Reset'),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -270,9 +290,9 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
 
   Future<List<dynamic>> getFoodRecordList() async {
     user = UserInfoController.user;
-    // UserProfile up = await u.getObject(
-    //     '/userprofile/' + user.getUserID().toString());
-    List<dynamic> list = user.getFoodRecordsList();
+    UserProfile up =
+        await u.getObject('/userprofile/' + user.getUserID().toString());
+    List<dynamic> list = up.getFoodRecordsList();
     print(list);
     return list;
   }

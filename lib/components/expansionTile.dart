@@ -107,6 +107,10 @@ class _expensionTileState extends State<expensionTile> {
                                             primary: Colors.lightGreen[300],
                                           ),
                                           onPressed: () async {
+                                            showAlertDialog(
+                                                context,
+                                                widget.foodChoicesList[index],
+                                                amount);
                                             UserProfile user =
                                                 UserInfoController.user;
                                             setState(() async {
@@ -221,28 +225,30 @@ class _expensionTileState extends State<expensionTile> {
   }
 }
 
-//showAlertDialog(BuildContext context) {
-//  // set up the button
-//  Widget okButton = FlatButton(
-//    child: Text("OK"),
-//    onPressed: () {},
-//  );
-//  // set up the AlertDialog
-//  AlertDialog alert = AlertDialog(
-//    title: Text("My title"),
-//    content: Text("This is my message."),
-//    actions: [
-//      okButton,
-//    ],
-//  );
-//  // show the dialog
-//  showDialog(
-//    context: context,
-//    builder: (BuildContext context) {
-//      return alert;
-//    },
-//  );
-//}
+showAlertDialog(BuildContext context, String name, int amount) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Confirm add record"),
+    content: Text("You have added:\n$name : " + amount.toString() + 'gram'),
+    actions: [
+      okButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 
 //class Future_FoodItem extends StatefulWidget {
 //  @override
