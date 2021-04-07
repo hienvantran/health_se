@@ -120,8 +120,10 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                       widget.maintenanceCal - 500,
                                       index == selected),
                                   builder: (context, snapshot) {
-                                    if (snapshot.hasError)
-                                      return Text('Error: ${snapshot.error}');
+                                    if (!snapshot.hasData)
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
                                     else
                                       return ExpansionTile(
                                           key: Key(index.toString()),
@@ -197,7 +199,9 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                     index == selected),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasError)
-                                    return Text('Error: ${snapshot.error}');
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
                                   else
                                     return ExpansionTile(
                                         key: Key(index.toString()),
@@ -274,7 +278,9 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                     index == selected),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasError)
-                                    return Text('Error: ${snapshot.error}');
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
                                   else
                                     return ExpansionTile(
                                         key: Key(index.toString()),
