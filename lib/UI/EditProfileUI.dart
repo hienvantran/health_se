@@ -23,9 +23,12 @@ class _EditProfileUIState extends State<EditProfileUI> {
   bool _validateheight = false;
 
   bool _validatewaist = false;
-
-  final username = TextEditingController();
-  final password = TextEditingController();
+  final name = TextEditingController();
+  final age = TextEditingController();
+  final weight = TextEditingController();
+  final height = TextEditingController();
+  final waist = TextEditingController();
+  final gender = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
                     Text('Edit Information'),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      controller: username,
+                      controller: name,
                       autocorrect: true,
                       decoration: new InputDecoration(
                         errorText:
@@ -84,7 +87,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      controller: username,
+                      controller: age,
                       autocorrect: true,
                       decoration: new InputDecoration(
                         errorText:
@@ -106,7 +109,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
                       ),
                     ),
                     TextFormField(
-                      controller: username,
+                      controller: gender,
                       autocorrect: true,
                       decoration: new InputDecoration(
                         errorText:
@@ -128,7 +131,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
                       ),
                     ),
                     TextFormField(
-                      controller: username,
+                      controller: weight,
                       autocorrect: true,
                       decoration: new InputDecoration(
                         errorText:
@@ -151,7 +154,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      controller: username,
+                      controller: height,
                       autocorrect: true,
                       decoration: new InputDecoration(
                         errorText:
@@ -174,7 +177,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(
-                      controller: username,
+                      controller: waist,
                       autocorrect: true,
                       decoration: new InputDecoration(
                         errorText:

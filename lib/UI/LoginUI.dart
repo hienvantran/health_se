@@ -23,6 +23,13 @@ class _LoginUIState extends State<LoginUI> {
   }
 
   void onSubmit() async {
+    username.text.isEmpty ? _validate = true : _validate = false;
+    if (_validate == true) ;
+    //TODO Error message;
+    password.text.isEmpty ? _validatep = true : _validatep = false;
+    if (_validatep == true) ;
+    //TODO Error message;
+
     var res = await LoginController.validateLogin(username.text, password.text);
     if (res == true) {
       getItemAndNavigate(context);

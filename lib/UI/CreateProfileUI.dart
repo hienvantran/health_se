@@ -44,13 +44,11 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                       Image(
                         image: AssetImage('images/logo.png'),
                       ),
-                      SizedBox(height: 30.0),
                       Text('healthSEcure',
                           style: TextStyle(
                               fontFamily: 'FjallaOne',
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10.0),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
@@ -76,7 +74,6 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30.0),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
@@ -101,7 +98,6 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                               ),
                             )),
                       ),
-                      SizedBox(height: 30.0),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
@@ -125,6 +121,73 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                                 borderRadius: new BorderRadius.circular(25.7),
                               ),
                             )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                            decoration: InputDecoration(
+                          errorText:
+                              _validater ? 'Value Can\'t Be Empty' : null,
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                          hintText: 'Enter your age',
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.white),
+                            borderRadius: new BorderRadius.circular(25.7),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.white),
+                            borderRadius: new BorderRadius.circular(25.7),
+                          ),
+                        )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              errorText:
+                                  _validater ? 'Value Can\'t Be Empty' : null,
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: InputBorder.none,
+                              hintText: 'Enter your gender',
+                              contentPadding: const EdgeInsets.only(
+                                  left: 14.0, bottom: 8.0, top: 8.0),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: new BorderSide(color: Colors.white),
+                                borderRadius: new BorderRadius.circular(25.7),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: new BorderSide(color: Colors.white),
+                                borderRadius: new BorderRadius.circular(25.7),
+                              ),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                            decoration: InputDecoration(
+                          errorText:
+                              _validater ? 'Value Can\'t Be Empty' : null,
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                          hintText: 'Enter your weight',
+                          contentPadding: const EdgeInsets.only(
+                              left: 14.0, bottom: 8.0, top: 8.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.white),
+                            borderRadius: new BorderRadius.circular(25.7),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.white),
+                            borderRadius: new BorderRadius.circular(25.7),
+                          ),
+                        )),
                       ),
                       SizedBox(height: 30.0),
                       // ignore: deprecated_member_use
