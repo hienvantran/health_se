@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_se/Controller/FilterController.dart';
 import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
+import 'package:health_se/UI/FilterUI.dart';
 
 class InfectiousUI extends StatelessWidget {
   @override
@@ -15,26 +16,36 @@ class InfectiousUI extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Container(
-              height: size.height * 0.1,
-              child: Row(children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(),
-                  child: Text("Filter cases"),
-                ),
-                // ElevatedButton(
-                //   onPressed: (),
-                //   style: ButtonStyle(
-                //
-                //   ),
-                //   padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                //   child: Text(
-                //     'Login',
-                //     style:
-                //         TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
-                //   ),
-                // ),
-              ])),
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Container(
+              color: Colors.grey[200],
+              height: size.height * 0.05,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Text("Filter cases"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FilterUI()));
+                      },
+                      style: ButtonStyle(),
+                      icon: Icon(Icons.filter_alt_rounded),
+                      label: Text("Filter"),
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(

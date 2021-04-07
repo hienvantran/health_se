@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.health_se">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="health_se"
         android:icon="@mipmap/ic_launcher">
@@ -13,6 +15,7 @@
 
             <meta-data android:name="com.google.android.geo.API_KEY"
                 android:value="AIzaSyALEYGT-cFANGs-8BnYcqarG1KGt_x8e04"/>
+
 
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
