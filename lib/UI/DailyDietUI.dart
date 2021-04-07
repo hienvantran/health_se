@@ -8,6 +8,7 @@ import 'package:health_se/Entity/FoodRecord.dart';
 import 'package:health_se/Entity/UserProfile.dart';
 import 'package:health_se/UI/DietPlanDisplay.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
+import 'package:health_se/Controller/SuggestedExerciseController.dart';
 
 void main() => runApp(DailyDietUI());
 
@@ -15,22 +16,6 @@ class DailyDietUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.lightGreen,
-      //   title: const Text('Daily Diet'),
-      //   leading: Icon(
-      //     Icons.menu,
-      //   ),
-      //   actions: <Widget>[
-      //     Padding(
-      //       padding: EdgeInsets.only(right: 20.0),
-      //       child: GestureDetector(
-      //         onTap: () {},
-      //         child: Icon(Icons.more_vert),
-      //       ),
-      //     )
-      //   ],
-      // ),
       body: CalorieDisplay(),
     );
   }
@@ -46,10 +31,22 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   int intakeCalorie = 0;
   int maintenanceCalorie = 0;
 
+  List<String> foodChoicesList;
+
+  getFoodChoicesList() async {
+    List<String> list = await DailyFoodController.getFoodChoicesNames();
+    setState(() {
+      foodChoicesList = list;
+      print("list\n");
+      print(foodChoicesList);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getMaintenanceCal();
+    getFoodChoicesList();
   }
 
   getMaintenanceCal() async {
@@ -160,7 +157,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        expensionTile(
+                                        expensionTile(foodChoicesList,
                                             intakeCalorie, callback)));
                           },
                           child: Row(
@@ -200,7 +197,26 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                   ),
                 ),
               ),
-//              Future(),
+              FutureBuilder(
+                  future: SuggestedExerciseController.getSugExercise(
+                      intakeCalorie, maintenanceCalorie),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError)
+                      return Text('Error: ${snapshot.error}');
+                    else
+                      return Container(
+                        padding: EdgeInsets.only(left: 40.0, top: 20.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Result: \n${snapshot.data}',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Color(0xFF09216B),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                  }),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
