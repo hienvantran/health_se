@@ -88,7 +88,7 @@ class _expensionTileState extends State<expensionTile> {
                                             icon: Icons.remove,
                                             onPressed: () {
                                               setState(() {
-                                                amount -= 10;
+                                                if (amount >= 10) amount -= 10;
                                               });
                                             }),
                                         SizedBox(
