@@ -105,7 +105,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
               color: Colors.lightGreen,
               borderRadius: BorderRadius.all(Radius.circular(30))),
           // height: size.height / 8,
-          width: size.width * 0.97,
+          width: size.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -114,7 +114,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
                 height: size.height * 0.1,
                 width: size.width * 0.2,
               ),
-              SizedBox(width: size.width * 0.1),
               Text(name,
                   textAlign: TextAlign.center,
                   style:

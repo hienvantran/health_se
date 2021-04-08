@@ -16,10 +16,14 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
   final email = TextEditingController();
   final password = TextEditingController();
   final reconpassword = TextEditingController();
+  bool _validateusername = false;
+  bool _validatepassword = false;
+  bool _validaterecon = false;
+  bool _validateemail = false;
 
-  bool _validate = false;
-  bool _validatep = false;
-  bool _validater = false;
+//  bool _validate = false;
+//  bool _validatep = false;
+//  bool _validater = false;
 
   getItemAndNavigate(BuildContext context) {
     Navigator.push(
@@ -30,7 +34,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
     Widget okButton = RaisedButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.of(context).pop(false);
+        Navigator.of(context, rootNavigator: true).pop();
       },
     );
 
@@ -54,7 +58,8 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
     Widget okButton = RaisedButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.of(context).pop(false);
+//        Navigator.of(context).pop(false);
+        Navigator.of(context, rootNavigator: true).pop();
       },
     );
 
@@ -75,21 +80,56 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
   }
 
   void onSubmit() async {
-    setState(() {
-      username.text.isEmpty ? _validate = true : _validate = false;
-      password.text.isEmpty ? _validatep = true : _validatep = false;
-      email.text.isEmpty ? _validater = true : _validater = false;
-    });
-
-    if (password.text != reconpassword.text) passMismatchAlertDialog(context);
-
     var res = await RegistrationController.createProfile(
         email.text, username.text, password.text);
-    if (res == true) {
-      getItemAndNavigate(context);
-    } else
-      errorAlertDialog(context);
+    setState(
+      () {
+        bool emailValid = RegExp(
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            .hasMatch(email.text);
+        username.text.isEmpty
+            ? _validateusername = true
+            : _validateusername = false;
+        password.text.isEmpty
+            ? _validatepassword = true
+            : _validatepassword = false;
+        reconpassword.text.isEmpty
+            ? _validaterecon = true
+            : _validaterecon = false;
+        email.text.isEmpty ? _validateemail = true : _validateemail = false;
+        if ((_validateusername == false) &&
+            (_validatepassword == false) &&
+            (_validaterecon == false) &&
+            (_validateemail == false) &&
+            (emailValid == true) &&
+            (password.text == reconpassword.text)) {
+          if (res == true) {
+            getItemAndNavigate(context);
+          }
+        }
+      },
+    );
+    if (password.text != reconpassword.text)
+      passMismatchAlertDialog(context);
+    else if (res != true) errorAlertDialog(context);
   }
+//
+//  void onSubmit() async {
+//    setState(() {
+//      username.text.isEmpty ? _validate = true : _validate = false;
+//      password.text.isEmpty ? _validatep = true : _validatep = false;
+//      email.text.isEmpty ? _validater = true : _validater = false;
+//    });
+//
+//    if (password.text != reconpassword.text) passMismatchAlertDialog(context);
+//
+//    var res = await RegistrationController.createProfile(
+//        email.text, username.text, password.text);
+//    if (res == true) {
+//      getItemAndNavigate(context);
+//    } else
+//      errorAlertDialog(context);
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +165,9 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                           controller: username,
                           autocorrect: true,
                           decoration: new InputDecoration(
-                            errorText:
-                                _validate ? 'Value Can\'t Be Empty' : null,
+                            errorText: _validateusername
+                                ? 'Value Can\'t Be Empty'
+                                : null,
                             border: InputBorder.none,
                             hintText: 'Enter your username',
                             filled: true,
@@ -151,7 +192,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                           autocorrect: true,
                           decoration: new InputDecoration(
                             errorText:
-                                _validater ? 'Value Can\'t Be Empty' : null,
+                                _validateemail ? 'Value Can\'t Be Empty' : null,
                             border: InputBorder.none,
                             hintText: 'Enter your email ID',
                             filled: true,
@@ -176,8 +217,9 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                           autocorrect: true,
                           obscureText: true,
                           decoration: new InputDecoration(
-                            errorText:
-                                _validate ? 'Value Can\'t Be Empty' : null,
+                            errorText: _validatepassword
+                                ? 'Value Can\'t Be Empty'
+                                : null,
                             border: InputBorder.none,
                             hintText: 'Enter your password',
                             filled: true,
@@ -203,7 +245,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                           autocorrect: true,
                           decoration: new InputDecoration(
                             errorText:
-                                _validatep ? 'Value Can\'t Be Empty' : null,
+                                _validaterecon ? 'Value Can\'t Be Empty' : null,
                             border: InputBorder.none,
                             hintText: 'Re-confirm your password',
                             filled: true,

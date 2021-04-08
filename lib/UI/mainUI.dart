@@ -6,6 +6,7 @@ import 'HealthProfileUI.dart';
 import 'UserProfileUI.dart';
 import 'InfectiousUI.dart';
 import 'DailyDietUI.dart';
+import 'package:health_se/main.dart' as Main;
 
 void main() {
   runApp(MyApp());
@@ -89,9 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
               onSelected: (String route) {
                 if (route == "/cp") {}
                 if (route == "/notif") {}
-                if (route == "/log-out") {}
+                if (route == "/log-out") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Main.MyApp()));
+                }
                 // Note You must create respective pages for navigation
-                Navigator.pushNamed(context, route);
               })
         ],
       ),
