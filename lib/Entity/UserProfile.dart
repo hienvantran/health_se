@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class UserProfile {
   final String id;
   final String name;
@@ -106,5 +108,18 @@ class UserProfile {
 
   List<dynamic> getFoodRecordsList() {
     return foodRecordList;
+  }
+
+  List<dynamic> getTodayRecords() {
+    String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    List<dynamic> todayRecords = [];
+    for (int i = 0; i < foodRecordList.length; i++) {
+      if (foodRecordList[i]["createdAt"].substring(0, 10) == currentDate) {
+        todayRecords.add(foodRecordList[i]);
+      }
+    }
+    print("FILTERING\n");
+    print(todayRecords.length);
+    return todayRecords;
   }
 }
