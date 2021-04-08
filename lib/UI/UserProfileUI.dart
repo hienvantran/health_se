@@ -147,30 +147,60 @@ class _UserProfileUIState extends State<UserProfileUI> {
           ),
         ),
         SizedBox(height: 50.0),
-        Container(
-            margin: const EdgeInsets.all(6.0),
-            height: MediaQuery.of(context).size.height / 2,
-            child: Column(children: <Widget>[
-              Text('INFORMATION'),
-              SizedBox(height: 10.0),
-              Text('Name:  ${name}'),
-              SizedBox(height: 10.0),
-              Text('Age: ${age}'),
-              SizedBox(height: 10.0),
-              Text('Gender: ${gender}'),
-              SizedBox(height: 10.0),
-              Text('Weight: ${weight} kg'),
-              SizedBox(height: 10.0),
-              Text('Height: ${height} cm'),
-              SizedBox(height: 10.0),
-              Text('Waist Measurement: ${waist} cm'),
-              // ignore: deprecated_member_use
-              RaisedButton(
-                  onPressed: () => goBack(context),
-                  color: Colors.lightBlue,
-                  textColor: Colors.white,
-                  child: Text('Go Back To Previous Screen')),
-            ])),
+        DataTable(
+          columns: const <DataColumn>[
+            DataColumn(
+              label: Text(
+                'Particulars',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+            DataColumn(
+              label: Text(
+                'Values',
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ),
+          ],
+          rows: const <DataRow>[
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Name')),
+                DataCell(Text('Sanath')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Age')),
+                DataCell(Text('43')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Gender')),
+                DataCell(Text('27')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Weight')),
+                DataCell(Text('27')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Height')),
+                DataCell(Text('27')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Waist Circumference')),
+                DataCell(Text('27')),
+              ],
+            ),
+          ],
+        ),
       ]),
     )));
   }

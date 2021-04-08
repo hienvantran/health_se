@@ -12,24 +12,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.lightGreen,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -68,8 +62,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(titles[currentTab]),
-        leading: Icon(
-          Icons.arrow_back_ios_rounded,
+        leading: FlatButton.icon(
+          onPressed: () {
+            setState(() {
+              currentTab = 0;
+              currentPage = health_profile;
+            });
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            size: 20,
+          ),
+          label: Text(""),
+          textColor: Colors.white,
         ),
         centerTitle: true,
         actions: <Widget>[

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/UI/UserProfileUI.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 import 'LoginUI.dart';
 
 const PrimaryColor = const Color(0xFF41AA46);
@@ -29,6 +30,10 @@ class _EditProfileUIState extends State<EditProfileUI> {
   final height = TextEditingController();
   final waist = TextEditingController();
   final gender = TextEditingController();
+
+  void setUser() {
+    UserProfile user = new UserProfile();
+  }
 
   @override
   Widget build(BuildContext context) {

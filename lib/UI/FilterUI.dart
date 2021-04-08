@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'RiskInfoUI.dart';
+import 'mainUI.dart';
 
 void main() => runApp(FilterUI());
 enum SingingCharacter {
@@ -33,6 +34,19 @@ class _FilterUIState extends State<FilterUI> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(45.0),
           child: AppBar(
+            leading: FlatButton.icon(
+              onPressed: () {
+                //TODO change the page navigated to on Back button click
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => MyApp()));
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 20,
+              ),
+              label: Text(""),
+              textColor: Colors.white,
+            ),
             title: const Text('Filter Cases'),
             centerTitle: true,
             backgroundColor: Colors.green,

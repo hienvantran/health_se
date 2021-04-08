@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
@@ -35,7 +34,7 @@ abstract class NetworkController {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      return -1;
+      return response.statusCode;
     }
   }
 
@@ -68,6 +67,5 @@ abstract class NetworkController {
   //implemented in each of the actually object handler
   //abstract method
   List<dynamic> parseObjectFormat(String responseBody);
-
   dynamic parseOneObject(String responseBody);
 }

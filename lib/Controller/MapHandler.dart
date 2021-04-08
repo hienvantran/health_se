@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:health_se/controller/NetworkController.dart';
-import 'package:health_se/entity/InfectiousDiseaseMap.dart';
+import 'package:health_se/Controller/NetworkController.dart';
+import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 import 'dart:developer';
 
 class MapHandler extends NetworkController {
-
-  @override
   List<InfectiousDiseaseMap> parseObjectFormat(String responseBody) {
     // TODO: implement parseObjectFormat
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
@@ -19,11 +17,8 @@ class MapHandler extends NetworkController {
   @override
   InfectiousDiseaseMap parseOneObject(String responseBody) {
     // TODO: implement parseOneObject
-    // log(responseBody);
-    // log("it ends");
     final parsed = jsonDecode(responseBody);
-    //log(parsed);
     InfectiousDiseaseMapList result = InfectiousDiseaseMapList.fromJson(parsed);
-    return result.mapList[0];
+    return result.mapList[0]; //returns the map of the specified date
   }
 }

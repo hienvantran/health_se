@@ -70,7 +70,6 @@ class HealthDiseases extends StatefulWidget {
 // }
 
 class _HealthDiseasesState extends State<HealthDiseases> {
-  HealthDiseaseHandler h = new HealthDiseaseHandler();
   List<HealthDisease> userDiseases = <HealthDisease>[];
 
   @override
