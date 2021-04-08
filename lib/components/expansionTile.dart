@@ -88,7 +88,7 @@ class _expensionTileState extends State<expensionTile> {
                                             icon: Icons.remove,
                                             onPressed: () {
                                               setState(() {
-                                                if (amount >= 10) amount -= 10;
+                                                if (amount >= 50) amount -= 50;
                                               });
                                             }),
                                         SizedBox(
@@ -98,7 +98,7 @@ class _expensionTileState extends State<expensionTile> {
                                           icon: Icons.add,
                                           onPressed: () {
                                             setState(() {
-                                              amount += 10;
+                                              amount += 50;
                                             });
                                           },
                                         ),

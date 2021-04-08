@@ -47,11 +47,11 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   @override
   void initState() {
     super.initState();
-    getMaintenanceCal();
+    getCal();
     getFoodChoicesList();
   }
 
-  getMaintenanceCal() async {
+  getCal() async {
     user = UserInfoController.user;
     userName = user.getUserID();
     // UserProfileHandler u = new UserProfileHandler();
