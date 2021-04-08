@@ -123,6 +123,7 @@ class _expensionTileState extends State<expensionTile> {
                                                             index]);
                                             setState(() {
                                               widget.callback(widget.intakeCal);
+                                              Navigator.of(context).pop();
                                             });
                                           },
                                           child: Row(
