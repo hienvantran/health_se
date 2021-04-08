@@ -1,15 +1,118 @@
 import 'package:flutter/material.dart';
-import '../Controller/InfectiousController.dart';
+import 'package:health_se/Controller/InfectiousMapController.dart';
+import '../Controller/InfectiousDiseaseHandler.dart';
 import 'GMap.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_se/Controller/FilterController.dart';
+import 'package:health_se/Controller/UserInfoController.dart';
 import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 import 'package:health_se/UI/FilterUI.dart';
+import 'package:health_se/Controller/LocationController.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:health_se/Entity/PointSchema.dart';
 
-class InfectiousUI extends StatelessWidget {
+// class InfectiousUI extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     Size size = MediaQuery.of(context).size;
+//     return SingleChildScrollView(
+//       child: Column(
+//         children: <Widget>[
+//           Padding(
+//             padding: const EdgeInsets.only(top: 5.0),
+//             child: Container(
+//               color: Colors.grey[200],
+//               height: size.height * 0.05,
+//               child: Row(
+//                 children: <Widget>[
+//                   Padding(
+//                     padding: const EdgeInsets.only(left: 5.0),
+//                     child: Text("Filter cases"),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(right: 5.0),
+//                     child: ElevatedButton.icon(
+//                       onPressed: () {
+//                         Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) => FilterUI()));
+//                       },
+//                       style: ButtonStyle(),
+//                       icon: Icon(
+//                         Icons.filter_alt_rounded,
+//                         size: 20,
+//                       ),
+//                       label: Text("Filter"),
+//                     ),
+//                   ),
+//                 ],
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.only(top: 5.0),
+//             child: Container(
+//               color: Colors.grey[200],
+//               height: size.height * 0.05,
+//               child: Row(
+//                 children: <Widget>[
+//                   Padding(
+//                     padding: const EdgeInsets.only(left: 5.0),
+//                     child: Text("Get location"),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(right: 5.0),
+//                     child: ElevatedButton.icon(
+//                       onPressed: (getLocation),
+//                       style: ButtonStyle(),
+//                       icon: Icon(Icons.location_on, size: 20),
+//                       label: Text("Location"),
+//                     ),
+//                   ),
+//                 ],
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(4.0),
+//             child: Container(
+//               child: map(),
+//               height: size.height * 0.5,
+//             ),
+//           ),
+//           Container(
+//             child: InfectiousDisease(),
+//             height: 500.0,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+class InfectiousUI extends StatefulWidget {
+  @override
+  _InfectiousUIState createState() => _InfectiousUIState();
+}
+
+class _InfectiousUIState extends State<InfectiousUI> {
+  Position _location = Position(latitude: 0.0, longitude: 0.0);
+
+  getLocation() async {
+    final location = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      _location = location;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,8 +140,36 @@ class InfectiousUI extends StatelessWidget {
                                 builder: (context) => FilterUI()));
                       },
                       style: ButtonStyle(),
-                      icon: Icon(Icons.filter_alt_rounded),
+                      icon: Icon(
+                        Icons.filter_alt_rounded,
+                        size: 20,
+                      ),
                       label: Text("Filter"),
+                    ),
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: Container(
+              color: Colors.grey[200],
+              height: size.height * 0.05,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Text("Get location"),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: ElevatedButton.icon(
+                      onPressed: (getLocation),
+                      style: ButtonStyle(),
+                      icon: Icon(Icons.location_on, size: 20),
+                      label: Text("Location"),
                     ),
                   ),
                 ],
@@ -49,7 +180,7 @@ class InfectiousUI extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(
-              child: map(),
+              child: map(location: _location),
               height: size.height * 0.5,
             ),
           ),
@@ -69,7 +200,7 @@ class InfectiousDisease extends StatefulWidget {
 }
 
 class _InfectiousDiseaseState extends State<InfectiousDisease> {
-  InfectiousController h = new InfectiousController();
+  InfectiousDiseaseHandler h = new InfectiousDiseaseHandler();
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +238,30 @@ class _InfectiousDiseaseState extends State<InfectiousDisease> {
 }
 
 class map extends StatefulWidget {
+  map({Key key, this.location}) : super(key: key);
+
+  Position location;
+
+  @override
   mapState createState() => mapState();
 }
 
 class mapState extends State<map> {
   Completer<GoogleMapController> _controller = Completer();
+  PointSchema loc;
+
+  void initLocation() {
+    loc = PointSchema(
+        latitude: widget.location.latitude,
+        longitude: widget.location.longitude);
+    print(loc);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initLocation();
+  }
 
 // 2
   static final CameraPosition _myLocation = CameraPosition(
@@ -132,7 +282,7 @@ class mapState extends State<map> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          searchNearby(0, 0); // 2
+          searchNearby(loc);
         },
         label: Text('Places Nearby'), // 3
         icon: Icon(Icons.place), // 4
@@ -140,34 +290,65 @@ class mapState extends State<map> {
     );
   }
 
-  void searchNearby(double latitude, double longtitude) async {
+  void searchDefault(PointSchema userLocation) async {
     List<double> longs = [];
     List<double> lats = [];
-    MapHandler mh = MapHandler();
-
-    // InfectiousDiseaseMap mapNeeded = await mh
-    //     .getObject('/infectiousDisease/Dengue/map/2021-04-03T13:24:53.410Z');
-    // print('it reaches here');
-    // print(mapNeeded.diseaseName);
-    //
+    //List<int> numberOfCases = [];
+    // List<String> title = [];
     InfectiousDiseaseMap mapNeeded =
-        await FilterController.getFilteredCases("dengue", "location", "test");
+        await InfectiousMapController.loadFilteredMap(userLocation); // 2
+    for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
+      //only need display midpoint for each cluster
+      if (mapNeeded.cluster.clusterList[i] == null) {
+        print("does it come here? ");
+        print("the value of i when it comes here is");
+        continue;
+      }
+      lats.add(mapNeeded.cluster.clusterList[i].midPoint.getLatitude());
+      longs.add(mapNeeded.cluster.clusterList[i].midPoint.getLongitude());
+      //  numberOfCases.add(mapNeeded.cluster.clusterList[i].numberOfCases);
+      // title.add("The number of cases are: ");
+    }
 
-    //retrieves longitude and latitude
+    print(longs[0]);
+    print(lats[0]);
 
-    //working code for showing all
-    // for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
-    //   //loops through all the cluster list
-    //   for (int j = 0;
-    //       j < mapNeeded.cluster.clusterList[i].boundaryPoints.pointList.length;
-    //       j++) {
-    //     //loops through all boundary points in list
-    //     longs.add(mapNeeded
-    //         .cluster.clusterList[i].boundaryPoints.pointList[j].longitude);
-    //     lats.add(mapNeeded
-    //         .cluster.clusterList[i].boundaryPoints.pointList[j].latitude);
-    //   }
-    // }
+    setState(() {
+      markers.clear();
+    });
+    setState(() {
+      //= ["test1", "test2", "test3", "test4"];
+      List<String> description = [
+        "please close",
+        "please close",
+        "please close",
+        "please close"
+      ];
+      // 3
+      for (int i = 0; i < longs.length; i++) {
+        // 4
+        String markerId = "$i";
+        markers.add(
+          Marker(
+            markerId: MarkerId(markerId),
+            position: LatLng(lats[i], longs[i]),
+            infoWindow: InfoWindow(title: "Dengue Cluster"),
+            onTap: () {
+              // alertDialog(title[i], numberOfCases[i].toString());
+            },
+          ),
+        );
+      }
+    });
+  }
+
+  void searchNearby(PointSchema loc) async {
+    List<double> longs = [];
+    List<double> lats = [];
+
+    var dt = DateTime.now().toIso8601String();
+    InfectiousDiseaseMap mapNeeded =
+        await FilterController.getFilteredCases("Dengue", loc, dt);
 
     for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
       //only need display midpoint for each cluster
@@ -177,7 +358,7 @@ class mapState extends State<map> {
         continue;
       }
       lats.add(mapNeeded.cluster.clusterList[i].midPoint.getLatitude());
-      longs.add(mapNeeded.cluster.clusterList[i].midPoint.getLongtitude());
+      longs.add(mapNeeded.cluster.clusterList[i].midPoint.getLongitude());
     }
 
     print(longs[0]);

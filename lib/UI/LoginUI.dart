@@ -47,8 +47,10 @@ class _LoginUIState extends State<LoginUI> {
   }
 
   void onSubmit() async {
-    username.text.isEmpty ? _validate = true : _validate = false;
-    password.text.isEmpty ? _validatep = true : _validatep = false;
+    setState(() {
+      username.text.isEmpty ? _validate = true : _validate = false;
+      password.text.isEmpty ? _validatep = true : _validatep = false;
+    });
 
     var res = await LoginController.validateLogin(username.text, password.text);
     if (res == true) {

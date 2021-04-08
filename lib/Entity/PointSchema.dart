@@ -19,10 +19,11 @@ class PointSchema {
     this.latitude = latitude;
   }
 
-  double getLongtitude(){
+  double getLongitude() {
     return longitude;
   }
-  double getLatitude(){
+
+  double getLatitude() {
     return latitude;
   }
 }

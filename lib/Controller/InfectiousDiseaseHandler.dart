@@ -2,7 +2,7 @@ import 'dart:convert';
 import '../Entity/InfectiousDisease.dart';
 import 'NetworkController.dart';
 
-class InfectiousController extends NetworkController {
+class InfectiousDiseaseHandler extends NetworkController {
   @override
   List<InfectiousDisease> parseObjectFormat(String responseBody) {
     // TODO: implement parseObjectFormat
