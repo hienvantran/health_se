@@ -35,7 +35,7 @@ class HealthProfileController {
     if ((BMI < 18.0) && (age < 30)) list.add("Malnutrition");
     if ((gender == "female") && (BMI >= 25) && (BMI <= 27.49))
       list.add("Diabetes");
-    if ((gender == "M") && (BMI >= 27.5) && (BMI <= 29.99))
+    if ((gender == "male") && (BMI >= 27.5) && (BMI <= 29.99))
       list.add("Diabetes");
     if ((BMI > 23.0) && (BMI < 30.0) && gender == "male" && (waist > 84.0))
       list.add("Heart Disease");
