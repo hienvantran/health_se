@@ -113,14 +113,14 @@ class _expensionTileState extends State<expensionTile> {
                                                 amount);
                                             UserProfile user =
                                                 UserInfoController.user;
-                                            setState(() async {
-                                              widget.intakeCal =
-                                                  await DailyFoodController
-                                                      .addRecord(
-                                                          user.getUserID(),
-                                                          amount,
-                                                          widget.foodChoicesList[
-                                                              index]);
+                                            widget.intakeCal =
+                                                await DailyFoodController
+                                                    .addRecord(
+                                                        user.getUserID(),
+                                                        amount,
+                                                        widget.foodChoicesList[
+                                                            index]);
+                                            setState(() {
                                               widget.callback(widget.intakeCal);
                                             });
                                           },
