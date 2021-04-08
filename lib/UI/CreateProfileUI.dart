@@ -80,13 +80,17 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
   }
 
   void onSubmit() async {
-    var res = await RegistrationController.createProfile(
-        email.text, username.text, password.text);
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email.text);
+    bool res = false;
+    if (emailValid)
+      res = await RegistrationController.createProfile(
+          email.text, username.text, password.text);
+    else
+      errorAlertDialog(context);
     setState(
       () {
-        bool emailValid = RegExp(
-                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            .hasMatch(email.text);
         username.text.isEmpty
             ? _validateusername = true
             : _validateusername = false;
@@ -111,7 +115,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
     );
     if (password.text != reconpassword.text)
       passMismatchAlertDialog(context);
-    else if (res != true) errorAlertDialog(context);
+    else if (res != true && emailValid) errorAlertDialog(context);
   }
 //
 //  void onSubmit() async {
