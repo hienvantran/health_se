@@ -18,7 +18,9 @@ class MapHandler extends NetworkController {
   InfectiousDiseaseMap parseOneObject(String responseBody) {
     // TODO: implement parseOneObject
     final parsed = jsonDecode(responseBody);
+    print(parsed);
     InfectiousDiseaseMapList result = InfectiousDiseaseMapList.fromJson(parsed);
+    print(result.mapList[0].cluster.clusterList[0].numberOfCases);
     return result.mapList[0]; //returns the map of the specified date
   }
 }

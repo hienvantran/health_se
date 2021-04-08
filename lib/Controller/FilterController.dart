@@ -11,9 +11,11 @@ class FilterController {
       [int distance = 5000]) async {
     List<PointSchema> midPoints = new List<PointSchema>();
     MapHandler mh = MapHandler();
+    print('/infectiousDisease/' + disease + '/map/' + date);
     InfectiousDiseaseMap mapNeeded =
         await mh //equivalent of calling diseases, and date.
             .getObject('/infectiousDisease/' + disease + '/map/' + date);
+
     for (int i = 0; i < mapNeeded.numberOfClusters; i++) {
       //for each cluster, i will feed this set of cluster in to clusterMidPoints to calculate midPoints
       midPoints.add(getClusterMidPoint(mapNeeded.cluster.clusterList[i]));

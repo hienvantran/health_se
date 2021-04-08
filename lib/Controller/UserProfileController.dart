@@ -30,7 +30,7 @@ class UserProfileController {
   static Future<void> editProfile(Map<String, dynamic> editedInfo) async {
     String userID = UserInfoController.user.getUserID();
     String url = '/userProfile/$userID';
-    final res = await UserProfileHandler().post(url, editedInfo);
+    final res = await UserProfileHandler().put(url, editedInfo);
     print(res);
     if (res == -1)
       return false;

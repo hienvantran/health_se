@@ -24,4 +24,8 @@ class InfectiousDisease {
   String getRisk() {
     return risk;
   }
+
+  String getDiseaseName() {
+    return diseaseName;
+  }
 }
