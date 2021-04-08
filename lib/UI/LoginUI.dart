@@ -151,7 +151,7 @@ class _LoginUIState extends State<LoginUI> {
                         ),
                       ),
                       // ignore: deprecated_member_use
-                      RaisedButton(
+                      FlatButton(
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -159,7 +159,7 @@ class _LoginUIState extends State<LoginUI> {
                                 builder: (context) => CreateProfileUI()),
                           );
                         },
-                        color: Colors.green,
+                        color: Colors.transparent,
                         textColor: Colors.white,
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                         child: Text(
