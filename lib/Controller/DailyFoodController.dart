@@ -66,7 +66,7 @@ class DailyFoodController {
   }
 
   static int calCalorie(int amount, int calPerGram) {
-    return amount * calPerGram;
+    return (amount * calPerGram / 100).toInt();
   }
 
   static int calculateTotalCalorie(List<dynamic> list) {
