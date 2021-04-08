@@ -161,10 +161,7 @@ class _UserInfoState extends State<UserInfo> {
     String height = currUser.getHeight().toString();
     String gender = currUser.getGender();
     String BMI = currUser.getBmi().toStringAsFixed(2).toString();
-    print("The value of BMI is ");
-    print(BMI);
-    print(height);
-    print(weight);
+
     String bodyfat =
         currUser.getBodyFatPercentage().toStringAsFixed(2).toString();
     String ideal = currUser.getIdeal();

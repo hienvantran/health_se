@@ -22,7 +22,8 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
   bool _validater = false;
 
   getItemAndNavigate(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EditProfileUI()));
   }
 
   passMismatchAlertDialog(BuildContext context) {

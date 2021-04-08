@@ -107,6 +107,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
           // height: size.height / 8,
           width: size.width * 0.97,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Image(
                 image: AssetImage(imgPath),
@@ -118,7 +119,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
                   textAlign: TextAlign.center,
                   style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
-              SizedBox(width: 150.0),
+//              SizedBox(width: 70.0),
               GestureDetector(
                 onTap: () {
 //                  Navigator.push(
@@ -129,10 +130,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
 //                                  intakeCalorie, callback)));
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => EditProfileUI(
-                              callback: callback,
-                            )),
+                    MaterialPageRoute(builder: (context) => EditProfileUI()),
                   );
                 },
                 child: Icon(

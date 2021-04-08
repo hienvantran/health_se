@@ -3,29 +3,27 @@ import 'package:health_se/Controller/UserInfoController.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/UI/UserProfileUI.dart';
 import 'package:health_se/Entity/UserProfile.dart';
+import 'mainUI.dart';
 import 'LoginUI.dart';
 
 const PrimaryColor = const Color(0xFF41AA46);
 void main() => runApp(EditProfileUI());
-//typedef void UserCallback(UserProfile val);
 
 class EditProfileUI extends StatefulWidget {
-  Function(UserProfile) callback;
-
-  EditProfileUI({this.callback});
+//  Function(UserProfile) callback;
+//
+//  EditProfileUI({this.callback});
   @override
   _EditProfileUIState createState() => _EditProfileUIState();
 }
 
 class _EditProfileUIState extends State<EditProfileUI> {
   getItemAndNavigate(BuildContext context) {
-//    Navigator.push(
-//      context,
-////      MaterialPageRoute(builder: (context) => UserProfileUI()),
-////        Navigator.of(context).pop();
-//    );
-
-    Navigator.of(context).pop();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyApp()),
+    );
+    //        Navigator.of(context).pop();
   }
 
   void onSubmit() async {
@@ -47,9 +45,9 @@ class _EditProfileUIState extends State<EditProfileUI> {
     };
 
     await UserProfileController.editProfile(editedInfo);
-    setState(() {
-      widget.callback(UserInfoController.user);
-    });
+//    setState(() {
+//      widget.callback(UserInfoController.user);
+//    });
     getItemAndNavigate(context);
   }
 
