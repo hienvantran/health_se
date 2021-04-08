@@ -40,4 +40,20 @@ class HealthDisease {
   String getRecommendedDiet() {
     return recommendedDiet;
   }
+
+  String getSuggestion() {
+    String suggestionText = '';
+    for (int i = 0; i < suggestion.length; i++) {
+      suggestionText = suggestionText + suggestion[i]["suggestion"] + '\n';
+    }
+    return suggestionText;
+  }
+
+  String getMeasures() {
+    String measureText = '';
+    for (int i = 0; i < measure.length; i++) {
+      measureText = measureText + measure[i]["measure"] + '\n';
+    }
+    return measureText;
+  }
 }
