@@ -16,6 +16,9 @@ int age = 19;
 class UserProfileUI extends StatefulWidget {
   @override
   _UserProfileUIState createState() => _UserProfileUIState();
+//  static MyStatefulWidgetState of(BuildContext context) =>
+//      context.findAncestorStateOfType<MyStatefulWidgetState>();
+//}
 }
 
 class _UserProfileUIState extends State<UserProfileUI> {
@@ -40,6 +43,30 @@ class _UserProfileUIState extends State<UserProfileUI> {
     super.initState();
     initData();
   }
+
+  callback(updatedUser) {
+    setState(() {
+      user = updatedUser;
+      gender = user.getGender();
+      name = user.getName();
+      username = user.getUsername();
+      weight = user.getWeight();
+      height = user.getHeight();
+      waist = user.getWaist();
+      age = int.parse(user.getAge());
+      test = [];
+      test.add(name);
+      test.add(gender);
+      test.add(age.toString());
+      test.add(weight.toString());
+      test.add(height.toString());
+      test.add(waist.toString());
+      print("TESTING\n");
+      print(test);
+    });
+  }
+
+//  set updateUser(UserProfile userProfile) => setState(() => user = userProfile);
 
   initData() {
     user = UserInfoController.user;
@@ -94,9 +121,18 @@ class _UserProfileUIState extends State<UserProfileUI> {
               SizedBox(width: 150.0),
               GestureDetector(
                 onTap: () {
+//                  Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                          builder: (BuildContext context) =>
+//                              expensionTile(foodChoicesList,
+//                                  intakeCalorie, callback)));
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EditProfileUI()),
+                    MaterialPageRoute(
+                        builder: (context) => EditProfileUI(
+                              callback: callback,
+                            )),
                   );
                 },
                 child: Icon(
