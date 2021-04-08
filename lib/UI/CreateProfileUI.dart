@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../main.dart';
 import 'LoginUI.dart';
 import 'EditProfileUI.dart';
 import 'package:health_se/Controller/RegistrationController.dart';
@@ -21,8 +22,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
   bool _validater = false;
 
   getItemAndNavigate(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EditProfileUI()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
   }
 
   passMismatchAlertDialog(BuildContext context) {

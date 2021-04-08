@@ -39,6 +39,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
   }
 
   int getDefaultIndex() {
+    print("BMI:\n");
     print(bmi);
     if (bmi <= 18.5) {
       initialTap = 2;
