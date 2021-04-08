@@ -198,7 +198,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                     widget.maintenanceCal,
                                     index == selected),
                                 builder: (context, snapshot) {
-                                  if (snapshot.hasError)
+                                  if (!snapshot.hasData)
                                     return Center(
                                       child: CircularProgressIndicator(),
                                     );
@@ -277,7 +277,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                     widget.maintenanceCal + 500,
                                     index == selected),
                                 builder: (context, snapshot) {
-                                  if (snapshot.hasError)
+                                  if (!snapshot.hasData)
                                     return Center(
                                       child: CircularProgressIndicator(),
                                     );

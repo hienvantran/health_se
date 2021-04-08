@@ -113,6 +113,7 @@ class _expensionTileState extends State<expensionTile> {
                                                 amount);
                                             UserProfile user =
                                                 UserInfoController.user;
+
                                             widget.intakeCal =
                                                 await DailyFoodController
                                                     .addRecord(

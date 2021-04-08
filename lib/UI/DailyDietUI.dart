@@ -62,7 +62,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
     setState(() {
       maintenanceCalorie = user.getMaintenanceCal();
       intakeCalorie =
-          DailyFoodController.calculateTotalCalorie(user.getFoodRecordsList());
+          DailyFoodController.calculateTotalCalorie(user.getTodayRecords());
     });
   }
 
@@ -177,6 +177,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                             primary: Colors.lightGreen[300],
                           ),
                           onPressed: () async {
+                            showAlertDialog(context);
                             await DailyFoodController.resetRecord(userName);
                             setState(() {
                               intakeCalorie = 0;
@@ -280,6 +281,31 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   }
 }
 
+showAlertDialog(BuildContext context) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Reseting food records"),
+    content: Text('Your food records are being reseted'),
+    actions: [
+      okButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 class Future_FoodItem extends StatefulWidget {
   @override
   _Future_FoodItemState createState() => _Future_FoodItemState();
@@ -293,7 +319,7 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
     user = UserInfoController.user;
     UserProfile up =
         await u.getObject('/userprofile/' + user.getUserID().toString());
-    List<dynamic> list = up.getFoodRecordsList();
+    List<dynamic> list = up.getTodayRecords();
     print(list);
     return list;
   }

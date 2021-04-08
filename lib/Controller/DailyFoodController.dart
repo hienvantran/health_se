@@ -42,7 +42,7 @@ class DailyFoodController {
     UserProfileController.updateUser(userName);
 
     UserProfile up = await u.getObject('/userprofile/' + userName);
-    List<dynamic> list = up.getFoodRecordsList();
+    List<dynamic> list = up.getTodayRecords();
     int intakeCal = calculateTotalCalorie(list);
     return intakeCal;
   }
