@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   UserProfileUI user_profile;
- // InfectiousUI infectious_page;
+  // InfectiousUI infectious_page;
   DailyDietUI daily_diet;
   HealthProfileUI health_profile;
   InputLocationUI infectious_page;

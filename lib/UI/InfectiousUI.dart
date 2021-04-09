@@ -105,7 +105,7 @@ class _InfectiousUIState extends State<InfectiousUI> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => FilterUI()));
+                                        builder: (context) => FilterUI(latitude: widget.userLatitude,longitude: widget.userLongitude)));
                               },
                               style: ButtonStyle(),
                               icon: Icon(
@@ -278,7 +278,6 @@ class mapState extends State<map> {
           onPressed: () {
             getLocation();
             searchDefault(_location);
-            // generateRiskReport();
           },
           label: Text('Search Nearby'), // 3
           icon: Icon(Icons.place), // 4
@@ -291,6 +290,8 @@ class mapState extends State<map> {
     PointSchema userLocation = PointSchema();
     // userLocation.setLongitude(loc.longitude);
     // userLocation.setLatitude(loc.latitude);
+    // userLocation.setLongitude(widget.userLongitude);
+    //  userLocation.setLatitude(widget.userLatitude);
     userLocation.setLongitude(103.68022);
     userLocation.setLatitude(1.34621);
     List<double> longs = [];
@@ -301,6 +302,7 @@ class mapState extends State<map> {
     print(userLocation.getLongitude());
     InfectiousDiseaseMap mapNeeded =
         await InfectiousMapController.loadFilteredMap(userLocation); // 2
+    print("Why doesn't it come here?");
     for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
       //only need display midpoint for each cluster
       if (mapNeeded.cluster.clusterList[i] == null) {
