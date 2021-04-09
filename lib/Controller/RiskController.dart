@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/InfectiousDiseaseHandler.dart';
@@ -11,18 +11,23 @@ import 'InfectiousMapController.dart';
 import 'MapHandler.dart';
 
 class RiskController {
-  InfectiousDiseaseHandler idh;
-  PointSchema userLocation;
   //uses getAllRisk to display all the available risk in the database
+  InfectiousDiseaseHandler idh = new InfectiousDiseaseHandler();
+
   Future<List<InfectiousDisease>> getAllRisk(
       double userLatitude, double userLongitude) async {
+    print("it reaches here");
+    PointSchema userLocation = PointSchema();
     userLocation.setLatitude(userLatitude);
     userLocation.setLongitude(userLongitude);
-
+    print("It doesn't reach here");
     List<InfectiousDisease> allList =
         await idh.getListOfObjects("/infectiousDisease");
     for (int i = 0; i < allList.length; i++) {
       riskLevel(allList[i].diseaseName, userLocation);
+      print("Please do work");
+      print(allList[i].diseaseName);
+      print("It works if it comes here");
     }
     return allList;
   }
@@ -33,11 +38,11 @@ class RiskController {
     //date is today's date
     var now = DateTime.now().toIso8601String();
 
-    int casesNearby = await numberOfCases("Dengue", userLocation, now);
+    int casesNearby = await numberOfCases(disease, userLocation, now);
     //since the map shows the nearby cases for the past 14days, just need to concern with distance
-
     InfectiousDisease id = await getDiseaseInfo(disease);
-
+    print(casesNearby);
+    print("debugging");
     if (casesNearby > 5) {
       //high risk
       id.setRisk("High risk");
@@ -48,6 +53,7 @@ class RiskController {
       //cases == 0
       id.setRisk("Low risk");
     }
+    print(id.getRisk());
 
     return id;
   }
@@ -61,12 +67,14 @@ class RiskController {
   //calculate the number of cases in each cluster that is within 5 km of user
   Future<int> numberOfCases(
       String disease, PointSchema userLocation, String date) async {
-    int nearbyCases;
+    int nearbyCases = 0;
     final int distance = 5000;
     MapHandler mh = MapHandler();
+    print("this 123");
+    print('/infectiousDisease/' + disease + '/map/' + date);
     InfectiousDiseaseMap mapNeeded =
-        await mh //equivalent of calling diseases, and date.
-            .getObject('/infectiousDisease/' + disease + '/map/' + date);
+        await mh.getObject('/infectiousDisease/' + disease + '/map/' + date);
+    print("this nvr comes");
 
     for (int i = 0; i < mapNeeded.numberOfClusters; i++) {
       PointSchema temp =

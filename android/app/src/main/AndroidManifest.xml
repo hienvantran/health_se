@@ -4,8 +4,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="health_se"
-        android:icon="@mipmap/ic_launcher">
-        <activity
+        android:icon="@mipmap/ic_launcher"
+       >
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyALEYGT-cFANGs-8BnYcqarG1KGt_x8e04"/>
+
+
+       <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
@@ -13,8 +18,6 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
 
-            <meta-data android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyALEYGT-cFANGs-8BnYcqarG1KGt_x8e04"/>
 
 
             <!-- Specifies an Android theme to apply to this Activity as soon as

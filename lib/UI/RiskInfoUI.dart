@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:health_se/Controller/UserInfoController.dart';
+import 'package:health_se/Entity/InfectiousDisease.dart';
 import 'package:health_se/UI/FilterUI.dart';
 
 void main() => runApp(RiskInfoUI());
@@ -47,47 +49,90 @@ class RiskInfoUI extends StatelessWidget {
           ],
         ),
         body: Container(
-          child: test(),
+          child: riskReport(),
         ),
       ),
     );
   }
 }
 
-class test extends StatefulWidget {
+class riskReport extends StatefulWidget {
+  riskReport({Key key, this.loadList}) : super(key: key);
+  final loadList;
   @override
-  _testState createState() => _testState();
+  _riskReportState createState() => _riskReportState();
 }
 
-class _testState extends State<test> {
-  Position _location = Position(latitude: 0.0, longitude: 0.0);
+class _riskReportState extends State<riskReport> {
+  Widget w;
 
-  void _displayCurrentLocation() async {
-    final location = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    setState(() {
-      _location = location;
-    });
+  @override
+  void initState() {
+    super.initState();
+    if (widget.loadList == true)
+      w = riskList();
+    else
+      w = noRisk();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("${_location.latitude}, ${_location.longitude}"),
-            FlatButton(
-              child: Text("Find Current Location",
-                  style: TextStyle(color: Colors.white)),
-              color: Colors.green,
-              onPressed: () {
-                _displayCurrentLocation();
-              },
-            )
-          ]),
-    ));
+    List<InfectiousDisease> infectiousDiseases =
+        UserInfoController.infectiousDiseases;
+    print("test");
+    print(infectiousDiseases.length);
+    return Scaffold(body: w);
+  }
+}
+
+class noRisk extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(height: 100, child: Text("No location selected yet!"));
+  }
+}
+
+class riskList extends StatefulWidget {
+  @override
+  _riskListState createState() => _riskListState();
+}
+
+class _riskListState extends State<riskList> {
+  List<InfectiousDisease> infectiousDiseases =
+      UserInfoController.infectiousDiseases;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      child: ListView.builder(
+        itemCount: infectiousDiseases.length,
+        itemBuilder: (_, int position) {
+          final item = infectiousDiseases[position];
+          //get your item data here ...
+          return Card(
+            child: ExpansionTile(
+              title: Text("Disease Name: " + item.getDiseaseName()),
+              initiallyExpanded: false,
+              maintainState: false,
+              children: <Widget>[
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    textDirection: TextDirection.ltr,
+                    children: [
+                      //Text("Suggestions: " + item.getSuggestions()[0] + '\n'),
+                      Text("Prevention Measures: " +
+                          item.getMeasures()[0] +
+                          '\n'),
+                      Text("Risk level: " + item.getRisk()),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

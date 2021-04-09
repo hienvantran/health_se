@@ -11,7 +11,6 @@ class FilterController {
       [int distance = 5000]) async {
     List<PointSchema> midPoints = new List<PointSchema>();
     MapHandler mh = MapHandler();
-    print('/infectiousDisease/' + disease + '/map/' + date);
     InfectiousDiseaseMap mapNeeded =
         await mh //equivalent of calling diseases, and date.
             .getObject('/infectiousDisease/' + disease + '/map/' + date);
@@ -29,8 +28,6 @@ class FilterController {
     double sumLong = 0;
 
     int numberOfPoints = cluster.boundaryPoints.pointList.length;
-    print(cluster.boundaryPoints.pointList[1].latitude);
-    print(cluster.boundaryPoints.pointList.length);
     for (int i = 0; i < cluster.boundaryPoints.pointList.length; i++) {
       double temp1 = cluster.boundaryPoints.pointList[i].getLatitude();
       double temp2 = cluster.boundaryPoints.pointList[i].getLongitude();
@@ -54,9 +51,8 @@ class FilterController {
       map1.cluster.clusterList[i].setMidPoint(midPoints[i]);
       var calculatedDistance = SphericalUtil.computeDistanceBetween(
           LatLng(midPoints[i].getLatitude(), midPoints[i].getLongitude()),
-          LatLng(1.32941051118544, 103.887581360714));
-      print("The calculated distance is");
-      print(calculatedDistance);
+          //LatLng(1.32941051118544, 103.887581360714));
+          LatLng(location.getLatitude(), location.getLongitude()));
       if ((calculatedDistance) > distance) {
         //means that i will remove those that are more than filtered distance
         map1.cluster.clusterList[i] = null;
