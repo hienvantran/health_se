@@ -18,9 +18,24 @@ class HealthProfileUI extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                SizedBox(
+                  height: 20.0,
+                ),
                 Container(
                   child: UserInfo(),
                   height: 175.0,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 40.0, top: 20.0),
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    'You are prone to the following diseases:',
+                    style: TextStyle(
+                      fontFamily: 'FjallaOne',
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 Container(
                   child: HealthDiseases(),

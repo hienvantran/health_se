@@ -9,28 +9,31 @@ import 'DailyDietUI.dart';
 import 'package:health_se/main.dart' as Main;
 import 'InputLocationUI.dart';
 
-void main() {
-  runApp(MyApp());
-}
+//void main() {
+//  runApp(MyApp());
+//}
 
-class MyApp extends StatelessWidget {
+//class MyApp extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      theme: ThemeData(
+//        primaryColor: Colors.lightGreen,
+//      ),
+//      home: MyHomePage(),
+//    );
+//  }
+//}
+
+class MyApp extends StatefulWidget {
+  MyApp({Key key, @required this.tab}) : super(key: key);
+  final tab;
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.lightGreen,
-      ),
-      home: MyHomePage(),
-    );
-  }
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _MyAppState extends State<MyApp> {
   UserProfileUI user_profile;
   // InfectiousUI infectious_page;
   DailyDietUI daily_diet;
@@ -56,79 +59,89 @@ class _MyHomePageState extends State<MyHomePage> {
       'Infectious Diseases',
       'User Profile'
     ];
-    currentPage = health_profile;
+
+    currentTab = widget.tab;
+    currentPage = pages[currentTab];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(titles[currentTab]),
-        leading: FlatButton.icon(
-          onPressed: () {
-            setState(() {
-              currentTab = 0;
-              currentPage = health_profile;
-            });
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            size: 20,
-          ),
-          label: Text(""),
-          textColor: Colors.white,
+    return MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.lightGreen,
         ),
-        centerTitle: true,
-        actions: <Widget>[
-          PopupMenuButton(
-              itemBuilder: (BuildContext bc) => [
-                    PopupMenuItem(child: Text("Change password"), value: "/cp"),
-                    PopupMenuItem(
-                        child: Text("Notification management"),
-                        value: "/notif"),
-                    PopupMenuItem(child: Text("Log Out"), value: "/log-out"),
-                  ],
-              onSelected: (String route) {
-                if (route == "/cp") {}
-                if (route == "/notif") {}
-                if (route == "/log-out") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Main.MyApp()));
-                }
-                // Note You must create respective pages for navigation
-              })
-        ],
-      ),
-      body: currentPage,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentTab,
-        onTap: (int index) {
-          setState(() {
-            currentTab = index;
-            currentPage = pages[index];
-          });
-        },
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.accessibility),
-            label: "Health profile",
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(titles[currentTab]),
+            leading: FlatButton.icon(
+              onPressed: () {
+                setState(() {
+                  currentTab = 0;
+                  currentPage = health_profile;
+                });
+              },
+              icon: Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 20,
+              ),
+              label: Text(""),
+              textColor: Colors.white,
+            ),
+            centerTitle: true,
+            actions: <Widget>[
+              PopupMenuButton(
+                  itemBuilder: (BuildContext bc) => [
+                        PopupMenuItem(
+                            child: Text("Change password"), value: "/cp"),
+                        PopupMenuItem(
+                            child: Text("Notification management"),
+                            value: "/notif"),
+                        PopupMenuItem(
+                            child: Text("Log Out"), value: "/log-out"),
+                      ],
+                  onSelected: (String route) {
+                    if (route == "/cp") {}
+                    if (route == "/notif") {}
+                    if (route == "/log-out") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Main.MyApp()));
+                    }
+                    // Note You must create respective pages for navigation
+                  })
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu_rounded),
-            label: "Daily diet",
+          body: currentPage,
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentTab,
+            onTap: (int index) {
+              setState(() {
+                currentTab = index;
+                currentPage = pages[index];
+              });
+            },
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.accessibility),
+                label: "Health profile",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.restaurant_menu_rounded),
+                label: "Daily diet",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.coronavirus_outlined),
+                label: "Infectious",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_box_rounded),
+                label: "User Profile",
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.coronavirus_outlined),
-            label: "Infectious",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box_rounded),
-            label: "User Profile",
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
