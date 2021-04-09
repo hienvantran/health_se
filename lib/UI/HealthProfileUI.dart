@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/HealthProfileController.dart';
+import 'package:health_se/Controller/UserProfileController.dart';
 import '../Controller/HealthProfileHandler.dart';
 import '../Controller/UserInfoController.dart';
 import '../components/expansionTile.dart';
@@ -9,20 +10,28 @@ import '../Entity/HealthDiseases.dart';
 class HealthProfileUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            child: UserInfo(),
-            height: 500.0,
+    Size size = MediaQuery.of(context).size;
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) {
+      return Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: UserInfo(),
+                  height: 175.0,
+                ),
+                Container(
+                  child: HealthDiseases(),
+                  height: 355.0,
+                ),
+              ],
+            ),
           ),
-          Container(
-            child: HealthDiseases(),
-            height: 500.0,
-          ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }
 
@@ -81,7 +90,9 @@ class _HealthDiseasesState extends State<HealthDiseases> {
   initUserDiseases() async {
     print(UserInfoController.user.getName());
     await HealthProfileController.getHealthDiseases();
-    userDiseases = UserInfoController.healthDiseases;
+    setState(() {
+      userDiseases = UserInfoController.healthDiseases;
+    });
   }
 
   @override
@@ -98,8 +109,20 @@ class _HealthDiseasesState extends State<HealthDiseases> {
               initiallyExpanded: false,
               maintainState: false,
               children: <Widget>[
-                Text("Disease type: " + item.getDiseaseType()),
-                Text("Recommended diet: " + item.getRecommendedDiet())
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    textDirection: TextDirection.ltr,
+                    children: [
+                      Text("Disease type: " + item.getDiseaseType() + '\n'),
+                      Text("Recommended diet: " +
+                          item.getRecommendedDiet() +
+                          '\n'),
+                      Text("Suggestions: " + item.getSuggestion()),
+                      Text("Prevention Measures: " + item.getMeasures())
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -115,8 +138,9 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  String userName = "0";
-
+  UserProfile currUser = null;
+  UserProfile user;
+  String imgPath = '';
   @override
   void initState() {
     super.initState();
@@ -127,16 +151,98 @@ class _UserInfoState extends State<UserInfo> {
     UserProfile user = UserInfoController.user;
     print(user.getUserID());
     setState(() {
-      userName = user.getName();
+      currUser = user;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    String weight = currUser.getWeight().toString();
+    String height = currUser.getHeight().toString();
+    String gender = currUser.getGender();
+    String BMI = currUser.getBmi().toStringAsFixed(2).toString();
+
+    String bodyfat =
+        currUser.getBodyFatPercentage().toStringAsFixed(2).toString();
+    String ideal = currUser.getIdeal();
+    String cal = currUser.getMaintenanceCal().toString();
+    imgPath = UserProfileController.returnImagePath(gender);
     return Scaffold(
-        body: Container(
-      child: Text(userName),
-    ));
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 500.0,
+          decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 3,
+              ),
+              color: Colors.lightGreen,
+              borderRadius: BorderRadius.all(Radius.circular(30))),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image(
+                image: AssetImage(imgPath),
+                height: 50.0,
+                width: 50.0,
+              ),
+              SizedBox(width: 20.0),
+              Expanded(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'WEIGHT: ${weight}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'HEIGHT: ${height}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'BMI: ${BMI}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'BODY FAT PERCENTAGE: ${bodyfat}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Ideal Weight Range: ${ideal}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Calories: ${cal}',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

@@ -122,4 +122,14 @@ class UserProfile {
     print(todayRecords.length);
     return todayRecords;
   }
+
+  String getIdeal() {
+    double lowerweight = 18.5 * ((height / 100) * (height / 100));
+    double upperweight = 24.9 * ((height / 100) * (height / 100));
+    String ideal = "" +
+        lowerweight.toStringAsFixed(2).toString() +
+        "-" +
+        upperweight.toStringAsFixed(2).toString();
+    return ideal;
+  }
 }

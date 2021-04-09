@@ -34,7 +34,7 @@ abstract class NetworkController {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      return response.statusCode;
+      return -1;
     }
   }
 
