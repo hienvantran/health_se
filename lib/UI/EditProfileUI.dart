@@ -21,7 +21,7 @@ class _EditProfileUIState extends State<EditProfileUI> {
   getItemAndNavigate(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyApp()),
+      MaterialPageRoute(builder: (context) => MyApp(tab: 3)),
     );
     //        Navigator.of(context).pop();
   }

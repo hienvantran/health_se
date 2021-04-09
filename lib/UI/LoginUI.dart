@@ -19,7 +19,8 @@ class _LoginUIState extends State<LoginUI> {
   bool _validatep = false;
 
   getItemAndNavigate(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyApp(tab: 0)));
   }
 
   showAlertDialog(BuildContext context) {
