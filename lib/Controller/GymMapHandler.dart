@@ -13,8 +13,6 @@ class GymMapHandler extends NetworkController {
   GymMap parseOneObject(String responseBody) {
     // TODO: implement parseOneObject
     final parsed = jsonDecode(responseBody);
-    GymMap gymMap = GymMap.fromJson(parsed);
-    print(gymMap.pointList[0].operatingHour);
-    return gymMap;
+    return GymMap.fromJson(parsed);
   }
 }

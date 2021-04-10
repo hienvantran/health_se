@@ -20,6 +20,7 @@ import 'package:health_se/UI/RiskInfoUI.dart';
 import 'package:health_se/Entity/InfectiousDisease.dart';
 import 'package:health_se/UI/mainUI.dart';
 import 'package:health_se/Controller/GymMapController.dart';
+import 'package:maps_toolkit/maps_toolkit.dart' as maps_toolkit;
 
 class ExpansionGymMap extends StatelessWidget {
   @override
@@ -102,7 +103,7 @@ class mapState extends State<map> {
         child: FloatingActionButton.extended(
           onPressed: () async {
             await getLocation();
-            //searchFiltered(_location);
+            searchFiltered(_location);
           },
           label: Text('Search Nearby'), // 3
           icon: Icon(Icons.place), // 4
@@ -147,7 +148,7 @@ class mapState extends State<map> {
               markerId: MarkerId(markerId),
               position: LatLng(
                   userLocation.getLatitude(), userLocation.getLongitude()),
-              infoWindow: InfoWindow(title: "Users location"),
+              infoWindow: InfoWindow(title: "Default user location"),
             ),
           );
         } else {
@@ -168,68 +169,70 @@ class mapState extends State<map> {
     });
   }
 
-  // void searchFiltered(Position loc){
-  //   PointSchema userLocation = PointSchema();
-  //   // userLocation.setLongitude(loc.longitude);
-  //   // userLocation.setLatitude(loc.latitude);
-  //   // userLocation.setLongitude(widget.userLongitude);
-  //   //  userLocation.setLatitude(widget.userLatitude);
-  //   userLocation.setLongitude(103.68022);
-  //   userLocation.setLatitude(1.34621);
-  //   List<double> longs = [];
-  //   List<double> lats = [];
-  //   List<int> numberOfCases = [];
-  //   // List<String> title = [];
-  //   print(userLocation.getLatitude());
-  //   print(userLocation.getLongitude());
-  //   GymMap mapNeeded =
-  //       await InfectiousMapController.loadFilteredMap(userLocation); // 2
-  //   print("Why doesn't it come here?");
-  //   for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
-  //     //only need display midpoint for each cluster
-  //     if (mapNeeded.cluster.clusterList[i] == null) {
-  //       print("the value of i when it comes here is");
-  //       continue;
-  //     }
-  //     lats.add(mapNeeded.cluster.clusterList[i].midPoint.getLatitude());
-  //     longs.add(mapNeeded.cluster.clusterList[i].midPoint.getLongitude());
-  //     numberOfCases.add(mapNeeded.cluster.clusterList[i].numberOfCases);
-  //   }
-  //
-  //   setState(() {
-  //     markers.clear();
-  //   });
-  //   setState(() {
-  //     for (int i = 0; i < longs.length; i++) {
-  //       String markerId = "$i";
-  //       if (i == 0) {
-  //         markers.add(
-  //           Marker(
-  //             markerId: MarkerId("50"),
-  //             position: LatLng(
-  //                 userLocation.getLatitude(), userLocation.getLongitude()),
-  //             infoWindow: InfoWindow(title: "Users location"),
-  //             onTap: () {
-  //               alertDialog(
-  //                   "The number of Dengue Cases", numberOfCases[i].toString());
-  //             },
-  //           ),
-  //         );
-  //       }
-  //       markers.add(
-  //         Marker(
-  //           markerId: MarkerId(markerId),
-  //           position: LatLng(lats[i], longs[i]),
-  //           infoWindow: InfoWindow(title: "Dengue Cluster"),
-  //           onTap: () {
-  //             alertDialog(
-  //                 "The number of Dengue Cases", numberOfCases[i].toString());
-  //           },
-  //         ),
-  //       );
-  //     }
-  //   });
-  // }
+  void searchFiltered(Position loc) async {
+    PointSchema userLocation = PointSchema();
+    // userLocation.setLongitude(loc.longitude);
+    // userLocation.setLatitude(loc.latitude);
+    // userLocation.setLongitude(widget.userLongitude);
+    //  userLocation.setLatitude(widget.userLatitude);
+    userLocation.setLongitude(103.68022);
+    userLocation.setLatitude(1.34621);
+    List<double> longs = [];
+    List<double> lats = [];
+    List<String> openingHours = [];
+    List<String> names = [];
+    print(userLocation.getLatitude());
+    print(userLocation.getLongitude());
+    GymMap mapNeeded = await GymMapController.loadMap();
+
+    print("Why doesn't it come here?");
+    for (int i = 0; i < mapNeeded.pointList.length; i++) {
+      var calculatedDistance =
+          maps_toolkit.SphericalUtil.computeDistanceBetween(
+              maps_toolkit.LatLng(mapNeeded.pointList[i].getLatitude(),
+                  mapNeeded.pointList[i].getLongitude()),
+              maps_toolkit.LatLng(
+                  userLocation.getLatitude(), userLocation.getLongitude()));
+      if (calculatedDistance <= 5000) {
+        lats.add(mapNeeded.pointList[i].getLatitude());
+        longs.add(mapNeeded.pointList[i].getLongitude());
+        openingHours.add(mapNeeded.pointList[i].getOperatingHour());
+        names.add(mapNeeded.pointList[i].getName());
+      }
+    }
+
+    setState(() {
+      markers.clear();
+    });
+    setState(() {
+      for (int i = 0; i <= longs.length; i++) {
+        String markerId = "$i";
+        if (i == longs.length) {
+          markers.add(
+            Marker(
+              markerId: MarkerId(markerId),
+              position: LatLng(
+                  userLocation.getLatitude(), userLocation.getLongitude()),
+              infoWindow: InfoWindow(title: "Users location"),
+            ),
+          );
+        } else {
+          String name = names[i];
+          String openingHour = openingHours[i];
+          markers.add(
+            Marker(
+              markerId: MarkerId(markerId),
+              position: LatLng(lats[i], longs[i]),
+              infoWindow: InfoWindow(title: "$name"),
+              onTap: () {
+                alertDialog("Opening hours: ", openingHour);
+              },
+            ),
+          );
+        }
+      }
+    });
+  }
 
   Future<void> alertDialog(String title, String description) async {
     return showDialog<void>(

@@ -15,4 +15,10 @@ class GymMapController {
         GymMapHandler().getObject('/suggestedExercise/gym/map');
     return mapNeeded;
   }
+
+  static Future<dynamic> loadFilteredMap(PointSchema location) async {
+    Future<dynamic> mapNeeded =
+        await GymMapHandler().getObject('/suggestedExercise/gym/map');
+    return mapNeeded;
+  }
 }
