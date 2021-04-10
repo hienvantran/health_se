@@ -1,13 +1,14 @@
 import 'GymPoints.dart';
 
 class GymMap {
-  final GymPoints pointList;
+  final List<GymPoints> pointList;
   GymMap({this.pointList});
 
-  factory GymMap.fromJson(Map<String, dynamic> json) {
-    GymPoints pList = GymPoints.fromJson(json);
-    return GymMap(
-      pointList: pList,
+  factory GymMap.fromJson(List<dynamic> parsedJson) {
+    List<GymPoints> points = <GymPoints>[];
+    points = parsedJson.map((i) => GymPoints.fromJson(i)).toList();
+    return new GymMap(
+      pointList: points,
     );
   }
 }

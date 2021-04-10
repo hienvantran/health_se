@@ -10,6 +10,7 @@ import 'package:health_se/UI/DietPlanDisplay.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/Controller/SuggestedExerciseController.dart';
 import 'package:health_se/Controller/UserInfoController.dart';
+import 'package:health_se/UI/GymUI.dart';
 
 void main() => runApp(DailyDietUI());
 
