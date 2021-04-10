@@ -10,9 +10,9 @@ import 'package:health_se/Controller/GymMapHandler.dart';
 class GymMapController {
   //get the midpoint of the clusters
 
-  static Future<GymMap> loadMap() async {
-    Future<GymMap> mapNeeded =
-        await GymMapHandler().getObject('/suggestedExercise/gym/map');
+  static Future<dynamic> loadMap() async {
+    Future<dynamic> mapNeeded =
+        GymMapHandler().getObject('/suggestedExercise/gym/map');
     return mapNeeded;
   }
 }

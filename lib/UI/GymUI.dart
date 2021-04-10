@@ -40,9 +40,7 @@ class ExpansionGymMap extends StatelessWidget {
 }
 
 class map extends StatefulWidget {
-  double userLongitude;
-  double userLatitude;
-  map({Key key, this.userLongitude, this.userLatitude}) : super(key: key);
+  map({Key key}) : super(key: key);
 
   @override
   mapState createState() => mapState();
@@ -68,11 +66,29 @@ class mapState extends State<map> {
   @override
   void initState() {
     super.initState();
-    searchDefault();
+    setState(() {
+      searchDefault();
+    });
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: FlatButton.icon(
+          onPressed: () {
+            setState(() {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyApp(tab: 1)));
+            });
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            size: 20,
+          ),
+          label: Text(""),
+          textColor: Colors.white,
+        ),
+      ),
       body: GoogleMap(
         initialCameraPosition: _myLocation,
         mapType: MapType.normal,

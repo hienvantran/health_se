@@ -244,34 +244,33 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                         ),
                       );
                   }),
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: <Widget>[
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: <Widget>[
-              //         ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //               primary: Colors.lightGreen[300]),
-              //           onPressed: () {
-              //             Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (BuildContext context) =>
-              //                         ExpansionGymMap()));
-              //           },
-              //           child: Row(
-              //             children: <Widget>[
-              //               Icon(Icons.map),
-              //               Text('View Nearby Gyms'),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.lightGreen[300]),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => map()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.map),
+                            Text('View Gyms'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
 //              Future(),
             ],
           ),
