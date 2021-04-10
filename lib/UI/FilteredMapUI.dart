@@ -7,6 +7,7 @@ import 'package:health_se/Controller/FilterController.dart';
 import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 import 'package:health_se/Entity/PointSchema.dart';
+import 'package:health_se/UI/mainUI.dart';
 
 import 'FilterUI.dart';
 
@@ -37,11 +38,28 @@ class _FilteredMapUIState extends State<FilteredMapUI> {
 
   static final CameraPosition _myLocation = CameraPosition(
     target: LatLng(1.32941051118544, 103.887581360714),
+    zoom: 7,
   );
   List<Marker> markers = <Marker>[];
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Filtered map"),
+        leading: FlatButton.icon(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyApp(tab: 2)));
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            size: 20,
+          ),
+          label: Text(""),
+          textColor: Colors.white,
+        ),
+        centerTitle: true,
+      ),
       body: GoogleMap(
         initialCameraPosition: _myLocation,
         mapType: MapType.normal,

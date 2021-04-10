@@ -65,7 +65,7 @@ class _LoginUIState extends State<LoginUI> {
     return MaterialApp(
       home: Builder(
         builder: (context) => Scaffold(
-            backgroundColor: Color(0xFF3F7867),
+            backgroundColor: Color(0xFF479055),
             body: SingleChildScrollView(
               reverse: true,
               child: new Column(

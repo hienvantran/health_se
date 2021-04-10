@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       home: new Scaffold(
         body: SizedBox.expand(
           child: Container(
-              color: Color(0xFF2B6B54),
+              color: Color(0xFF479055),
               child: Image(
                 image: AssetImage('images/logo.png'),
                 height: 100.0,

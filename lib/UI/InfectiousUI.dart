@@ -18,6 +18,7 @@ import 'package:health_se/Entity/PointSchema.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:health_se/UI/RiskInfoUI.dart';
 import 'package:health_se/Entity/InfectiousDisease.dart';
+import 'package:health_se/UI/mainUI.dart';
 
 class InfectiousUI extends StatefulWidget {
   double userLongitude;
@@ -52,7 +53,7 @@ class _InfectiousUIState extends State<InfectiousUI> {
           leading: FlatButton.icon(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InputLocationUI()));
+                  MaterialPageRoute(builder: (context) => MyApp(tab: 2)));
             },
             icon: Icon(
               Icons.arrow_back_ios_rounded,
@@ -83,7 +84,7 @@ class _InfectiousUIState extends State<InfectiousUI> {
         ),
         body: SafeArea(
           child: Container(
-            height: 600,
+            //height: 600,
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -105,7 +106,9 @@ class _InfectiousUIState extends State<InfectiousUI> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => FilterUI(latitude: widget.userLatitude,longitude: widget.userLongitude)));
+                                        builder: (context) => FilterUI(
+                                            latitude: widget.userLatitude,
+                                            longitude: widget.userLongitude)));
                               },
                               style: ButtonStyle(),
                               icon: Icon(
@@ -257,9 +260,8 @@ class mapState extends State<map> {
   }
 
 // 2
-  static final CameraPosition _myLocation = CameraPosition(
-    target: LatLng(1.32941051118544, 103.887581360714),
-  );
+  static final CameraPosition _myLocation =
+      CameraPosition(target: LatLng(1.34621, 103.68022), zoom: 8.5);
   List<Marker> markers = <Marker>[];
 
   Widget build(BuildContext context) {
@@ -273,7 +275,7 @@ class mapState extends State<map> {
         markers: Set<Marker>.of(markers),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 270.0, left: 250.0),
+        padding: const EdgeInsets.only(bottom: 150.0, left: 250.0),
         child: FloatingActionButton.extended(
           onPressed: () {
             getLocation();
@@ -328,8 +330,8 @@ class mapState extends State<map> {
                   userLocation.getLatitude(), userLocation.getLongitude()),
               infoWindow: InfoWindow(title: "Users location"),
               onTap: () {
-                alertDialog(
-                    "The number of Dengue Cases", numberOfCases[i].toString());
+                alertDialog("User Location", "");
+                // "The number of Dengue Cases", numberOfCases[i].toString());
               },
             ),
           );
@@ -431,6 +433,7 @@ class _riskReportState extends State<riskReport> {
 
   List<InfectiousDisease> infectiousDiseases = <InfectiousDisease>[];
   List<Color> colors = <Color>[Colors.green, Colors.green];
+  List<String> sugs = <String>[];
 
   void initDiseases() async {
     RiskController rc = new RiskController();
@@ -438,15 +441,23 @@ class _riskReportState extends State<riskReport> {
         await rc.getAllRisk(widget.userLatitude, widget.userLongitude);
     setState(() {
       infectiousDiseases = x;
-      String test = infectiousDiseases[0].suggestions.slist[0].suggestion;
-      print("the value of test will be");
-      print(test);
+      print(infectiousDiseases[0].suggestions.slist.length);
+      for (int j = 0; j < 2; j++) {
+        String suggestions = "";
+        for (int i = 0;
+            i < infectiousDiseases[j].suggestions.slist.length;
+            i++) {
+          String test = infectiousDiseases[j].suggestions.slist[i].suggestion;
+          int k = i + 1;
+          suggestions = suggestions + "\n$k." + test + '\n';
+        }
+        sugs.add(suggestions);
+      }
+
       print(infectiousDiseases[0].getRisk());
       for (int i = 0; i < infectiousDiseases.length; i++) {
-        if (infectiousDiseases[i].getRisk() == "Low risk")
+        if (infectiousDiseases[i].getDiseaseName() == "Zika")
           colors[i] = Colors.green;
-        else if (infectiousDiseases[i].getRisk() == "Medium risk")
-          colors[i] = Colors.yellow;
         else
           colors[i] = Colors.red;
       }
@@ -456,7 +467,7 @@ class _riskReportState extends State<riskReport> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 300,
       child: ListView.builder(
         itemCount: infectiousDiseases.length,
         itemBuilder: (_, int position) {
@@ -474,11 +485,11 @@ class _riskReportState extends State<riskReport> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     textDirection: TextDirection.ltr,
                     children: [
-                      // Text("Suggestions: " + item.getSuggestions()[0] + '\n'),
+                      Text("Suggestions: " + sugs[position] + '\n'),
                       //  Text("Prevention Measures: " +
                       //      item.getMeasures()[0] +
                       //      '\n'),
-                      // Text(item.getRisk()),
+                      //Text(item.getRisk()),
                     ],
                   ),
                 ),

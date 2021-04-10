@@ -190,9 +190,9 @@ class _UserInfoState extends State<UserInfo> {
           decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.black,
-                width: 3,
+                width: 2,
               ),
-              color: Colors.lightGreen,
+              color: Color(0xFF479055),
               borderRadius: BorderRadius.all(Radius.circular(30))),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

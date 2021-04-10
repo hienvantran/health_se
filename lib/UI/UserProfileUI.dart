@@ -102,7 +102,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
         Container(
           margin: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
-              color: Colors.lightGreen,
+              color: Color(0xFF479055),
               borderRadius: BorderRadius.all(Radius.circular(30))),
           // height: size.height / 8,
           width: size.width,
@@ -142,13 +142,13 @@ class _UserProfileUIState extends State<UserProfileUI> {
         ),
         SizedBox(height: 50.0),
         Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black,
-              width: 8,
-            ),
-            gradient: LinearGradient(colors: [Colors.blueAccent, Colors.black]),
-          ),
+          // decoration: BoxDecoration(
+          //   border: Border.all(
+          //     //color: Colors.black,
+          //     width: 8,
+          //   ),
+          //   //gradient: LinearGradient(colors: [Colors.blueAccent, Colors.black]),
+          // ),
           height: 420,
           child: ListView.separated(
             padding: const EdgeInsets.all(8),
@@ -158,7 +158,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: Colors.green,
+                    color: Color(0xFF479055),
                   ),
                   child: Center(
                       child: Text('${attributes[i]} ${test[i]}',

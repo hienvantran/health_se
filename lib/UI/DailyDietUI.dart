@@ -82,7 +82,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
           child: Column(
             children: <Widget>[
               Card(
-                color: Colors.lightGreen,
+                color: Color(0xFF479055),
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -155,7 +155,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                       children: <Widget>[
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.lightGreen[300],
+                            primary: Color(0xFF479055),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -174,7 +174,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.lightGreen[300],
+                            primary: Color(0xFF479055),
                           ),
                           onPressed: () async {
                             showAlertDialog(context);
@@ -243,34 +243,34 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                         ),
                       );
                   }),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.lightGreen[300]),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      ExpansionGymMap()));
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.map),
-                            Text('View Nearby Gyms'),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: <Widget>[
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: <Widget>[
+              //         ElevatedButton(
+              //           style: ElevatedButton.styleFrom(
+              //               primary: Colors.lightGreen[300]),
+              //           onPressed: () {
+              //             Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                     builder: (BuildContext context) =>
+              //                         ExpansionGymMap()));
+              //           },
+              //           child: Row(
+              //             children: <Widget>[
+              //               Icon(Icons.map),
+              //               Text('View Nearby Gyms'),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ],
+              // ),
 //              Future(),
             ],
           ),

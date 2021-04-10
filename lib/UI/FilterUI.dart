@@ -60,8 +60,8 @@ class _FilterUIState extends State<FilterUI> {
             backgroundColor: Colors.green,
             leading: FlatButton.icon(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => MyApp()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyApp(tab: 2)));
               },
               icon: Icon(
                 Icons.arrow_back_ios_rounded,

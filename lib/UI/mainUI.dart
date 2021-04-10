@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
     titles = [
       'Health Profile',
       'Daily Diet',
-      'Infectious Diseases',
+      'Input user location',
       'User Profile'
     ];
 
@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.lightGreen,
+          primaryColor: Color(0xFF479055),
         ),
         home: Scaffold(
           appBar: AppBar(
