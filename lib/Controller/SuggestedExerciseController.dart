@@ -12,7 +12,7 @@ class SuggestedExerciseController {
     int surplus = intakeCal - maintenanceCal;
 
     if (surplus <= 0) {
-      return "Your daily calorie intake is LESS than your maintenance Calorie.\nExercise info will not be displayed";
+      return "Your calorie intake for today is LESS than your maintenance calories.\n\nExercise info will not be displayed\n";
     }
     List<SuggestedExercise> list = await getAllExercises();
     for (int i = 0; i < list.length; i++) {

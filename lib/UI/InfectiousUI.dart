@@ -28,16 +28,6 @@ class _InfectiousUIState extends State<InfectiousUI> {
   Address location = Address();
   Position locationFromInput = new Position(latitude: 0, longitude: 0);
 
-  getLocationFromInput() async {
-    var addresses =
-        await Geocoder.local.findAddressesFromQuery(inputLocation.text);
-    var address = addresses.first;
-    setState(() {
-      location = address;
-    });
-    print(location);
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -104,7 +94,10 @@ class _InfectiousUIState extends State<InfectiousUI> {
                                             latitude: widget.userLatitude,
                                             longitude: widget.userLongitude)));
                               },
-                              style: ButtonStyle(),
+                              style: ElevatedButton.styleFrom(
+                                primary: Color(0xFF479055), // background
+                                onPrimary: Colors.white, // foreground
+                              ),
                               icon: Icon(
                                 Icons.filter_alt_rounded,
                                 size: 20,
@@ -114,6 +107,22 @@ class _InfectiousUIState extends State<InfectiousUI> {
                           ),
                         ],
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Container(
+                      color: Colors.grey[200],
+                      height: size.height * 0.05,
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Text("Displaying Dengue cases on map"),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -152,7 +161,8 @@ class map extends StatefulWidget {
 class mapState extends State<map> {
   Position _location = Position(latitude: 0.0, longitude: 0.0);
   List<InfectiousDisease> allDiseases = <InfectiousDisease>[];
-  bool load;
+  Completer<GoogleMapController> _controller = Completer();
+  List<Marker> markers = <Marker>[];
 
   getLocation() async {
     final location = await Geolocator()
@@ -169,22 +179,20 @@ class mapState extends State<map> {
     setState(() {
       allDiseases = dis;
       UserInfoController.infectiousDiseases = allDiseases;
-      load = true;
     });
   }
-
-  Completer<GoogleMapController> _controller = Completer();
 
   @override
   void initState() {
     super.initState();
-    // initLocation();
+    Position loc = new Position(
+        longitude: widget.userLongitude, latitude: widget.userLatitude);
+    searchDefault(loc);
   }
 
 // 2
   static final CameraPosition _myLocation =
       CameraPosition(target: LatLng(1.34621, 103.68022), zoom: 8.5);
-  List<Marker> markers = <Marker>[];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -197,12 +205,13 @@ class mapState extends State<map> {
         markers: Set<Marker>.of(markers),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 150.0, left: 250.0),
+        padding: const EdgeInsets.only(bottom: 520.0, left: 80.0),
         child: FloatingActionButton.extended(
-          onPressed: () {
-            getLocation();
+          onPressed: () async {
+            await getLocation();
             searchDefault(_location);
           },
+          backgroundColor: Color(0xFF479055),
           label: Text('Search Nearby'), // 3
           icon: Icon(Icons.place), // 4
         ),
@@ -212,8 +221,8 @@ class mapState extends State<map> {
 
   void searchDefault(Position loc) async {
     PointSchema userLocation = PointSchema();
-    userLocation.setLongitude(103.68022);
-    userLocation.setLatitude(1.34621);
+    userLocation.setLongitude(loc.longitude);
+    userLocation.setLatitude(loc.latitude);
     List<double> longs = [];
     List<double> lats = [];
     List<int> numberOfCases = [];
@@ -246,7 +255,6 @@ class mapState extends State<map> {
               infoWindow: InfoWindow(title: "Users location"),
               onTap: () {
                 alertDialog("User Location", "");
-                // "The number of Dengue Cases", numberOfCases[i].toString());
               },
             ),
           );
@@ -264,49 +272,6 @@ class mapState extends State<map> {
         );
       }
     });
-  }
-
-  void searchNearby(PointSchema loc) async {
-    List<double> longs = [];
-    List<double> lats = [];
-    List<int> numberOfCases = [];
-
-    var dt = DateTime.now().toIso8601String();
-    InfectiousDiseaseMap mapNeeded =
-        await FilterController.getFilteredCases("Dengue", loc, dt);
-
-    for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
-      //only need display midpoint for each cluster
-      if (mapNeeded.cluster.clusterList[i] == null) {
-        print("does it come here? ");
-        continue;
-      }
-      lats.add(mapNeeded.cluster.clusterList[i].midPoint.getLatitude());
-      longs.add(mapNeeded.cluster.clusterList[i].midPoint.getLongitude());
-      numberOfCases.add(mapNeeded.cluster.clusterList[i].numberOfCases);
-    }
-
-    setState(() {
-      markers.clear();
-    });
-    setState(
-      () {
-        for (int i = 0; i < longs.length; i++) {
-          String markerId = "$i";
-          markers.add(
-            Marker(
-              markerId: MarkerId(markerId),
-              position: LatLng(lats[i], longs[i]),
-              infoWindow: InfoWindow(title: "test"),
-              onTap: () {
-                // alertDialog(
-                //     "The number of Dengue Cases", numberOfCases[i].toString());
-              },
-            ),
-          );
-        }
-      },
-    );
   }
 
   Future<void> alertDialog(String title, String description) async {
@@ -358,7 +323,7 @@ class _riskReportState extends State<riskReport> {
       infectiousDiseases = x;
       print(infectiousDiseases[0].suggestions.slist.length);
       for (int j = 0; j < 2; j++) {
-        String suggestions = "";
+        String suggestions = "\n";
         for (int i = 0;
             i < infectiousDiseases[j].suggestions.slist.length;
             i++) {
@@ -372,7 +337,7 @@ class _riskReportState extends State<riskReport> {
       print(infectiousDiseases[0].getRisk());
       for (int i = 0; i < infectiousDiseases.length; i++) {
         if (infectiousDiseases[i].getDiseaseName() == "Zika")
-          colors[i] = Colors.green;
+          colors[i] = Colors.lightGreen;
         else
           colors[i] = Colors.red;
       }
@@ -389,13 +354,14 @@ class _riskReportState extends State<riskReport> {
           final item = infectiousDiseases[position];
           //get your item data here ...
           return Card(
+            color: colors[position],
             child: ExpansionTile(
               title: Text("Disease Name: " + item.getDiseaseName()),
               initiallyExpanded: false,
               maintainState: false,
               children: <Widget>[
                 Container(
-                  color: colors[position],
+                  color: Colors.white,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     textDirection: TextDirection.ltr,

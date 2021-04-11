@@ -90,20 +90,26 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'INTAKE',
-                          style: TextStyle(
-                            fontFamily: 'FjallaOne',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: Text(
+                            'INTAKE',
+                            style: TextStyle(
+                              fontFamily: 'FjallaOne',
+                              fontSize: 25.0,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                        Text(
-                          intakeCalorie.toString(),
-                          style: TextStyle(
-                            fontFamily: 'FjallaOne',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            intakeCalorie.toString(),
+                            style: TextStyle(
+                              fontFamily: 'FjallaOne',
+                              fontSize: 25.0,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],
@@ -111,20 +117,23 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'TARGET',
-                          style: TextStyle(
-                            fontFamily: 'FjallaOne',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Text(
+                            'TARGET',
+                            style: TextStyle(
+                              fontFamily: 'FjallaOne',
+                              fontSize: 25.0,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         Text(
                           maintenanceCalorie.toString(),
                           style: TextStyle(
                             fontFamily: 'FjallaOne',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0,
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -144,12 +153,13 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
               Future_FoodItem(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 40.0),
+                    margin: EdgeInsets.symmetric(horizontal: 60.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -192,6 +202,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                   ),
                 ],
               ),
+              SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.only(left: 40.0, top: 20.0),
                 alignment: Alignment.bottomLeft,
@@ -204,7 +215,9 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                   ),
                 ),
               ),
+              SizedBox(height: 12),
               DietPlanDisplay(maintenanceCalorie),
+              SizedBox(height: 20),
               Container(
                 padding: EdgeInsets.only(left: 40.0, top: 20.0),
                 alignment: Alignment.bottomLeft,
@@ -231,8 +244,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                           '${snapshot.data}',
                           style: TextStyle(
                             fontSize: 15.0,
-                            color: Color(0xFF09216B),
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
                       );
@@ -246,7 +258,7 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                     children: <Widget>[
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.lightGreen[300]),
+                            primary: Color(0xFF479055)),
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -342,7 +354,8 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
                       child: ListTile(
                         title: Text(item['foodCategory'] +
                             ": " +
-                            item['foodAmount'].toString()),
+                            item['foodAmount'].toString() +
+                            " kcal"),
                       ),
                     );
                   },

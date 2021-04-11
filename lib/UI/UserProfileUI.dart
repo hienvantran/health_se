@@ -7,11 +7,6 @@ import 'package:health_se/UI/EditProfileUI.dart';
 
 const PrimaryColor = const Color(0xFF4CAF50);
 
-String gender = 'M';
-String name = 'Sanath';
-double weight = 85, height = 185, waist = 36;
-int age = 19;
-
 class UserProfileUI extends StatefulWidget {
   @override
   _UserProfileUIState createState() => _UserProfileUIState();
@@ -91,6 +86,8 @@ class _UserProfileUIState extends State<UserProfileUI> {
             child: SingleChildScrollView(
       child: Column(children: <Widget>[
         Container(
+          height: size.height * 0.1,
+
           margin: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
               color: Color(0xFF479055),
@@ -102,13 +99,15 @@ class _UserProfileUIState extends State<UserProfileUI> {
             children: <Widget>[
               Image(
                 image: AssetImage(imgPath),
-                height: size.height * 0.1,
-                width: size.width * 0.2,
+                height: size.height * 0.08,
+                width: size.width * 0.19,
               ),
               Text(name,
                   textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      color: Colors.white)),
 //              SizedBox(width: 70.0),
               GestureDetector(
                 onTap: () {
@@ -120,6 +119,7 @@ class _UserProfileUIState extends State<UserProfileUI> {
                 child: Icon(
                   Icons.edit_sharp,
                   size: 35.0,
+                  color: Colors.white,
                 ),
               )
             ],
@@ -141,10 +141,10 @@ class _UserProfileUIState extends State<UserProfileUI> {
                   child: Center(
                       child: Text('${attributes[i]} ${test[i]}',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0,
-                            fontFamily: 'FjallaOne',
-                          ))));
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                              fontFamily: 'FjallaOne',
+                              color: Colors.white))));
             },
             separatorBuilder: (BuildContext context, int i) => const Divider(),
           ),

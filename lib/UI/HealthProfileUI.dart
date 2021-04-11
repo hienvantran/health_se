@@ -21,10 +21,10 @@ class HealthProfileUI extends StatelessWidget {
                 ),
                 Container(
                   child: UserInfo(),
-                  height: 175.0,
+                  height: 220.0,
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 40.0, top: 20.0),
+                  padding: EdgeInsets.only(left: 30.0, top: 20.0),
                   alignment: Alignment.bottomLeft,
                   child: Text(
                     'You are prone to the following diseases:',
@@ -132,6 +132,7 @@ class _UserInfoState extends State<UserInfo> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     String weight = currUser.getWeight().toString();
     String height = currUser.getHeight().toString();
     String gender = currUser.getGender();
@@ -147,70 +148,89 @@ class _UserInfoState extends State<UserInfo> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: 500.0,
+          height: 600,
           decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-                width: 2,
-              ),
               color: Color(0xFF479055),
               borderRadius: BorderRadius.all(Radius.circular(30))),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image(
-                image: AssetImage(imgPath),
-                height: 50.0,
-                width: 50.0,
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Image(
+                  image: AssetImage(imgPath),
+                  height: 50.0,
+                  width: 50.0,
+                ),
               ),
               SizedBox(width: 20.0),
-              Expanded(
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        'WEIGHT: ${weight}',
+              Container(
+                height: 600,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
+                        'Weight: ${weight} kg',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 20.0,
+                            //   fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                      Text(
-                        'HEIGHT: ${height}',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
+                        'Height: ${height} cm',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 20.0,
+                            //  fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                      Text(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
                         'BMI: ${BMI}',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 20.0,
+                            //  fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                      Text(
-                        'BODY FAT PERCENTAGE: ${bodyfat}',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
+                        'Body fat: ${bodyfat}%',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 20.0,
+                            //    fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                      Text(
-                        'Ideal Weight Range: ${ideal}',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
+                        'Ideal Weight: ${ideal} kg',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 20.0,
+                            //   fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                      Text(
-                        'Calories: ${cal}',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Text(
+                        'Calories: ${cal} kcal',
                         style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 20.0,
+                            //  fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               )
             ],

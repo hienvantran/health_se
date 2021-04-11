@@ -32,6 +32,8 @@ class Data {
 
 class _FilterUIState extends State<FilterUI> {
   DateTime selectedDate = DateTime.now();
+  String prefix = "Current Date: ";
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime pickedDate = await showDatePicker(
         context: context,
@@ -40,6 +42,7 @@ class _FilterUIState extends State<FilterUI> {
         lastDate: DateTime(2050));
     if (pickedDate != null && pickedDate != selectedDate)
       setState(() {
+        prefix = "Selected Date: ";
         selectedDate = pickedDate;
       });
   }
@@ -51,157 +54,205 @@ class _FilterUIState extends State<FilterUI> {
     return MaterialApp(
         home: Builder(
       builder: (context) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(45.0),
-          child: AppBar(
-            title: const Text('Filter Cases'),
-            centerTitle: true,
-            backgroundColor: Colors.green,
-            leading: FlatButton.icon(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyApp(tab: 2)));
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 20,
-              ),
-              label: Text(""),
-              textColor: Colors.white,
+        appBar: AppBar(
+          title: const Text('Filter Cases'),
+          centerTitle: true,
+          backgroundColor: Color(0xFF479055),
+          leading: FlatButton.icon(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyApp(tab: 2)));
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              size: 20,
             ),
+            label: Text(""),
+            textColor: Colors.white,
           ),
         ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: new Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SizedBox(height: 6.0),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      left: BorderSide(
-                        color: Colors.white,
-                        width: 20,
+                Card(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            left: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 26),
+                            child: Text(
+                              'Filter by distance (in km)',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Filter by distance (in km)',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
+                      Slider(
+                        value: _currentSliderValue,
+                        min: 3,
+                        max: 30,
+                        divisions: 10,
+                        activeColor: Color(0xFF479055),
+                        inactiveColor: Color(0xFF479055),
+                        label: _currentSliderValue.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentSliderValue = value;
+                          });
+                        },
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                Slider(
-                  value: _currentSliderValue,
-                  min: 0,
-                  max: 30,
-                  divisions: 5,
-                  label: _currentSliderValue.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _currentSliderValue = value;
-                    });
-                  },
+                SizedBox(
+                  height: 10,
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Filter by time',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Text('Current Date and Time: ${selectedDate.toString()}',
-                    style:
-                        TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold)),
-                RaisedButton(
-                  onPressed: () => _selectDate(context),
-                  child: Text('Click here to enter date'),
-                ),
-                SizedBox(height: 10.0),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      left: BorderSide(
-                        color: Colors.white,
-                        width: 20,
+                Card(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border(
+                            left: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 35.0),
+                            child: Text(
+                              'Filter by time',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Filter by disease',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.bold,
+                      Text('$prefix ${selectedDate.toString()}',
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: RaisedButton(
+                          onPressed: () => _selectDate(context),
+                          color: Color(0xFF479055),
+                          child: Text(
+                            'Click here to enter date',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          // border: Border(
+                          //   left: BorderSide(
+                          //     color: Colors.white,
+                          //     width: 20,
+                          //   ),
+                          // ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Text(
+                              'Filter by disease',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      DropdownButton<String>(
+                        value: diseases,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            diseases = newValue;
+                          });
+                        },
+                        items: <String>['Dengue', 'Zika']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF479055), // background
+                      onPrimary: Colors.white, // foreground
                     ),
-                  ),
-                ),
-                DropdownButton<String>(
-                  value: diseases,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      diseases = newValue;
-                    });
-                  },
-                  items: <String>['Dengue', 'Zika']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green[800], // background
-                    onPrimary: Colors.white, // foreground
-                  ),
-                  onPressed: () {
-                    final data = Data(
-                      distance: _currentSliderValue,
-                      dateTime: selectedDate.toIso8601String(),
-                      disease: diseases.toString(),
-                      latitude: widget.latitude.toString(),
-                      longitude: widget.longitude.toString(),
-                    );
-                    print(_currentSliderValue);
-                    print(selectedDate.toIso8601String());
-                    print(diseases.toString());
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FilteredMapUI(
-                                  data: data,
-                                )));
-                  },
-                  child: Text(
-                    'Apply filters',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    onPressed: () {
+                      final data = Data(
+                        distance: _currentSliderValue,
+                        dateTime: selectedDate.toIso8601String(),
+                        disease: diseases.toString(),
+                        latitude: widget.latitude.toString(),
+                        longitude: widget.longitude.toString(),
+                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FilteredMapUI(
+                                    data: data,
+                                  )));
+                    },
+                    label: Text(
+                      'Apply filters',
                     ),
-                  ),
-                ),
+                    icon: Icon(Icons.filter_alt_rounded)),
               ],
             ),
           ),

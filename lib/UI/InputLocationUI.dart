@@ -84,7 +84,7 @@ class _InputLocationState extends State<InputLocationUI> {
           Container(
             child: RaisedButton(
               onPressed: (onSubmit),
-              color: Colors.green,
+              color: Color(0xFF479055),
               textColor: Colors.white,
               padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: Text(

@@ -9,24 +9,6 @@ import 'package:health_se/UI/mainUI.dart';
 import 'package:health_se/Controller/GymMapController.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as maps_toolkit;
 
-class ExpansionGymMap extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Gym Map'),
-      ),
-      body: Container(
-        child: Center(
-          child: Text('Display Gym Map',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-        ),
-      ),
-    );
-  }
-}
-
 class map extends StatefulWidget {
   map({Key key}) : super(key: key);
 
@@ -61,6 +43,7 @@ class mapState extends State<map> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Gyms"),
         leading: FlatButton.icon(
           onPressed: () {
             setState(() {
@@ -85,14 +68,15 @@ class mapState extends State<map> {
         markers: Set<Marker>.of(markers),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 270.0, left: 250.0),
+        padding: const EdgeInsets.only(bottom: 575.0, left: 200.0),
         child: FloatingActionButton.extended(
           onPressed: () async {
             await getLocation();
             searchFiltered(_location);
           },
           label: Text('Search Nearby'), // 3
-          icon: Icon(Icons.place), // 4
+          icon: Icon(Icons.place),
+          backgroundColor: Color(0xFF479055), // 4
         ),
       ),
     );
@@ -152,8 +136,8 @@ class mapState extends State<map> {
 
   void searchFiltered(Position loc) async {
     PointSchema userLocation = PointSchema();
-    userLocation.setLongitude(103.68022);
-    userLocation.setLatitude(1.34621);
+    userLocation.setLongitude(loc.longitude);
+    userLocation.setLatitude(loc.latitude);
     List<double> longs = [];
     List<double> lats = [];
     List<String> openingHours = [];

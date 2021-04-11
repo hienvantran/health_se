@@ -9,7 +9,6 @@ abstract class NetworkController {
   Future<dynamic> get(String url) async {
     var responseUrl = Uri.https(baseUrl, url, {'q': '{http}'});
     var response = await http.get(responseUrl);
-    log.i(response.body);
     if (response.statusCode == 200) {
       return response.body;
     } else {

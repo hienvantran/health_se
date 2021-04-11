@@ -27,7 +27,7 @@ class _expensionTileState extends State<expensionTile> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Expansion Tile'),
+        title: Text('Add Food Record'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -54,17 +54,18 @@ class _expensionTileState extends State<expensionTile> {
 
                             title: Text(
                               '${widget.foodChoicesList[index]}',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 18.0),
                             ),
                             children: <Widget>[
                               ReusableCard(
-                                colour: Colors.lightGreen,
                                 cardChild: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Text(
-                                      amount.toString() + " gram",
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 15),
+                                      child: Text(amount.toString() + " gram",
+                                          style: TextStyle(fontSize: 18)),
                                     ),
                                     Row(
                                       mainAxisAlignment:
@@ -78,7 +79,7 @@ class _expensionTileState extends State<expensionTile> {
                                               });
                                             }),
                                         SizedBox(
-                                          width: 10.0,
+                                          width: 5.0,
                                         ),
                                         RoundIconButton(
                                           icon: Icons.add,
@@ -88,9 +89,12 @@ class _expensionTileState extends State<expensionTile> {
                                             });
                                           },
                                         ),
+                                        SizedBox(
+                                          width: 15.0,
+                                        ),
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            primary: Colors.lightGreen[300],
+                                            primary: Color(0xFF479055),
                                           ),
                                           onPressed: () async {
                                             await showAlertDialog(
@@ -160,7 +164,7 @@ showAlertDialog(BuildContext context, String name, int amount,
           return AlertDialog(
             title: Text("Confirm add record"),
             content:
-                Text("You are adding:\n$name : " + amount.toString() + 'gram'),
+                Text("You are adding:\n$name : " + amount.toString() + ' gram'),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {

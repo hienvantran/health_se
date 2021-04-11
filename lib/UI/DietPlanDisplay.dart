@@ -87,7 +87,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
               ),
             ),
             Container(
-                height: 270, //height of TabBarView
+                height: 350, //height of TabBarView
                 decoration: BoxDecoration(
                     border: Border(
                         top: BorderSide(color: Colors.grey, width: 0.5))),
@@ -126,7 +126,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
 
                                           title: Text('${compositions[index]}',
                                               style: TextStyle(
-                                                  color: Color(0xFF09216B),
+                                                  color: Colors.black,
                                                   fontWeight: FontWeight.bold)),
                                           children: <Widget>[
                                             Container(
@@ -135,12 +135,12 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                                   '${snapshot.data}',
                                                   style: TextStyle(
                                                     fontSize: 13.0,
-                                                    color: Color(0xFF09216B),
+                                                    color: Colors.black,
                                                   ),
                                                 ),
                                                 alignment: Alignment(1.0, 1.0),
                                               ),
-                                              height: 210,
+                                              height: 170,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(5),
@@ -204,7 +204,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
 
                                         title: Text('${compositions[index]}',
                                             style: TextStyle(
-                                                color: Color(0xFF09216B),
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                         children: <Widget>[
                                           Container(
@@ -213,12 +213,12 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                                 '${snapshot.data}',
                                                 style: TextStyle(
                                                   fontSize: 13.0,
-                                                  color: Color(0xFF09216B),
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                               alignment: Alignment(1.0, 1.0),
                                             ),
-                                            height: 210,
+                                            height: 170,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
@@ -283,7 +283,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
 
                                         title: Text('${compositions[index]}',
                                             style: TextStyle(
-                                                color: Color(0xFF09216B),
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                         children: <Widget>[
                                           Container(
@@ -292,12 +292,12 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
                                                 '${snapshot.data}',
                                                 style: TextStyle(
                                                   fontSize: 13.0,
-                                                  color: Color(0xFF09216B),
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                               alignment: Alignment(1.0, 1.0),
                                             ),
-                                            height: 210,
+                                            height: 170,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),

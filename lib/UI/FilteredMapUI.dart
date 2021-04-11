@@ -7,6 +7,7 @@ import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 import 'package:health_se/Entity/PointSchema.dart';
 import 'package:health_se/UI/mainUI.dart';
 import 'package:health_se/UI/FilterUI.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() => runApp(FilteredMapUI());
 
@@ -25,10 +26,31 @@ class _FilteredMapUIState extends State<FilteredMapUI> {
     zoom: 8.5,
   );
   List<Marker> markers = <Marker>[];
+  Position _location = new Position(latitude: 0, longitude: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    var x = widget.data.distance;
+    PointSchema temp = new PointSchema();
+    temp.setLongitude(double.parse(widget.data.longitude));
+    temp.setLatitude(double.parse(widget.data.latitude));
+    searchFiltered(x * 1000, widget.data.dateTime, widget.data.disease, temp);
+  }
+
+  getLocation() async {
+    final location = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    setState(() {
+      _location = location;
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF479055),
         title: Text("Filtered map"),
         leading: FlatButton.icon(
           onPressed: () {
@@ -52,17 +74,22 @@ class _FilteredMapUIState extends State<FilteredMapUI> {
         },
         markers: Set<Marker>.of(markers),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          var x = widget.data.distance;
-          PointSchema temp = new PointSchema();
-          temp.setLongitude(double.parse(widget.data.longitude));
-          temp.setLatitude(double.parse(widget.data.latitude));
-          searchFiltered(
-              x * 1000, widget.data.dateTime, widget.data.disease, temp);
-        },
-        label: Text('Places Nearby'), // 3
-        icon: Icon(Icons.place), // 4
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 200, bottom: 575),
+        child: FloatingActionButton.extended(
+          onPressed: () async {
+            await getLocation();
+            var x = widget.data.distance;
+            PointSchema temp = new PointSchema();
+            temp.setLongitude(_location.longitude);
+            temp.setLatitude(_location.latitude);
+            searchFiltered(
+                x * 1000, widget.data.dateTime, widget.data.disease, temp);
+          },
+          backgroundColor: Color(0xFF479055),
+          label: Text('Places Nearby'), // 3
+          icon: Icon(Icons.place), // 4
+        ),
       ),
     );
   }
