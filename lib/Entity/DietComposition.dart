@@ -10,13 +10,6 @@ class DietComposition {
       this.fatPercentage,
       this.proteinPercentage});
 
-//  DietComposition.contructor1(String name, int carb, int fat, int protein) {
-//    this.dietCompositionName = name;
-//    this.carbPercentage = carb;
-//    this.fatPercentage = fat;
-//    this.proteinPercentage = protein;
-//  }
-
   factory DietComposition.fromJson(Map<String, dynamic> json) {
     return DietComposition(
       dietCompositionName: json['dietCompositionName'] as String,

@@ -40,8 +40,6 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
     List<String> list = await DailyFoodController.getFoodChoicesNames();
     setState(() {
       foodChoicesList = list;
-      print("list\n");
-      print(foodChoicesList);
     });
   }
 
@@ -70,6 +68,16 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   callback(newIntakeCal) {
     setState(() {
       intakeCalorie = newIntakeCal;
+    });
+  }
+
+  refreshRecords() async {
+    UserProfileHandler u = new UserProfileHandler();
+    UserProfile up =
+        await u.getObject('/userprofile/' + user.getUserID().toString());
+    setState(() {
+      intakeCalorie =
+          DailyFoodController.calculateTotalCalorie(up.getTodayRecords());
     });
   }
 
@@ -178,14 +186,8 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                             primary: Color(0xFF479055),
                           ),
                           onPressed: () async {
-                            showAlertDialog(context);
-                            await DailyFoodController.resetRecord(userName);
-                            setState(() {
-                              intakeCalorie = 0;
-//                              intakeCalorie =
-//                                  DailyFoodController.calculateTotalCalorie(
-//                                      user.getFoodRecordsList());
-                            });
+                            showAlertDialog(context, userName)
+                                .then((value) => refreshRecords());
                           },
                           child: Row(
                             children: [
@@ -281,27 +283,34 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   }
 }
 
-showAlertDialog(BuildContext context) {
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.of(context, rootNavigator: true).pop();
-    },
-  );
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Reseting food records"),
-    content: Text('Your food records are being reseted'),
-    actions: [
-      okButton,
-    ],
-  );
-  // show the dialog
-  showDialog(
+showAlertDialog(BuildContext context, String userName) {
+  return showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return alert;
+    builder: (context) {
+      String contentText = "Content of Dialog";
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            title: Text("Reset"),
+            content: Text('Your food records will be reseted'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("Cancel"),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  await DailyFoodController.resetRecord(userName);
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+                child: Text(
+                  "Reset",
+                ),
+              ),
+            ],
+          );
+        },
+      );
     },
   );
 }
@@ -320,7 +329,6 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
     UserProfile up =
         await u.getObject('/userprofile/' + user.getUserID().toString());
     List<dynamic> list = up.getTodayRecords();
-    print(list);
     return list;
   }
 

@@ -10,8 +10,7 @@ class UserProfileController {
   static Future<UserProfile> retrieveUser(String userID) async {
     UserProfile user =
         await UserProfileHandler().getObject('/userProfile/$userID');
-    print("TESTING: ");
-    print(user.getFoodRecordsList().length);
+
     return user;
   }
 
@@ -31,7 +30,6 @@ class UserProfileController {
     String userID = UserInfoController.user.getUserID();
     String url = '/userProfile/$userID';
     final res = await UserProfileHandler().put(url, editedInfo);
-    print(res);
     if (res == -1)
       return false;
     else {

@@ -39,8 +39,6 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
   }
 
   int getDefaultIndex() {
-    print("BMI:\n");
-    print(bmi);
     if (bmi <= 18.5) {
       initialTap = 2;
     } else if (bmi >= 25) {
@@ -59,12 +57,7 @@ class _DietPlanDisplayState extends State<DietPlanDisplay> {
   Future<String> formatNutritionFact(
       String plan, String composition, int calorie, bool selected) async {
     if (selected) {
-      print(plan + " " + composition + ":\n");
-      print('before\n');
-      print(nutritionList);
       await loadNutritionFact(plan, composition, calorie);
-      print('after\n');
-      print(nutritionList);
     }
     String txt = plan + ": \n";
     String protein = "Protein: " + nutritionList[0].toString() + "g \n";

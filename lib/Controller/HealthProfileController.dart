@@ -8,21 +8,15 @@ import 'HealthProfileHandler.dart';
 import 'UserInfoController.dart';
 
 class HealthProfileController {
-  // static Future<List<dynamic>> getHealthDiseases() {
-  //   UserProfile u;
-  //   Future<List<dynamic>> allDiseases =
-  //       HealthDiseaseHandler().get('/healthDisease');
-  // }
-
   static List<String> getHealthDiseaseNames() {
     UserProfile user = UserInfoController.user;
-    print("Tsesssss\n");
+
     double BMI = user.getBmi();
-    print(BMI);
+
     int age = int.parse(user.getAge());
-    print(age);
+
     double bodyfat = user.getBodyFatPercentage() / 100;
-    print(bodyfat);
+
     String gender = user.getGender();
     int height = user.getHeight();
     int waist = user.getWaist();
@@ -50,28 +44,16 @@ class HealthProfileController {
 
   static Future<void> getHealthDiseases() async {
     List<String> diseaseNames = getHealthDiseaseNames();
-    print("TESTING DISEASES3\n");
-    print(diseaseNames);
-    String testurl = '/healthDisease';
-    List<HealthDisease> testdis =
-        await HealthDiseaseHandler().getListOfObjects(testurl);
-    for (int j = 0; j < testdis.length; j++) {
-      print(testdis[j].getDiseaseName());
-      print('\n');
-    }
+
     List<HealthDisease> diseases = <HealthDisease>[];
     for (int i = 0; i < diseaseNames.length; i++) {
       String name = diseaseNames[i];
-      print("TESTING DISEASES3\n");
-      print(name);
+
       String url = '/healthDisease/$name';
       HealthDisease dis = await HealthDiseaseHandler().getObject(url);
       diseases.add(dis);
     }
-    print("TESTING DISEASES\n");
-    print(diseases.length);
+
     UserInfoController.healthDiseases = diseases;
-    print("TESTING DISEASES2\n");
-    print(UserInfoController.healthDiseases.length);
   }
 }

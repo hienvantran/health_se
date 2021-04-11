@@ -9,16 +9,14 @@ class SuggestedDietController {
       String plan, String composition, int calorie) async {
     SuggestedDietHandler sdh = new SuggestedDietHandler();
     DietPlan dietPlan = await sdh.getObject('/dailyDiet/diets/' + plan);
-    print("test\n");
-    print(dietPlan);
+
     List<int> nutritionListPrec = dietPlan.getCompositionByString(composition);
     List<int> nutritionList = [
       (nutritionListPrec[0] * calorie / 400).toInt(),
       (nutritionListPrec[1] * calorie / 400).toInt(),
       (nutritionListPrec[2] * calorie / 900).toInt()
     ];
-//    print("nutritionList\n");
-//    print(nutritionList);
+
     return nutritionList;
   }
 
@@ -35,7 +33,6 @@ class SuggestedDietController {
         path = 'images/Low.png';
         break;
     }
-    print(path);
     return path;
   }
 }
