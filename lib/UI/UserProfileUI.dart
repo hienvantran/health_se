@@ -61,8 +61,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
       test.add(weight.toString());
       test.add(height.toString());
       test.add(waist.toString());
-      print("TESTING\n");
-      print(test);
     });
   }
 
@@ -88,7 +86,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
 
   @override
   Widget build(BuildContext context) {
-    print(test.length);
     void goBack(BuildContext context) {
       Navigator.pop(context);
     }

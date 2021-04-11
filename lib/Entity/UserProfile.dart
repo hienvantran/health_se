@@ -118,8 +118,7 @@ class UserProfile {
         todayRecords.add(foodRecordList[i]);
       }
     }
-    print("FILTERING\n");
-    print(todayRecords.length);
+
     return todayRecords;
   }
 

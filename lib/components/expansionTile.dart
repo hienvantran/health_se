@@ -21,20 +21,6 @@ class _expensionTileState extends State<expensionTile> {
   int amount = 0;
   int selected = 0;
   String exerciseInfo;
-//  List<String> foodChoicesList;
-//
-//  getFoodChoicesList() async {
-//    List<String> list = await DailyFoodController.getFoodChoicesNames();
-//    setState(() {
-//      foodChoicesList = list;
-//    });
-//  }
-//
-//  @override
-//  void initState() {
-//    super.initState();
-//    getFoodChoicesList();
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,72 +140,6 @@ class _expensionTileState extends State<expensionTile> {
                     )
                   ]),
                 )),
-//            ExpansionTile(
-//              title: Text(
-//                'rice',
-//                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-//              ),
-//              children: <Widget>[
-//                ReusableCard(
-//                  colour: Colors.lightGreen,
-//                  cardChild: Column(
-//                    mainAxisAlignment: MainAxisAlignment.center,
-//                    children: <Widget>[
-//                      Text(
-//                        amount.toString() + " gram",
-//                      ),
-//                      Row(
-//                        mainAxisAlignment: MainAxisAlignment.center,
-//                        children: <Widget>[
-//                          RoundIconButton(
-//                              icon: Icons.remove,
-//                              onPressed: () {
-//                                setState(() {
-//                                  amount -= 10;
-//                                });
-//                              }),
-//                          SizedBox(
-//                            width: 10.0,
-//                          ),
-//                          RoundIconButton(
-//                            icon: Icons.add,
-//                            onPressed: () {
-//                              setState(() {
-//                                amount += 10;
-//                              });
-//                            },
-//                          ),
-//                          ElevatedButton(
-//                            style: ElevatedButton.styleFrom(
-//                              primary: Colors.lightGreen[300],
-//                            ),
-//                            onPressed: () {
-//                              setState(() async {
-//                                widget.intakeCal =
-//                                    await DailyFoodController.addRecord(
-//                                        UserProfileController.user.getUserID(),
-//                                        amount,
-//                                        'rice');
-//                                widget.callback(widget.intakeCal);
-//                              });
-//                            },
-//                            child: Row(
-//                              children: [
-//                                Icon(Icons.add),
-//                                Text('Add'),
-//                              ],
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ],
-//                  ),
-//                ),
-//                ListTile(
-//                  title: Text('data'),
-//                )
-//              ],
-//            ),
           ],
         ),
       ),
@@ -251,66 +171,3 @@ showAlertDialog(BuildContext context, String name, int amount) {
     },
   );
 }
-
-//class Future_FoodItem extends StatefulWidget {
-//  @override
-//  _Future_FoodItemState createState() => _Future_FoodItemState();
-//}
-//
-//class _Future_FoodItemState extends State<Future> {
-//  DailyDietController u = new DailyDietController();
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      height: 300,
-//      width: 200,
-//      child: FutureBuilder<List>(
-//        future: u.getListOfObjects('/dailyDiet/food'),
-//        //initialData: [],
-//        builder: (context, snapshot) {
-//          return snapshot.hasData
-//              ? ListView.builder(
-//                  itemCount: snapshot.data.length,
-//                  itemBuilder: (_, int position) {
-//                    final item = snapshot.data[position];
-//                    //get your item data here ...
-//                    return Column(
-//                      mainAxisAlignment: MainAxisAlignment.center,
-//                      children: <Widget>[
-//                        Container(
-//                          margin: EdgeInsets.only(left: 40.0),
-//                          child: Row(
-//                            children: <Widget>[
-//                              ElevatedButton(
-//                                style: ElevatedButton.styleFrom(
-//                                  primary: Colors.lightGreen[300],
-//                                ),
-//                                onPressed: () {
-//                                  Navigator.push(
-//                                      context,
-//                                      MaterialPageRoute(
-//                                          builder: (BuildContext context) =>
-//                                              expansionTile()));
-//                                },
-//                                child: Row(
-//                                  children: [
-//                                    Icon(Icons.add),
-//                                    Text('Add'),
-//                                  ],
-//                                ),
-//                              ),
-//                            ],
-//                          ),
-//                        ),
-//                      ],
-//                    ),
-//                  },
-//                )
-//              : Center(
-//                  child: CircularProgressIndicator(),
-//                );
-//        },
-//      ),
-//    );
-//  }
-//}

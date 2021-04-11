@@ -16,10 +16,6 @@ class DailyFoodController {
     UserProfileHandler u = new UserProfileHandler();
     await u.deleteAllFoodRecords(userName);
     UserProfileController.updateUser(userName);
-//    UserProfile up = await u.getObject('/userprofile/' + userName);
-//    List<dynamic> list = up.getFoodRecordsList();
-//    int intakeCal = calculateTotalCalorie(list);
-//    return intakeCal;
   }
 
   static Future<int> addRecord(String userName, int amount, String name) async {
@@ -74,8 +70,7 @@ class DailyFoodController {
     for (int i = 0; i < list.length; i++) {
       totalCalorie += list[i]['foodAmount'];
     }
-//    print("test1\n");
-//    print(totalCalorie);
+
     return totalCalorie;
   }
 }

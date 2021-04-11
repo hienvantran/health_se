@@ -18,7 +18,6 @@ class SuggestedExercise {
   }
 
   int getCalorieBurnPerMin() {
-    print('CalorieBurn' + calorieBurn.toString());
     return (calorieBurn / 60).toInt();
   }
 }

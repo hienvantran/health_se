@@ -20,10 +20,9 @@ class LoginController {
       "username": username,
       "password": password,
     };
-    print(username);
-    print(password);
+
     final res = await UserProfileHandler().post('/login', login);
-    print(res);
+
     if (res == -1)
       return false;
     else {

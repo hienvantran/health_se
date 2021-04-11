@@ -39,8 +39,6 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
     List<String> list = await DailyFoodController.getFoodChoicesNames();
     setState(() {
       foodChoicesList = list;
-      print("list\n");
-      print(foodChoicesList);
     });
   }
 
@@ -320,7 +318,6 @@ class _Future_FoodItemState extends State<Future_FoodItem> {
     UserProfile up =
         await u.getObject('/userprofile/' + user.getUserID().toString());
     List<dynamic> list = up.getTodayRecords();
-    print(list);
     return list;
   }
 
