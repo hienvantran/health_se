@@ -31,7 +31,7 @@ class GymPoints {
     this.latitude = latitude;
   }
 
-  double getLongtitude() {
+  double getLongitude() {
     return longitude;
   }
 

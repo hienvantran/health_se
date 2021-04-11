@@ -7,9 +7,6 @@ import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 class InfectiousMapController {
   //get the midpoint of the clusters
 
-  //void getInput() {}
-
-  //LoadFilteredMap()
   static Future<InfectiousDiseaseMap> loadFilteredMap(
       PointSchema userInputLocation) async {
     var date = new DateTime.now();

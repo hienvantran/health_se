@@ -10,6 +10,7 @@ import 'package:health_se/UI/DietPlanDisplay.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/Controller/SuggestedExerciseController.dart';
 import 'package:health_se/Controller/UserInfoController.dart';
+import 'package:health_se/UI/GymUI.dart';
 
 void main() => runApp(DailyDietUI());
 
@@ -241,34 +242,33 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
                         ),
                       );
                   }),
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: <Widget>[
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: <Widget>[
-              //         ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //               primary: Colors.lightGreen[300]),
-              //           onPressed: () {
-              //             Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (BuildContext context) =>
-              //                         ExpansionGymMap()));
-              //           },
-              //           child: Row(
-              //             children: <Widget>[
-              //               Icon(Icons.map),
-              //               Text('View Nearby Gyms'),
-              //             ],
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.lightGreen[300]),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => map()));
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.map),
+                            Text('View Gyms'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
 //              Future(),
             ],
           ),
