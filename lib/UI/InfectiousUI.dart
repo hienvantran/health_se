@@ -1,22 +1,16 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/InfectiousMapController.dart';
 import 'package:health_se/Controller/RiskController.dart';
-import 'package:health_se/UI/InputLocationUI.dart';
-import '../Controller/InfectiousDiseaseHandler.dart';
-import 'GMap.dart';
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_se/Controller/FilterController.dart';
 import 'package:health_se/Controller/UserInfoController.dart';
-import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 import 'package:health_se/UI/FilterUI.dart';
-import 'package:health_se/Controller/LocationController.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:health_se/Entity/PointSchema.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:health_se/UI/RiskInfoUI.dart';
 import 'package:health_se/Entity/InfectiousDisease.dart';
 import 'package:health_se/UI/mainUI.dart';
 
@@ -123,35 +117,6 @@ class _InfectiousUIState extends State<InfectiousUI> {
                       ),
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 5.0),
-                  //   child: Container(
-                  //     color: Colors.grey[200],
-                  //     height: size.height * 0.2,
-                  //     child: Row(
-                  //       children: <Widget>[
-                  //         Padding(
-                  //             padding: const EdgeInsets.only(left: 2.0),
-                  //             child: Text("Enter location:")),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(right: 2.0),
-                  //           child: ElevatedButton.icon(
-                  //             onPressed: () {
-                  //               print("pressed");
-                  //             },
-                  //             style: ButtonStyle(),
-                  //             icon: Icon(
-                  //               Icons.search,
-                  //               size: 20,
-                  //             ),
-                  //             label: Text(""),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     ),
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Container(
@@ -174,49 +139,6 @@ class _InfectiousUIState extends State<InfectiousUI> {
         ));
   }
 }
-//
-// class InfectiousDisease extends StatefulWidget {
-//   @override
-//   _InfectiousDiseaseState createState() => _InfectiousDiseaseState();
-// }
-//
-// class _InfectiousDiseaseState extends State<InfectiousDisease> {
-//   InfectiousDiseaseHandler h = new InfectiousDiseaseHandler();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: FutureBuilder<List>(
-//         future: h.getListOfObjects('/infectiousDisease'),
-//         initialData: [],
-//         builder: (context, snapshot) {
-//           return snapshot.hasData
-//               ? ListView.builder(
-//                   itemCount: snapshot.data.length,
-//                   itemBuilder: (_, int position) {
-//                     final item = snapshot.data[position];
-//                     //get your item data here ...
-//                     return Card(
-//                       child: ExpansionTile(
-//                         title: Text("Disease Name: " + item.getDiseaseName()),
-//                         initiallyExpanded: false,
-//                         maintainState: false,
-//                         children: <Widget>[
-//                           Text("Disease type: "),
-//                           Text("Recommended diet: ")
-//                         ],
-//                       ),
-//                     );
-//                   },
-//                 )
-//               : Center(
-//                   child: CircularProgressIndicator(),
-//                 );
-//         },
-//       ),
-//     );
-//   }
-// }
 
 class map extends StatefulWidget {
   double userLongitude;
@@ -290,25 +212,18 @@ class mapState extends State<map> {
 
   void searchDefault(Position loc) async {
     PointSchema userLocation = PointSchema();
-    // userLocation.setLongitude(loc.longitude);
-    // userLocation.setLatitude(loc.latitude);
-    // userLocation.setLongitude(widget.userLongitude);
-    //  userLocation.setLatitude(widget.userLatitude);
     userLocation.setLongitude(103.68022);
     userLocation.setLatitude(1.34621);
     List<double> longs = [];
     List<double> lats = [];
     List<int> numberOfCases = [];
-    // List<String> title = [];
     print(userLocation.getLatitude());
     print(userLocation.getLongitude());
     InfectiousDiseaseMap mapNeeded =
-        await InfectiousMapController.loadFilteredMap(userLocation); // 2
-    print("Why doesn't it come here?");
+        await InfectiousMapController.loadFilteredMap(userLocation);
     for (int i = 0; i < mapNeeded.cluster.clusterList.length; i++) {
       //only need display midpoint for each cluster
       if (mapNeeded.cluster.clusterList[i] == null) {
-        print("the value of i when it comes here is");
         continue;
       }
       lats.add(mapNeeded.cluster.clusterList[i].midPoint.getLatitude());
@@ -486,10 +401,6 @@ class _riskReportState extends State<riskReport> {
                     textDirection: TextDirection.ltr,
                     children: [
                       Text("Suggestions: " + sugs[position] + '\n'),
-                      //  Text("Prevention Measures: " +
-                      //      item.getMeasures()[0] +
-                      //      '\n'),
-                      //Text(item.getRisk()),
                     ],
                   ),
                 ),
@@ -501,23 +412,3 @@ class _riskReportState extends State<riskReport> {
     );
   }
 }
-// Future calcLocation() async {
-//   await showDialog(
-//       context: context,
-//       barrierDismissible: true,
-//       builder: (BuildContext context) {
-//         return new SimpleDialog(
-//           title:
-//           new Text('Input address', style: new TextStyle(fontSize: 17)),
-//           children: <Widget>[
-//             new SimpleDialogOption(
-//               child: new Text('Add location'),
-//               onPressed: () {
-//                 getLocationFromInput();
-//                 Navigator.of(context).pop();
-//               },
-//             )
-//           ],
-//         );
-//       });
-// }

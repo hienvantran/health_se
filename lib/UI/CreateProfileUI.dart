@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
-import 'LoginUI.dart';
-import 'EditProfileUI.dart';
+import 'package:health_se/UI/LoginUI.dart';
+import 'package:health_se/UI/EditProfileUI.dart';
 import 'package:health_se/Controller/RegistrationController.dart';
-
-void main() => runApp(CreateProfileUI());
 
 class CreateProfileUI extends StatefulWidget {
   @override
@@ -16,14 +13,11 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
   final email = TextEditingController();
   final password = TextEditingController();
   final reconpassword = TextEditingController();
+
   bool _validateusername = false;
   bool _validatepassword = false;
   bool _validaterecon = false;
   bool _validateemail = false;
-
-//  bool _validate = false;
-//  bool _validatep = false;
-//  bool _validater = false;
 
   getItemAndNavigate(BuildContext context) {
     Navigator.push(
@@ -58,7 +52,6 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
     Widget okButton = RaisedButton(
       child: Text("OK"),
       onPressed: () {
-//        Navigator.of(context).pop(false);
         Navigator.of(context, rootNavigator: true).pop();
       },
     );
@@ -117,23 +110,6 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
       passMismatchAlertDialog(context);
     else if (res != true && emailValid) errorAlertDialog(context);
   }
-//
-//  void onSubmit() async {
-//    setState(() {
-//      username.text.isEmpty ? _validate = true : _validate = false;
-//      password.text.isEmpty ? _validatep = true : _validatep = false;
-//      email.text.isEmpty ? _validater = true : _validater = false;
-//    });
-//
-//    if (password.text != reconpassword.text) passMismatchAlertDialog(context);
-//
-//    var res = await RegistrationController.createProfile(
-//        email.text, username.text, password.text);
-//    if (res == true) {
-//      getItemAndNavigate(context);
-//    } else
-//      errorAlertDialog(context);
-//  }
 
   @override
   Widget build(BuildContext context) {

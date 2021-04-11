@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(SettingsUI());
-
 class SettingsUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
