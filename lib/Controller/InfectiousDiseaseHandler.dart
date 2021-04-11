@@ -1,6 +1,6 @@
 import 'dart:convert';
-import '../Entity/InfectiousDisease.dart';
-import 'NetworkController.dart';
+import 'package:health_se/Entity/InfectiousDisease.dart';
+import 'package:health_se/Controller/NetworkController.dart';
 
 class InfectiousDiseaseHandler extends NetworkController {
   @override
@@ -17,6 +17,5 @@ class InfectiousDiseaseHandler extends NetworkController {
     // TODO: implement parseOneObject
     final parsed = jsonDecode(responseBody);
     return InfectiousDisease.fromJson(parsed);
-    //parsed.map<HealthDisease>((json) => HealthDisease.fromJson(json));
   }
 }

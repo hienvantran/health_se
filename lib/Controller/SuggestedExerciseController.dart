@@ -23,7 +23,7 @@ class SuggestedExerciseController {
 
   static String calExerciseTime(int surplus, SuggestedExercise sugExercise) {
     String name = sugExercise.getName();
-    int duration = (surplus / sugExercise.getCalorieBurnPerMin()).toInt();
+    int duration = (surplus ~/ sugExercise.getCalorieBurnPerMin());
     return name + ': ' + duration.toString() + "min\n";
   }
 }

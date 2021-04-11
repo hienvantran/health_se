@@ -1,7 +1,4 @@
-import 'dart:convert';
-import '../Entity/DietPlan.dart';
-import 'NetworkController.dart';
-import 'package:health_se/Entity/DietComposition.dart';
+import 'package:health_se/Entity/DietPlan.dart';
 import 'package:health_se/Controller/SuggestedDietHandler.dart';
 
 class SuggestedDietController {
@@ -12,9 +9,9 @@ class SuggestedDietController {
 
     List<int> nutritionListPrec = dietPlan.getCompositionByString(composition);
     List<int> nutritionList = [
-      (nutritionListPrec[0] * calorie / 400).toInt(),
-      (nutritionListPrec[1] * calorie / 400).toInt(),
-      (nutritionListPrec[2] * calorie / 900).toInt()
+      (nutritionListPrec[0] * calorie ~/ 400),
+      (nutritionListPrec[1] * calorie ~/ 400),
+      (nutritionListPrec[2] * calorie ~/ 900)
     ];
 
     return nutritionList;

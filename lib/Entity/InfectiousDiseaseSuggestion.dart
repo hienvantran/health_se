@@ -1,5 +1,3 @@
-import 'package:health_se/Entity/PointSchema.dart';
-
 class InfectiousDiseaseSuggestion {
   final String suggestion;
 
@@ -20,8 +18,7 @@ class InfectiousDiseaseSuggestionList {
   });
 
   factory InfectiousDiseaseSuggestionList.fromJson(List<dynamic> parsedJson) {
-    List<InfectiousDiseaseSuggestion> maps111 =
-        new List<InfectiousDiseaseSuggestion>();
+    List<InfectiousDiseaseSuggestion> maps111 = <InfectiousDiseaseSuggestion>[];
     print("TESTING!!");
     print(parsedJson);
     maps111 =

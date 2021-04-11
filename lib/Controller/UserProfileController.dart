@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'package:health_se/Controller/UserInfoController.dart';
-import 'package:health_se/UI/HealthProfileUI.dart';
-
-import 'NetworkController.dart';
-import '../Entity/UserProfile.dart';
-import 'UserProfileHandler.dart';
+import 'package:health_se/Entity/UserProfile.dart';
+import 'package:health_se/Controller/UserProfileHandler.dart';
 
 class UserProfileController {
   static Future<UserProfile> retrieveUser(String userID) async {

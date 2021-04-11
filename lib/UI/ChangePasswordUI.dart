@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(ChangePasswordUI());
-
 class ChangePasswordUI extends StatefulWidget {
   @override
   _ChangePasswordUIState createState() => _ChangePasswordUIState();
@@ -9,13 +7,10 @@ class ChangePasswordUI extends StatefulWidget {
 
 class _ChangePasswordUIState extends State<ChangePasswordUI> {
   final currentp = TextEditingController();
-
   final newpass = TextEditingController();
-
   final newpass_c = TextEditingController();
 
   bool _validatep = false;
-
   bool _validatec = false;
   bool _validatem = false;
 
@@ -98,7 +93,6 @@ class _ChangePasswordUIState extends State<ChangePasswordUI> {
                       ),
                     )),
               ),
-              // ignore: deprecated_member_use
               RaisedButton(
                 onPressed: () {
                   currentp.text.isEmpty
@@ -127,16 +121,14 @@ class _ChangePasswordUIState extends State<ChangePasswordUI> {
   }
 
   showAlertDialog(BuildContext context) {
-    // set up the button
-    // ignore: deprecated_member_use
     Widget okButton = ElevatedButton(
       child: Text("OK"),
       onPressed: () {},
     );
-    // set up the AlertDialog
+
     AlertDialog alert = AlertDialog(
-      title: Text("My title"),
-      content: Text("This is my message."),
+      title: Text("Incorrect Credentials"),
+      content: Text("The entered password is invalid."),
       actions: [
         okButton,
       ],

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_se/Controller/LoginController.dart';
-import 'CreateProfileUI.dart';
-import 'HealthProfileUI.dart';
-import 'mainUI.dart';
-import '../Entity/UserProfile.dart';
-import '../Controller/UserInfoController.dart';
-
-void main() => runApp(LoginUI());
+import 'package:health_se/UI/CreateProfileUI.dart';
+import 'package:health_se/UI/mainUI.dart';
 
 class LoginUI extends StatefulWidget {
   _LoginUIState createState() => _LoginUIState();

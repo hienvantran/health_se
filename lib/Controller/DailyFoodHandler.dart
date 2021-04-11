@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import '../Entity/FoodChoices.dart';
-import 'NetworkController.dart';
+import 'package:health_se/Entity/FoodChoices.dart';
+import 'package:health_se/Controller/NetworkController.dart';
 
 class FoodChoicesHandler extends NetworkController {
   @override

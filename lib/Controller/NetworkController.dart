@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
@@ -48,12 +47,6 @@ abstract class NetworkController {
     post(route, updates);
   }
 
-  //the get method is implemented in each class.
-  /*
-  Future<dynamic> getListOfObjects(String route) {
-    return get(route).then((responseBody) => parseObjectFormat(responseBody));
-  }*/
-
   Future<List<dynamic>> getListOfObjects(String route) {
     return get(route).then((responseBody) => parseObjectFormat(responseBody));
   }
@@ -61,8 +54,6 @@ abstract class NetworkController {
   Future<dynamic> getObject(String route) {
     return get(route).then((responseBody) => parseOneObject(responseBody));
   }
-
-  //Future<dynamic> getSpecificObject(String route);
 
   //implemented in each of the actually object handler
   //abstract method

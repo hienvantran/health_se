@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'NetworkController.dart';
-import '../Entity/UserProfile.dart';
+import 'package:health_se/Controller/NetworkController.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 import 'package:http/http.dart' as http;
 
 class UserProfileHandler extends NetworkController {
   @override
   List<UserProfile> parseObjectFormat(String responseBody) {
-    // TODO: implement parseObjectFormat
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
     return parsed
         .map<UserProfile>((json) => UserProfile.fromJson(json))
@@ -16,7 +15,6 @@ class UserProfileHandler extends NetworkController {
   UserProfile parseOneObject(String responseBody) {
     final parsed = jsonDecode(responseBody);
     return UserProfile.fromJson(parsed);
-    //return parsed.map<UserProfile>((json) => UserProfile.fromJson(json));
   }
 
   Future<dynamic> deleteAllFoodRecords(String userid) async {

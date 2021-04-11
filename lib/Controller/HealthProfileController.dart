@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'package:health_se/UI/HealthProfileUI.dart';
-
-import '../Entity/HealthDiseases.dart';
-import '../Entity/UserProfile.dart';
-import 'NetworkController.dart';
-import 'HealthProfileHandler.dart';
-import 'UserInfoController.dart';
+import 'package:health_se/Entity/HealthDiseases.dart';
+import 'package:health_se/Entity/UserProfile.dart';
+import 'package:health_se/Controller/HealthProfileHandler.dart';
+import 'package:health_se/Controller/UserInfoController.dart';
 
 class HealthProfileController {
   static List<String> getHealthDiseaseNames() {

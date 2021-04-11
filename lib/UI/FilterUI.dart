@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'FilteredMapUI.dart';
-import 'RiskInfoUI.dart';
-import 'mainUI.dart';
+import 'package:health_se/UI/FilteredMapUI.dart';
+import 'package:health_se/UI/mainUI.dart';
 
 void main() => runApp(FilterUI());
 
@@ -173,18 +172,6 @@ class _FilterUIState extends State<FilterUI> {
                     );
                   }).toList(),
                 ),
-                // DropdownButton<String>(
-                //     items: <String>['Dengue', 'Zika'].map((String diseases) {
-                //       return new DropdownMenuItem<String>(
-                //         value: diseases,
-                //         child: new Text(diseases),
-                //       );
-                //     }).toList(),
-                //     onChanged: (String? value) {
-                //       setState(() {
-                //         diseases = value;
-                //       });
-                //     }),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green[800], // background

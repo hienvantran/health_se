@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:health_se/Entity/PointSchema.dart';
-
-import 'InfectiousUI.dart';
+import 'package:health_se/UI/InfectiousUI.dart';
 
 class InputLocationUI extends StatefulWidget {
   @override

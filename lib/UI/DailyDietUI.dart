@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import '../components/expansionTile.dart';
-import 'GymUI.dart';
-import 'package:health_se/Controller/UserProfileHandler.dart';
 import 'package:health_se/components/expansionTile.dart';
+import 'package:health_se/UI/GymUI.dart';
+import 'package:health_se/Controller/UserProfileHandler.dart';
 import 'package:health_se/Controller/DailyFoodController.dart';
-import 'package:health_se/Entity/FoodRecord.dart';
 import 'package:health_se/Entity/UserProfile.dart';
 import 'package:health_se/UI/DietPlanDisplay.dart';
-import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/Controller/SuggestedExerciseController.dart';
 import 'package:health_se/Controller/UserInfoController.dart';
-import 'package:health_se/UI/GymUI.dart';
-
-void main() => runApp(DailyDietUI());
 
 class DailyDietUI extends StatelessWidget {
   @override
@@ -53,9 +47,6 @@ class _CalorieDisplayState extends State<CalorieDisplay> {
   getCal() async {
     user = UserInfoController.user;
     userName = user.getUserID();
-    // UserProfileHandler u = new UserProfileHandler();
-    // UserProfile up = await u.getObject('/userprofile/' + userName);
-    print("test\n");
     print(user.getUserID().toString());
 
     setState(() {

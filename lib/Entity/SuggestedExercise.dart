@@ -18,6 +18,6 @@ class SuggestedExercise {
   }
 
   int getCalorieBurnPerMin() {
-    return (calorieBurn / 60).toInt();
+    return (calorieBurn ~/ 60);
   }
 }

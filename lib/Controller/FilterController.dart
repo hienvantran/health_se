@@ -1,4 +1,3 @@
-import 'package:health_se/Controller/InfectiousMapController.dart';
 import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/Clusters.dart';
 import "package:health_se/Entity/InfectiousDiseaseMap.dart";
@@ -9,10 +8,9 @@ class FilterController {
   static Future<dynamic> getFilteredCases(
       String disease, PointSchema location, String date,
       [int distance = 5000]) async {
-    List<PointSchema> midPoints = new List<PointSchema>();
-    MapHandler mh = MapHandler();
+    List<PointSchema> midPoints = <PointSchema>[];
     InfectiousDiseaseMap mapNeeded =
-        await mh //equivalent of calling diseases, and date.
+        await MapHandler() //equivalent of calling diseases, and date.
             .getObject('/infectiousDisease/' + disease + '/map/' + date);
 
     for (int i = 0; i < mapNeeded.numberOfClusters; i++) {
@@ -44,14 +42,12 @@ class FilterController {
   //filter will return points that are filtered by user
   static InfectiousDiseaseMap filter(InfectiousDiseaseMap map1,
       List<PointSchema> midPoints, PointSchema location, int distance) {
-    //InfectiousDiseaseMap map2 = new InfectiousDiseaseMap();
     //for each cluster, check midPoint and see if it fits criteria
     for (int i = 0; i < map1.numberOfClusters; i++) {
       //calculated distance is in meters
       map1.cluster.clusterList[i].setMidPoint(midPoints[i]);
       var calculatedDistance = SphericalUtil.computeDistanceBetween(
           LatLng(midPoints[i].getLatitude(), midPoints[i].getLongitude()),
-          //LatLng(1.32941051118544, 103.887581360714));
           LatLng(location.getLatitude(), location.getLongitude()));
       if ((calculatedDistance) > distance) {
         //means that i will remove those that are more than filtered distance

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'UI/loginUI.dart';
+import 'package:health_se/UI/loginUI.dart';
 
 void main() {
   runApp(MyApp());

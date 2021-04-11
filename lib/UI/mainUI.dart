@@ -1,29 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'LoginUI.dart';
-import 'HealthProfileUI.dart';
-import 'UserProfileUI.dart';
-import 'InfectiousUI.dart';
-import 'DailyDietUI.dart';
 import 'package:health_se/main.dart' as Main;
-import 'InputLocationUI.dart';
-
-//void main() {
-//  runApp(MyApp());
-//}
-
-//class MyApp extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      theme: ThemeData(
-//        primaryColor: Colors.lightGreen,
-//      ),
-//      home: MyHomePage(),
-//    );
-//  }
-//}
+import 'package:health_se/UI/HealthProfileUI.dart';
+import 'package:health_se/UI/UserProfileUI.dart';
+import 'package:health_se/UI/DailyDietUI.dart';
+import 'package:health_se/UI/InputLocationUI.dart';
 
 class MyApp extends StatefulWidget {
   MyApp({Key key, @required this.tab}) : super(key: key);
@@ -109,7 +90,6 @@ class _MyAppState extends State<MyApp> {
                           MaterialPageRoute(
                               builder: (context) => Main.MyApp()));
                     }
-                    // Note You must create respective pages for navigation
                   })
             ],
           ),

@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'package:health_se/Controller/UserInfoController.dart';
 import 'package:health_se/Controller/UserProfileHandler.dart';
-import 'NetworkController.dart';
-import '../Entity/UserProfile.dart';
-import 'UserProfileHandler.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 
 class RegistrationController {
   static Future<bool> createProfile(

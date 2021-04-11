@@ -39,17 +39,3 @@ class GymPoints {
     return latitude;
   }
 }
-
-class GymList {
-  final List<GymPoints> gymList;
-
-  GymList({
-    this.gymList,
-  });
-
-  factory GymList.fromJson(List<dynamic> parsedJson) {
-    List<GymPoints> maps111 = new List<GymPoints>();
-    maps111 = parsedJson.map((i) => GymPoints.fromJson(i)).toList();
-    return new GymList(gymList: maps111);
-  }
-}

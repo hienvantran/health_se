@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:health_se/Controller/UserInfoController.dart';
 import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/Entity/UserProfile.dart';
-import 'EditProfileUI.dart';
-import 'LoginUI.dart';
+import 'package:health_se/UI/EditProfileUI.dart';
 
 const PrimaryColor = const Color(0xFF4CAF50);
 
@@ -16,9 +15,6 @@ int age = 19;
 class UserProfileUI extends StatefulWidget {
   @override
   _UserProfileUIState createState() => _UserProfileUIState();
-//  static MyStatefulWidgetState of(BuildContext context) =>
-//      context.findAncestorStateOfType<MyStatefulWidgetState>();
-//}
 }
 
 class _UserProfileUIState extends State<UserProfileUI> {
@@ -63,8 +59,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
       test.add(waist.toString());
     });
   }
-
-//  set updateUser(UserProfile userProfile) => setState(() => user = userProfile);
 
   initData() {
     user = UserInfoController.user;
@@ -118,12 +112,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
 //              SizedBox(width: 70.0),
               GestureDetector(
                 onTap: () {
-//                  Navigator.push(
-//                      context,
-//                      MaterialPageRoute(
-//                          builder: (BuildContext context) =>
-//                              expensionTile(foodChoicesList,
-//                                  intakeCalorie, callback)));
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => EditProfileUI()),
@@ -139,13 +127,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
         ),
         SizedBox(height: 50.0),
         Container(
-          // decoration: BoxDecoration(
-          //   border: Border.all(
-          //     //color: Colors.black,
-          //     width: 8,
-          //   ),
-          //   //gradient: LinearGradient(colors: [Colors.blueAccent, Colors.black]),
-          // ),
           height: 420,
           child: ListView.separated(
             padding: const EdgeInsets.all(8),
@@ -168,60 +149,6 @@ class _UserProfileUIState extends State<UserProfileUI> {
             separatorBuilder: (BuildContext context, int i) => const Divider(),
           ),
         )
-        // DataTable(
-        //   columns: const <DataColumn>[
-        //     DataColumn(
-        //       label: Text(
-        //         'Particulars',
-        //         style: TextStyle(fontStyle: FontStyle.italic),
-        //       ),
-        //     ),
-        //     DataColumn(
-        //       label: Text(
-        //         'Values',
-        //         style: TextStyle(fontStyle: FontStyle.italic),
-        //       ),
-        //     ),
-        //   ],
-        //   rows: const <DataRow>[
-        //     DataRow(
-        //       cells: <DataCell>[
-        //         DataCell(Text('Name')),
-        //         DataCell(Text('Sanath')),
-        //       ],
-        //     ),
-        //     DataRow(
-        //       cells: <DataCell>[
-        //         DataCell(Text('Age')),
-        //         DataCell(Text('43')),
-        //       ],
-        //     ),
-        //     DataRow(
-        //       cells: <DataCell>[
-        //         DataCell(Text('Gender')),
-        //         DataCell(Text('27')),
-        //       ],
-        //     ),
-        //     DataRow(
-        //       cells: <DataCell>[
-        //         DataCell(Text('Weight')),
-        //         DataCell(Text('27')),
-        //       ],
-        //     ),
-        //     DataRow(
-        //       cells: <DataCell>[
-        //         DataCell(Text('Height')),
-        //         DataCell(Text('27')),
-        //       ],
-        //     ),
-        //     DataRow(
-        //       cells: <DataCell>[
-        //         DataCell(Text('Waist Circumference')),
-        //         DataCell(Text('27')),
-        //       ],
-        //     ),
-        //   ],
-        // ),
       ]),
     )));
   }

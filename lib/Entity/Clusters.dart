@@ -29,7 +29,7 @@ class ClustersMapList {
   });
 
   factory ClustersMapList.fromJson(List<dynamic> parsedJson) {
-    List<Clusters> maps111 = new List<Clusters>();
+    List<Clusters> maps111 = <Clusters>[];
     maps111 = parsedJson.map((i) => Clusters.fromJson(i)).toList();
     return new ClustersMapList(clusterList: maps111);
   }

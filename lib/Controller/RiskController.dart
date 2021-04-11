@@ -1,33 +1,22 @@
-import 'package:http/http.dart' as http;
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:health_se/Controller/InfectiousDiseaseHandler.dart';
 import 'package:health_se/Entity/InfectiousDisease.dart';
 import 'package:health_se/Entity/InfectiousDiseaseMap.dart';
 import 'package:health_se/Entity/PointSchema.dart';
 import 'package:maps_toolkit/maps_toolkit.dart';
-import 'FilterController.dart';
-import 'InfectiousMapController.dart';
-import 'MapHandler.dart';
+import 'package:health_se/Controller/FilterController.dart';
+import 'package:health_se/Controller/MapHandler.dart';
 
 class RiskController {
   //uses getAllRisk to display all the available risk in the database
-  InfectiousDiseaseHandler idh = new InfectiousDiseaseHandler();
-
   Future<List<InfectiousDisease>> getAllRisk(
       double userLatitude, double userLongitude) async {
-    print("it reaches here");
     PointSchema userLocation = PointSchema();
     userLocation.setLatitude(userLatitude);
     userLocation.setLongitude(userLongitude);
-    print("It doesn't reach here");
     List<InfectiousDisease> allList =
-        await idh.getListOfObjects("/infectiousDisease");
+        await InfectiousDiseaseHandler().getListOfObjects("/infectiousDisease");
     for (int i = 0; i < allList.length; i++) {
       riskLevel(allList[i].diseaseName, userLocation);
-      print("Please do work");
-      print(allList[i].diseaseName);
-      print("It works if it comes here");
     }
     return allList;
   }
@@ -39,7 +28,7 @@ class RiskController {
     var now = DateTime.now().toIso8601String();
 
     int casesNearby = await numberOfCases(disease, userLocation, now);
-    //since the map shows the nearby cases for the past 14days, just need to concern with distance
+    //since the map shows the nearby cases for the past 14 days, just need to concern with distance
     InfectiousDisease id = await getDiseaseInfo(disease);
     print(casesNearby);
     print("debugging");
@@ -53,14 +42,13 @@ class RiskController {
       //cases == 0
       id.setRisk("Low risk");
     }
-    print(id.getRisk());
 
     return id;
   }
 
   Future<InfectiousDisease> getDiseaseInfo(String diseaseName) async {
-    InfectiousDisease infectiousDisease =
-        await idh.getObject("/infectiousDisease/" + diseaseName);
+    InfectiousDisease infectiousDisease = await InfectiousDiseaseHandler()
+        .getObject("/infectiousDisease/" + diseaseName);
     return infectiousDisease;
   }
 
@@ -69,12 +57,8 @@ class RiskController {
       String disease, PointSchema userLocation, String date) async {
     int nearbyCases = 0;
     final int distance = 5000;
-    MapHandler mh = MapHandler();
-    print("this 123");
-    print('/infectiousDisease/' + disease + '/map/' + date);
-    InfectiousDiseaseMap mapNeeded =
-        await mh.getObject('/infectiousDisease/' + disease + '/map/' + date);
-    print("this nvr comes");
+    InfectiousDiseaseMap mapNeeded = await MapHandler()
+        .getObject('/infectiousDisease/' + disease + '/map/' + date);
 
     for (int i = 0; i < mapNeeded.numberOfClusters; i++) {
       PointSchema temp =

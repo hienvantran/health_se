@@ -1,23 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:health_se/Controller/InfectiousMapController.dart';
-import 'package:health_se/Controller/RiskController.dart';
-import 'package:health_se/UI/InputLocationUI.dart';
-import '../Controller/InfectiousDiseaseHandler.dart';
-import 'GMap.dart';
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:health_se/Controller/FilterController.dart';
-import 'package:health_se/Controller/UserInfoController.dart';
-import 'package:health_se/Controller/MapHandler.dart';
 import 'package:health_se/Entity/GymMap.dart';
-import 'package:health_se/UI/FilterUI.dart';
-import 'package:health_se/Controller/LocationController.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:health_se/Entity/PointSchema.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:health_se/UI/RiskInfoUI.dart';
-import 'package:health_se/Entity/InfectiousDisease.dart';
 import 'package:health_se/UI/mainUI.dart';
 import 'package:health_se/Controller/GymMapController.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as maps_toolkit;
@@ -52,8 +39,7 @@ class mapState extends State<map> {
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> markers = <Marker>[];
   static final CameraPosition _myLocation = CameraPosition(
-    target: LatLng(1.32941051118544, 103.887581360714),
-  );
+      target: LatLng(1.32941051118544, 103.887581360714), zoom: 7);
 
   getLocation() async {
     final location = await Geolocator()
@@ -114,17 +100,12 @@ class mapState extends State<map> {
 
   void searchDefault() async {
     PointSchema userLocation = PointSchema();
-    // userLocation.setLongitude(loc.longitude);
-    // userLocation.setLatitude(loc.latitude);
-    // userLocation.setLongitude(widget.userLongitude);
-    //  userLocation.setLatitude(widget.userLatitude);
     userLocation.setLongitude(103.68022);
     userLocation.setLatitude(1.34621);
     List<double> longs = [];
     List<double> lats = [];
     List<String> openingHours = [];
     List<String> names = [];
-    // List<String> title = [];
     print(userLocation.getLatitude());
     print(userLocation.getLongitude());
     GymMap mapNeeded = await GymMapController.loadMap();
@@ -171,10 +152,6 @@ class mapState extends State<map> {
 
   void searchFiltered(Position loc) async {
     PointSchema userLocation = PointSchema();
-    // userLocation.setLongitude(loc.longitude);
-    // userLocation.setLatitude(loc.latitude);
-    // userLocation.setLongitude(widget.userLongitude);
-    //  userLocation.setLatitude(widget.userLatitude);
     userLocation.setLongitude(103.68022);
     userLocation.setLatitude(1.34621);
     List<double> longs = [];
@@ -184,8 +161,6 @@ class mapState extends State<map> {
     print(userLocation.getLatitude());
     print(userLocation.getLongitude());
     GymMap mapNeeded = await GymMapController.loadMap();
-
-    print("Why doesn't it come here?");
     for (int i = 0; i < mapNeeded.pointList.length; i++) {
       var calculatedDistance =
           maps_toolkit.SphericalUtil.computeDistanceBetween(

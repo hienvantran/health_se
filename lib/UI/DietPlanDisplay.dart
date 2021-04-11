@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_se/Controller/UserProfileController.dart';
 import 'package:health_se/Controller/UserInfoController.dart';
 import 'package:health_se/Controller/SuggestedDietController.dart';
 import 'package:health_se/Entity/UserProfile.dart';

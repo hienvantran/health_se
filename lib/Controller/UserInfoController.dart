@@ -1,8 +1,6 @@
 import 'package:health_se/Entity/InfectiousDisease.dart';
-import 'package:health_se/UI/HealthProfileUI.dart';
-import '../Entity/HealthDiseases.dart';
-import '../Entity/UserProfile.dart';
-import 'package:health_se/Entity/PointSchema.dart';
+import 'package:health_se/Entity/HealthDiseases.dart';
+import 'package:health_se/Entity/UserProfile.dart';
 import 'package:geolocator/geolocator.dart';
 
 class UserInfoController {
