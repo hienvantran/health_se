@@ -33,7 +33,7 @@ class _InfectiousUIState extends State<InfectiousUI> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Infectious UI"),
+          title: Text("Infectious diseases"),
           leading: FlatButton.icon(
             onPressed: () {
               Navigator.push(context,
@@ -366,7 +366,7 @@ class _riskReportState extends State<riskReport> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     textDirection: TextDirection.ltr,
                     children: [
-                      Text("Suggestions: " + sugs[position] + '\n'),
+                      Text("\nSuggestions: " + sugs[position] + '\n'),
                     ],
                   ),
                 ),
