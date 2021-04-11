@@ -133,7 +133,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
                         width: 150,
                       ),
                       SizedBox(height: 20.0),
-                      Text('healthSEcure',
+                      Text('MyHealth',
                           style: TextStyle(
                               fontFamily: 'FjallaOne',
                               fontSize: 20.0,

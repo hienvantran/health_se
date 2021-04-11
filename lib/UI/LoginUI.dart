@@ -77,7 +77,7 @@ class _LoginUIState extends State<LoginUI> {
                         width: 150.0,
                       ),
                       SizedBox(height: 30.0),
-                      Text('HealthSE',
+                      Text('MyHealth',
                           style: TextStyle(
                               fontFamily: 'FjallaOne',
                               fontSize: 20.0,
