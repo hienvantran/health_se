@@ -93,24 +93,25 @@ class _expensionTileState extends State<expensionTile> {
                                             primary: Colors.lightGreen[300],
                                           ),
                                           onPressed: () async {
-                                            showAlertDialog(
-                                                context,
-                                                widget.foodChoicesList[index],
-                                                amount);
-                                            UserProfile user =
-                                                UserInfoController.user;
-
-                                            widget.intakeCal =
-                                                await DailyFoodController
-                                                    .addRecord(
-                                                        user.getUserID(),
-                                                        amount,
-                                                        widget.foodChoicesList[
-                                                            index]);
-                                            setState(() {
-                                              widget.callback(widget.intakeCal);
-                                              Navigator.of(context).pop();
+                                            await showAlertDialog(
+                                                    context,
+                                                    widget
+                                                        .foodChoicesList[index],
+                                                    amount,
+                                                    widget.foodChoicesList,
+                                                    index)
+                                                .then((valueFromDialog) {
+                                              // use the value as you wish
+                                              widget.intakeCal =
+                                                  valueFromDialog;
                                             });
+                                            if (widget.intakeCal != null) {
+                                              setState(() {
+                                                widget
+                                                    .callback(widget.intakeCal);
+                                                Navigator.of(context).pop();
+                                              });
+                                            }
                                           },
                                           child: Row(
                                             children: [
@@ -147,27 +148,44 @@ class _expensionTileState extends State<expensionTile> {
   }
 }
 
-showAlertDialog(BuildContext context, String name, int amount) {
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.of(context, rootNavigator: true).pop();
-    },
-  );
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Confirm add record"),
-    content: Text("You have added:\n$name : " + amount.toString() + 'gram'),
-    actions: [
-      okButton,
-    ],
-  );
-  // show the dialog
-  showDialog(
+//
+showAlertDialog(BuildContext context, String name, int amount,
+    List<String> foodChoicesList, int index) {
+  return showDialog(
     context: context,
-    builder: (BuildContext context) {
-      return alert;
+    builder: (context) {
+      String contentText = "Content of Dialog";
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            title: Text("Confirm add record"),
+            content:
+                Text("You are adding:\n$name : " + amount.toString() + 'gram'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+//                  int calorie = Cal;
+                  Navigator.pop(context);
+                },
+                child: Text("Cancel"),
+              ),
+              FlatButton(
+                onPressed: () async {
+                  UserProfile user = UserInfoController.user;
+
+                  int calorie = await DailyFoodController.addRecord(
+                      user.getUserID(), amount, foodChoicesList[index]);
+
+                  Navigator.pop(context, calorie);
+                },
+                child: Text(
+                  "Add",
+                ),
+              ),
+            ],
+          );
+        },
+      );
     },
   );
 }
