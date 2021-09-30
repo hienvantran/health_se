@@ -1,16 +1,10 @@
 # health_se
 
-A new Flutter application.
+A mobile application built using Flutter and Dart to help users mantain a healthy lifestyle.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The features of the app include:
+1. Generating a health profile for users to show them what diseases they're prone to based on their medical information.
+2. A calorie counter that calculates their calories consumed for a day based on their food intake.
+3. A map to display the gyms nearest to the user based on their phone location/the location they input.
+4. A feature to help the user monitor the danger of contracting infectious diseases. We calculate the risk of infection to a user for the top 3 infectious diseases in their location at the time by analysing the number of cases of that disease near their location (live data for number of cases retrieved from gov.sg API). We also display the number of cases in different clusters near the user on a map, and tell them the best prevention measures for each disease.
+5. A user profile feature to help the user keep track of their weight and BMI and change relevant profile details whenever needed.
