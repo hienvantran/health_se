@@ -1,4 +1,4 @@
-# health_se
+# CZ2006" Software Enginnering project: health_se
 
 A mobile application built using Flutter and Dart to help users mantain a healthy lifestyle.
 
